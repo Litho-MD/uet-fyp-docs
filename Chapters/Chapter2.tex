@@ -1,0 +1,119 @@
+% This file is included by uet_thesis.tex.
+% Replace blue placeholders and remove example text before submission.
+
+\chapter{Requirements Specification}
+\label{chap:requirements}
+% =============================================================================
+
+\section{Assumptions, Constraints, and Dependencies}
+\begin{guidance}
+Record conditions assumed to be true, limits imposed on the project, and external
+resources on which the project depends. Include only items that affect requirements,
+design, delivery, or evaluation.
+\end{guidance}
+
+\begin{table}[H]
+\centering
+\caption{Assumptions, constraints, and dependencies}
+\label{tab:acd}
+\begin{tabularx}{\textwidth}{@{}p{0.13\textwidth}p{0.18\textwidth}X X@{}}
+\toprule
+\textbf{ID} & \textbf{Type} & \textbf{Statement} & \textbf{Implication} \\
+\midrule
+ACD-01 & Assumption & Users have access to a modern web browser. & A separate desktop application is not required. \\
+ACD-02 & Constraint & \placeholder{Project limitation} & \placeholder{Effect on requirements or design} \\
+ACD-03 & Dependency & \placeholder{External service, dataset, approval, or device} & \placeholder{Effect if unavailable} \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\section{Functional Requirements \applicability{Development, Hybrid, Game; Research Software Prototype}}
+\begin{guidance}
+Specify observable system behaviour. Give each requirement a stable identifier
+and write one testable statement using ``The system shall ...''. Do not describe
+implementation details unless they are genuine constraints. Detailed acceptance
+criteria and test cases belong in the software testing document. Follow a
+consistent requirements-engineering convention such as ISO/IEC/IEEE 29148
+where applicable~\citep{ieee29148}.
+\end{guidance}
+
+\begin{table}[H]
+\centering
+\caption{Functional requirements}
+\label{tab:functional-requirements}
+\begin{tabularx}{\textwidth}{@{}p{0.12\textwidth}X p{0.15\textwidth}p{0.20\textwidth}@{}}
+\toprule
+\textbf{ID} & \textbf{Requirement} & \textbf{Priority} & \textbf{Source} \\
+\midrule
+FR-01 & The system shall allow a registered student to submit an appointment request for an available time slot. & Must & Student user \\
+FR-02 & The system shall \placeholder{one observable behaviour}. & \placeholder{Priority} & \placeholder{Stakeholder or source} \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\section{Non-Functional Requirements \applicability{Development, Hybrid, Game; Research Software Prototype}}
+\begin{guidance}
+State measurable quality requirements and operational constraints. Replace vague
+terms such as \emph{fast}, \emph{secure}, and \emph{user-friendly} with measurable
+targets under stated conditions. Include only attributes relevant to the project.
+\end{guidance}
+
+\begin{table}[H]
+\centering
+\caption{Non-functional requirements}
+\label{tab:nonfunctional-requirements}
+\begin{tabularx}{\textwidth}{@{}p{0.12\textwidth}p{0.18\textwidth}X p{0.15\textwidth}@{}}
+\toprule
+\textbf{ID} & \textbf{Attribute} & \textbf{Measurable requirement} & \textbf{Priority} \\
+\midrule
+NFR-01 & Performance & Under normal operating load, 95\% of appointment-list requests shall complete within two seconds. & Must \\
+NFR-02 & Accessibility & \placeholder{Measurable accessibility target} & \placeholder{Priority} \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\section{Data and External Interface Requirements \applicability{If applicable}}
+\begin{guidance}
+Specify required data inputs and outputs and interfaces with users, devices,
+software services, networks, or external organizations. Describe the required
+contract, format, direction, and constraints; detailed internal data design belongs
+in Section~\ref{sec:data-design}.
+\end{guidance}
+
+\begin{table}[H]
+\centering
+\caption{Data and external interface requirements}
+\label{tab:data-interface-requirements}
+\begin{tabularx}{\textwidth}{@{}p{0.12\textwidth}p{0.19\textwidth}X X@{}}
+\toprule
+\textbf{ID} & \textbf{Type} & \textbf{Requirement} & \textbf{Source or system} \\
+\midrule
+DIR-01 & Data & The system shall store each appointment with a unique identifier, participant identifiers, date, time, and status. & Appointment process \\
+EIR-01 & External API & \placeholder{Required operation, protocol, format, and constraint} & \placeholder{External system} \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\section{Legal, Ethical, Privacy, and Safety Requirements \applicability{If applicable}}
+\begin{guidance}
+Identify applicable consent, intellectual-property, licensing, privacy,
+data-protection, institutional-approval, and safety obligations. Projects involving
+people, personal data, health information, children, surveillance, or consequential
+automated decisions require explicit treatment.
+\end{guidance}
+
+\begin{table}[H]
+\centering
+\caption{Legal, ethical, privacy, and safety requirements}
+\label{tab:leps-requirements}
+\begin{tabularx}{\textwidth}{@{}p{0.12\textwidth}p{0.18\textwidth}X X@{}}
+\toprule
+\textbf{ID} & \textbf{Category} & \textbf{Requirement or obligation} & \textbf{Applicable authority or source} \\
+\midrule
+PR-01 & Privacy & Personal data shall be collected only for stated project purposes and accessed only by authorized roles. & \placeholder{Policy, law, ethics approval, or stakeholder} \\
+ER-01 & Ethics & \placeholder{Consent, participant protection, or ethical requirement} & \placeholder{Approval or guideline} \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+% =============================================================================

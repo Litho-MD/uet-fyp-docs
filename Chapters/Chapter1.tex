@@ -1,0 +1,167 @@
+% This file is included by uet_thesis.tex.
+% Replace blue placeholders and remove example text before submission.
+
+\chapter{Project Overview}
+\label{chap:overview}
+% =============================================================================
+
+\section{Executive Summary}
+\begin{guidance}
+Summarize the problem, intended users, proposed approach, principal deliverables,
+and expected value. Write this section last and keep it understandable without
+the rest of the document.
+\end{guidance}
+
+\placeholder{Provide a concise executive summary, normally 150--250 words.}
+
+\section{Background and Motivation}
+\begin{guidance}
+Explain the context, current practice, affected users or organizations, and why
+the problem is worth addressing. Support factual claims with credible references.
+Do not repeat the complete literature review.
+\end{guidance}
+
+\placeholder{Describe the project context and motivation.}
+
+\section{Problem Statement}
+\begin{guidance}
+State the existing condition, the specific gap or difficulty, its consequences,
+and the need for the proposed work. Describe the problem rather than presenting a
+chosen technology as the problem.
+\end{guidance}
+
+\begin{examplebox}
+Students currently arrange advising appointments through unstructured messages.
+This makes availability difficult to track, causes scheduling conflicts, and
+provides no reliable appointment record. A structured mechanism is therefore
+needed to coordinate and record advising appointments.
+\end{examplebox}
+
+\placeholder{State the project problem in one focused paragraph.}
+
+\section{Research Questions and Hypotheses \applicability{Research, Hybrid; hypotheses if applicable}}
+\begin{guidance}
+State focused questions derived from the problem statement. Include hypotheses
+only when the study tests predicted relationships or differences. Exploratory or
+qualitative studies may not require hypotheses.
+\end{guidance}
+
+\begin{table}[H]
+\centering
+\caption{Research questions and hypotheses}
+\label{tab:research-questions}
+\begin{tabularx}{\textwidth}{@{}p{0.13\textwidth}X X@{}}
+\toprule
+\textbf{ID} & \textbf{Research question} & \textbf{Hypothesis, if applicable} \\
+\midrule
+RQ-01 & \placeholder{Focused and answerable research question} & \placeholder{H1 or Not applicable} \\
+RQ-02 & \placeholder{Additional research question, if required} & \placeholder{H2 or Not applicable} \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\section{Objectives}
+\begin{guidance}
+Define the specific outcomes the project intends to achieve. Objectives should be
+clear, feasible, and measurable. Describe intended results rather than routine
+activities such as ``conduct a literature review'' or technologies such as
+``use Flutter.'' Each objective must be supported by scope items, requirements,
+design elements, and verification evidence through Chapter~\ref{chap:planning}.
+\end{guidance}
+
+\begin{table}[H]
+\centering
+\caption{Project objectives}
+\label{tab:objectives}
+\begin{tabularx}{\textwidth}{@{}p{0.14\textwidth}X@{}}
+\toprule
+\textbf{ID} & \textbf{Objective} \\
+\midrule
+OBJ-01 & Enable registered students to request and track advising appointments through a single system. \\
+OBJ-02 & \placeholder{Specific and measurable project outcome} \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\section{Proposed Approach}
+\begin{guidance}
+Provide a high-level description of how the project will address the stated
+problem. Development and game projects should summarize the proposed solution;
+research projects should summarize the research approach; hybrid projects should
+state both. Detailed architecture and methodology belong in Chapter~\ref{chap:design}.
+\end{guidance}
+
+\begin{examplebox}
+The project will develop a web-based appointment portal with separate student
+and adviser roles. A hybrid project could additionally evaluate whether the
+portal reduces scheduling time through a controlled user study.
+\end{examplebox}
+
+\placeholder{Describe the proposed solution and/or research approach.}
+
+\section{Scope}
+\begin{guidance}
+Define the approved boundaries of the project. Each scope item should express one
+capability, user group, platform, data source, integration, or deliverable and
+should map to at least one objective. Detailed behaviour belongs in the
+requirements chapter.
+\end{guidance}
+
+\subsection{In Scope}
+
+\begin{table}[H]
+\centering
+\caption{In-scope items}
+\label{tab:in-scope}
+\begin{tabularx}{\textwidth}{@{}p{0.14\textwidth}X p{0.20\textwidth}@{}}
+\toprule
+\textbf{Scope ID} & \textbf{Included item} & \textbf{Objective(s)} \\
+\midrule
+SCP-01 & Appointment requests by registered students. & OBJ-01 \\
+SCP-02 & Appointment approval and rescheduling by advisers. & OBJ-01 \\
+SCP-03 & \placeholder{One project capability or boundary} & \placeholder{OBJ-XX} \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\subsection{Out of Scope \applicability{If applicable}}
+\begin{guidance}
+State intentional exclusions and their reasons. If there are no meaningful
+exclusions, state this explicitly rather than inventing them.
+\end{guidance}
+
+\begin{table}[H]
+\centering
+\caption{Out-of-scope items}
+\label{tab:out-of-scope}
+\begin{tabularx}{\textwidth}{@{}p{0.14\textwidth}X X@{}}
+\toprule
+\textbf{ID} & \textbf{Excluded item} & \textbf{Reason} \\
+\midrule
+EXC-01 & Integration with the university's central timetable system. & The external interface is unavailable during the FYP period. \\
+EXC-02 & \placeholder{Excluded item} & \placeholder{Clear boundary reason} \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\section{Users and Stakeholders}
+\begin{guidance}
+Identify direct users and other parties who influence, maintain, fund, regulate,
+or benefit from the project. State their main needs and influence on the design.
+\end{guidance}
+
+\begin{table}[H]
+\centering
+\caption{Users and stakeholders}
+\label{tab:stakeholders}
+\begin{tabularx}{\textwidth}{@{}p{0.22\textwidth}p{0.18\textwidth}X X@{}}
+\toprule
+\textbf{Stakeholder} & \textbf{Role} & \textbf{Need or interest} & \textbf{Design influence} \\
+\midrule
+Registered student & Primary user & Request and track appointments & Simple mobile-responsive interface \\
+\placeholder{Stakeholder} & \placeholder{Role} & \placeholder{Need} & \placeholder{Design implication} \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+% =============================================================================

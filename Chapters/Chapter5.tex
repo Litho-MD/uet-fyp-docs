@@ -1,0 +1,183 @@
+% This file is included by uet_thesis.tex.
+% Replace blue placeholders and remove example text before submission.
+
+\chapter{Planning, Risk, and Traceability}
+\label{chap:planning}
+% =============================================================================
+
+\section{Design Traceability Matrix}
+\begin{guidance}
+Demonstrate that objectives are supported by approved scope, requirements, design,
+and planned verification. Add rows as needed; a requirement may appear in more than
+one row. Use exact identifiers and reference detailed tests in the separate testing
+document rather than copying them here.
+\end{guidance}
+
+{\footnotesize
+\begin{longtable}{@{}p{0.12\textwidth}p{0.11\textwidth}p{0.16\textwidth}p{0.23\textwidth}p{0.24\textwidth}@{}}
+\caption{Design traceability matrix}\label{tab:traceability}\\
+\toprule
+\textbf{Objective} & \textbf{Scope} & \textbf{Requirement} & \textbf{Design element} & \textbf{Testing-document reference} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Objective} & \textbf{Scope} & \textbf{Requirement} & \textbf{Design element} & \textbf{Testing-document reference} \\
+\midrule
+\endhead
+OBJ-01 & SCP-01 & FR-01 & UC-01; appointment sequence; Appointment class & \placeholder{TEST-FR-01 / Section X} \\
+\placeholder{OBJ-XX} & \placeholder{SCP-XX} & \placeholder{FR-XX} & \placeholder{Diagram, component, model, or decision ID} & \placeholder{Test or validation reference} \\
+\bottomrule
+\end{longtable}
+}
+
+\section{Verification and Validation Strategy}
+\begin{guidance}
+Summarize how the team will verify that the system conforms to its specifications
+and validate that it addresses stakeholder needs or research objectives. Identify
+the major methods and responsible roles only; place detailed procedures, cases,
+data, expected results, and actual results in the testing document.
+\end{guidance}
+
+\begin{table}[H]
+\centering
+\caption{Verification and validation strategy}
+\label{tab:vv-strategy}
+\begin{tabularx}{\textwidth}{@{}p{0.20\textwidth}X X p{0.20\textwidth}@{}}
+\toprule
+\textbf{Target} & \textbf{Method} & \textbf{Evidence} & \textbf{Responsible role} \\
+\midrule
+Functional requirements & Functional and integration testing & Approved test results in the testing document & \placeholder{Team role} \\
+Stakeholder needs & \placeholder{Demonstration, usability study, review, or field evaluation} & \placeholder{Feedback or validation record} & \placeholder{Team role/stakeholder} \\
+Research findings & \placeholder{Statistical validation, cross-validation, triangulation, or expert review} & \placeholder{Analysis outputs} & \placeholder{Responsible role} \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\section{Testing-Document Reference}
+\begin{guidance}
+Identify the separate testing document that contains the detailed acceptance
+criteria, test cases, datasets, procedures, results, and defect records. Keep its
+version consistent with this design document.
+\end{guidance}
+
+\begin{table}[H]
+\centering
+\caption{Software testing document reference}
+\label{tab:testing-reference}
+\begin{tabularx}{\textwidth}{@{}p{0.25\textwidth}X@{}}
+\toprule
+\textbf{Item} & \textbf{Reference} \\
+\midrule
+Document title & \placeholder{Project Software Testing Document} \\
+Version and date & \placeholder{Version; Day Month Year} \\
+Repository or submission location & \placeholder{Controlled path, repository location, or submission reference} \\
+Responsible team member(s) & \placeholder{Name(s) and role(s)} \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\section{Risk Assessment}
+\begin{guidance}
+Record significant technical, research, ethical, schedule, resource, and external
+risks. Rate probability and impact using a consistent scale, assign an owner, and
+state a practical response.
+\end{guidance}
+
+\begin{table}[H]
+\centering
+\caption{Risk register}
+\label{tab:risk-register}
+\small
+\begin{tabularx}{\textwidth}{@{}p{0.11\textwidth}X p{0.14\textwidth}p{0.11\textwidth}X p{0.14\textwidth}@{}}
+\toprule
+\textbf{ID} & \textbf{Risk} & \textbf{Likelihood} & \textbf{Impact} & \textbf{Response} & \textbf{Owner} \\
+\midrule
+RSK-01 & External API becomes unavailable. & Medium & High & Use an interface abstraction and maintain a documented fallback dataset or mock service. & \placeholder{Role} \\
+RSK-02 & \placeholder{Risk event} & \placeholder{Level} & \placeholder{Level} & \placeholder{Avoid, reduce, transfer, or accept} & \placeholder{Role} \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\section{Project Management Approach and Schedule}
+\begin{guidance}
+State the development or research management approach and show major phases,
+dependencies, milestones, review points, and deliverables. A Gantt chart may be
+added when required; keep detailed weekly task tracking in the selected management
+tool rather than duplicating it here.
+\end{guidance}
+
+\begin{table}[H]
+\centering
+\caption{Milestones and schedule}
+\label{tab:schedule}
+\begin{tabularx}{\textwidth}{@{}p{0.14\textwidth}X p{0.20\textwidth}p{0.19\textwidth}p{0.16\textwidth}@{}}
+\toprule
+\textbf{ID} & \textbf{Milestone or deliverable} & \textbf{Target date} & \textbf{Dependency} & \textbf{Owner} \\
+\midrule
+MS-01 & \placeholder{Approved requirements baseline} & \placeholder{Date} & \placeholder{None or ID} & \placeholder{Role} \\
+MS-02 & \placeholder{Prototype, study, evaluation, or release milestone} & \placeholder{Date} & \placeholder{MS-01} & \placeholder{Role} \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\section{Team Roles and Responsibilities}
+\begin{guidance}
+Assign clear ownership while recognizing shared review and integration work. Roles
+should reflect actual responsibilities and not be used to divide the project into
+unconnected individual submissions.
+\end{guidance}
+
+\begin{table}[H]
+\centering
+\caption{Team roles and responsibilities}
+\label{tab:team-roles}
+\begin{tabularx}{\textwidth}{@{}p{0.24\textwidth}p{0.24\textwidth}X@{}}
+\toprule
+\textbf{Member} & \textbf{Role} & \textbf{Principal responsibilities} \\
+\midrule
+\placeholder{Name and roll number} & \placeholder{Role} & \placeholder{Owned tasks, reviews, and deliverables} \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\section{Source-Code, Data, and Artifact Management}
+\begin{guidance}
+State how code, documents, datasets, models, diagrams, builds, and other artifacts
+will be named, versioned, reviewed, backed up, licensed, and accessed. Identify how
+sensitive data and credentials will be kept out of the source repository.
+\end{guidance}
+
+\begin{table}[H]
+\centering
+\caption{Artifact management}
+\label{tab:artifact-management}
+\begin{tabularx}{\textwidth}{@{}p{0.21\textwidth}X X X@{}}
+\toprule
+\textbf{Artifact} & \textbf{Storage and versioning} & \textbf{Access or protection} & \textbf{Backup or retention} \\
+\midrule
+Source code & \placeholder{Repository and branching/review approach} & \placeholder{Access control and secret handling} & \placeholder{Backup or release policy} \\
+\placeholder{Data, models, and documents} & \placeholder{Location and versioning} & \placeholder{Access rule} & \placeholder{Retention rule} \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\section{Tools and Technologies}
+\label{sec:tools}
+\begin{guidance}
+List only tools and technologies that are planned or already used. State each
+item's purpose and relevant version. Explain a selection decision in
+Section~\ref{chap:design} only when alternatives and trade-offs matter.
+\end{guidance}
+
+\begin{table}[H]
+\centering
+\caption{Tools and technologies}
+\label{tab:tools-technologies}
+\begin{tabularx}{\textwidth}{@{}p{0.24\textwidth}p{0.20\textwidth}X X@{}}
+\toprule
+\textbf{Tool or technology} & \textbf{Version} & \textbf{Purpose} & \textbf{Project use} \\
+\midrule
+\placeholder{Framework, engine, language, library, IDE, modeling tool, or platform} & \placeholder{Version} & \placeholder{General purpose} & \placeholder{Specific use in this project} \\
+\bottomrule
+\end{tabularx}
+\end{table}
