@@ -28,66 +28,6 @@ INT-01 & \placeholder{Components or external systems} & \placeholder{Purpose and
 \end{tabularx}
 \end{table}
 
-\section{Research Methodology and Experimental Design \applicability{Research, Hybrid}}
-\begin{guidance}
-Explain how the research questions will be answered. Provide enough information
-for the study to be evaluated and, where appropriate, reproduced. Do not repeat
-the high-level proposed approach from Chapter~\ref{chap:overview}.
-\end{guidance}
-
-\subsection{Study or Experimental Design}
-\placeholder{State the research design, conditions, procedure, and justification.}
-
-\subsection{Population, Sample, Participants, or Dataset}
-\placeholder{Define the target population or dataset, sampling or selection method, eligibility criteria, and planned size with justification.}
-
-\subsection{Variables and Data Collection Techniques}
-
-\begin{table}[H]
-\centering
-\caption{Variables and data collection}
-\label{tab:variables}
-\begin{tabularx}{\textwidth}{@{}p{0.16\textwidth}p{0.23\textwidth}X X@{}}
-\toprule
-\textbf{ID} & \textbf{Variable or construct} & \textbf{Operational definition or measure} & \textbf{Collection source or instrument} \\
-\midrule
-VAR-01 & \placeholder{Variable or construct} & \placeholder{How it is defined or measured} & \placeholder{Instrument, sensor, dataset field, interview, etc.} \\
-\bottomrule
-\end{tabularx}
-\end{table}
-
-\subsection{Analysis and Evaluation Protocol}
-\placeholder{Describe preprocessing, analysis methods, baselines, evaluation metrics, validation procedure, and controls against bias or data leakage.}
-
-\section{Game Design \applicability{Game}}
-
-\subsection{Core Gameplay Loop}
-\begin{guidance}
-Describe the short sequence of player actions, system responses, rewards, and
-progression that is repeatedly experienced during play.
-\end{guidance}
-\diagramplaceholder{Core gameplay loop}{Example: explore, encounter challenge, act, receive feedback, and progress.}
-
-\subsection{Game Mechanics, Rules, and Controls}
-\begin{table}[H]
-\centering
-\caption{Game mechanics, rules, and controls}
-\label{tab:game-mechanics}
-\begin{tabularx}{\textwidth}{@{}p{0.18\textwidth}X X X@{}}
-\toprule
-\textbf{ID} & \textbf{Mechanic or rule} & \textbf{Player control} & \textbf{System response or constraint} \\
-\midrule
-GM-01 & \placeholder{e.g., movement, scoring, combat, resource use} & \placeholder{Input or action} & \placeholder{Rule and feedback} \\
-\bottomrule
-\end{tabularx}
-\end{table}
-
-\subsection{Game States and Progression}
-\placeholder{Describe major game states, transitions, goals, rewards, difficulty progression, and failure or completion conditions.}
-
-\subsection{Levels, Content, and Feedback \applicability{If applicable}}
-\placeholder{Describe level structure, content organization, tutorials, audio-visual feedback, and balancing approach.}
-
 \section{Behavioural and Interaction Design \applicability{Development, Hybrid, Game; Research if applicable}}
 \begin{guidance}
 Include only the models needed to explain the project's behaviour and interaction.
@@ -192,26 +132,6 @@ and important indexing or retention decisions. Use an ER diagram, schema, or oth
 notation appropriate to the selected database model.
 \end{guidance}
 \diagramplaceholder{Data model or schema}{Example entities: User, AvailabilitySlot, Appointment, and NotificationLog.}
-
-\subsection{Research Data Management \applicability{Research, Hybrid}}
-\begin{guidance}
-Explain how research data will be collected or acquired, named, stored, protected,
-anonymized or pseudonymized, versioned, retained, shared, and disposed of. Identify
-access controls and responsible team members.
-\end{guidance}
-
-\begin{table}[H]
-\centering
-\caption{Research data management plan}
-\label{tab:data-management}
-\begin{tabularx}{\textwidth}{@{}p{0.22\textwidth}X X@{}}
-\toprule
-\textbf{Data category} & \textbf{Management method} & \textbf{Protection, retention, or access rule} \\
-\midrule
-\placeholder{Raw/processed data, code, consent records, model artifacts} & \placeholder{Format, location, naming, and versioning} & \placeholder{Access, retention, sharing, and disposal} \\
-\bottomrule
-\end{tabularx}
-\end{table}
 
 \section{Algorithm or Model Design \applicability{Research, Hybrid; Development or Game if a core algorithm or AI model is used}}
 \begin{guidance}
