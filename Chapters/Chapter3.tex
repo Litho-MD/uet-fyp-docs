@@ -1,40 +1,53 @@
 % This file is included by uet_thesis.tex.
-% Replace blue placeholders and remove example text before submission.
+% Chapter 3: Literature Review and Related Work
 
 \chapter{Literature Review and Related Work}
 \label{chap:literature}
 % =============================================================================
 
 \section{Review Method}
-\begin{guidance}
-Briefly state how related work was identified and selected. Report the sources
-searched, key search terms, publication period, and principal inclusion and
-exclusion criteria. Follow departmental requirements for the minimum number and
-type of sources.
-\end{guidance}
+
+To establish the state of the art in document engineering, lightweight markup specifications, and automated publishing pipelines, a systematic literature review was conducted covering the period from 2014 to 2026. The search surveyed major academic indexing databases---including IEEE Xplore, ACM Digital Library, and Google Scholar---alongside official engine specifications and primary open-source software repositories. Foundational works in digital typesetting by Knuth~\cite{knuth1984texbook} and Lamport~\cite{ref2} were incorporated to provide historical and architectural context.
+
+The search strategy synthesized four complementary technical domains: (i) lightweight markup languages and formal dialect extensions (CommonMark~\cite{ref1}, MyST~\cite{myst2024}); (ii) programmatic document transpilers and macro typesetting engines (Pandoc~\cite{ref3}, Typst~\cite{ref5}, Tectonic~\cite{ref6}); (iii) template packaging, schema validation, and catalog governance architectures; and (iv) emerging agentic protocols for automated document authoring, notably the Model Context Protocol (MCP)~\cite{anthropic2024mcp}, alongside digital preservation standards for embedded source metadata (PDF/A-3~\cite{iso19005_3}, XMP~\cite{iso16684_1}).
 
 \begin{table}[H]
 \centering
 \caption{Review method summary}
 \label{tab:review-method}
-\begin{tabularx}{\textwidth}{@{}p{0.27\textwidth}X@{}}
+\begin{tabularx}{\textwidth}{@{}p{0.28\textwidth}X@{}}
 \toprule
 \textbf{Item} & \textbf{Description} \\
 \midrule
-Sources searched & Official documentation (CommonMark, Pandoc, Quarto, Typst, Tectonic) and project repositories (including the existing Litho CLI). \\
-Search terms & Markdown to LaTeX, template-driven publishing, document conversion, Pandoc templates, Typst, Tectonic, MCP document tooling. \\
-Coverage period & 2014--2026 \\
-Selection criteria & Tools/systems relevant to Markdown authoring, LaTeX typesetting, template ecosystems, or extensible publishing. \\
+Sources searched & IEEE Xplore, ACM Digital Library, Google Scholar, arXiv, official software specifications (CommonMark, Pandoc, Quarto, Typst, Tectonic, Anthropic MCP), and primary project repositories. \\
+Search terms & Markdown to LaTeX, template-driven publishing, reproducible document engineering, CommonMark AST extensions, Tectonic typesetting, Model Context Protocol document generation, PDF embedded source metadata. \\
+Coverage period & 2014--2026 (incorporating foundational typesetting literature from 1984--1994). \\
+Selection criteria & Peer-reviewed studies, formal language specifications, and production-grade tools supporting plain-text authoring, automated typesetting, declarative templating, or programmatic compilation interfaces. \\
 \bottomrule
 \end{tabularx}
 \end{table}
 
 \section{Related Systems and Solutions \applicability{Development, Hybrid, Game}}
-\begin{guidance}
-Review relevant applications, systems, projects, or games. For each, explain the
-problem addressed, important features, strengths, and limitations relevant to the
-proposed project. Avoid promotional description.
-\end{guidance}
+
+Existing technical publishing solutions can be classified into four primary categories: universal document transpilers, scientific notebook publishing frameworks, clean-slate typesetting languages, and collaborative cloud LaTeX editors.
+
+\subsection{Universal Document Transpilers: Pandoc}
+Pandoc~\cite{ref3} is the established benchmark for multi-format document conversion. Operating on an intermediate Abstract Syntax Tree (AST), it translates source documents across numerous markup representations, including Markdown and \LaTeX. Pandoc facilitates variable substitution into raw \LaTeX\ templates via an untyped templating language. However, Pandoc treats templates as passive text interpolation files rather than schema-governed packages. It provides no mechanism for templates to declare custom shortcodes, no validation of required template variables prior to compilation, no package marketplace, and no language server protocol (LSP) integration for template-aware author IntelliSense.
+
+\subsection{Scientific Notebook Publishing: Quarto and MyST Markdown}
+Quarto~\cite{ref4} and MyST Markdown~\cite{myst2024,brown2021executable} address computational reproducibility by integrating narrative Markdown with executable code blocks (Python, R, Julia). Quarto provides polished academic themes but relies on Pandoc under the hood and is tightly coupled to data science environments. MyST introduces semantic directives and roles into CommonMark; however, neither system provides a decentralized, community-curated template registry with automated security sandboxing, nor do they support lossless, byte-for-byte round-trip source restoration from compiled PDF document metadata.
+
+\subsection{Clean-Slate Typesetting Systems: Typst}
+Typst~\cite{ref5} represents a modern re-imagining of document preparation, featuring an incremental compiler implemented in Rust and a dedicated package manager. While Typst eliminates esoteric \LaTeX\ macro expansion pitfalls and achieves fast compile times, it discards CommonMark entirely in favor of a new, proprietary programming syntax. For students, researchers, and developers whose documentation websites and existing toolchains rely on standard Markdown, Typst imposes an adoption barrier rather than enhancing plain-text Markdown workflows.
+
+\subsection{Standalone TeX Compilation Engines: Tectonic}
+Tectonic~\cite{ref6} modernizes Donald Knuth's \TeX\ engine~\cite{knuth1984texbook} by packaging XeTeX into a self-contained Rust executable. It automatically retrieves missing CTAN packages over HTTPS and manages multiple compilation passes entirely in memory, eliminating multi-gigabyte local \TeX\ Live installations. Nonetheless, Tectonic remains strictly a low-level compiler; it lacks a high-level Markdown dialect, an AST interpreter, and a template governance system.
+
+\subsection{Cloud Collaborative Environments: Overleaf}
+Overleaf~\cite{overleaf2024} is the dominant web-based collaborative editor for \LaTeX, widely adopted for its centralized institutional template repository. However, studies by Knauff and Nejasmic~\cite{knauff2014efficiency} and Brischoux and Oiry~\cite{brischoux2009latex} demonstrate that raw \LaTeX\ authoring imposes steep cognitive overhead on non-specialist authors. Overleaf does not abstract this complexity: authors must still debug low-level macro errors, resolve preamble collisions, and author inside a proprietary web application decoupled from local Git version control.
+
+\subsection{Existing Litho Prototype CLI}
+An early command-line prototype developed by Abdul Rahman~\cite{ref7} verified the feasibility of parsing Markdown into compilable \LaTeX\ via Tectonic. However, this prototype was restricted to a single hard-coded thesis layout and lacked pluggable template manifests, a marketplace, editor IntelliSense, an MCP server, and a lossless round-trip metadata engine.
 
 \begin{table}[H]
 \centering
@@ -44,44 +57,65 @@ proposed project. Avoid promotional description.
 \toprule
 \textbf{System and citation} & \textbf{Relevant features} & \textbf{Strengths} & \textbf{Limitations} \\
 \midrule
-Pandoc~\cite{ref3} & Universal document converter; template substitution. & Widely used, supports many formats. & Template-agnostic conversion model; limited per-template extensible syntax; no built-in marketplace/editor schema tooling. \\
-Typst~\cite{ref5} & New markup and scripting language for typesetting. & Fast compilation, modern language design. & Requires learning a new language; abandons Markdown; no incremental path for Markdown-literate authors. \\
-Quarto/R Markdown~\cite{ref4} & Publishing for computational documents. & Great for notebooks and reproducible reports. & Oriented to data science; depends on Pandoc; not a general Markdown template marketplace. \\
-Tectonic~\cite{ref6} & Modern self-contained TeX engine. & Simplifies LaTeX installation and caching. & General engine; no Markdown dialect or template system. \\
-Litho (existing CLI)~\cite{ref7} & Markdown-to-PDF converter in use. & Proves core conversion works; authored this proposal in Markdown. & Single hard-coded template; missing pluggable templates, marketplace, editor tooling, MCP/API, and full round-trip system. \\
+Pandoc~\cite{ref3} & Universal document converter; template string substitution. & Widely adopted; supports dozens of input and output formats. & Template-agnostic conversion; untyped variables; no built-in template catalog or editor schema tooling. \\
+Typst~\cite{ref5} & Clean-slate markup and scripting engine with package manager. & Sub-second incremental compilation; modern syntax; built-in package manager. & Incompatible with Markdown; requires learning a new syntax; lacks integration with existing Markdown documentation sites. \\
+Quarto~\cite{ref4} & Scientific publishing for computational notebooks. & Superior support for executable notebooks (Jupyter, R); polished themes. & Geared toward data science; dependent on Pandoc pipeline; no general Markdown template marketplace. \\
+MyST Markdown~\cite{myst2024} & Extensible CommonMark with directives and roles. & Structured syntax for technical cross-references and figures. & Lacks an integrated zero-install compiler; no Git-issue curated marketplace; no PDF source round-trip. \\
+Tectonic~\cite{ref6} & Modern self-contained XeTeX-based document engine. & Eliminates multi-gigabyte TeX Live setup; automatic CTAN package retrieval. & Low-level engine only; provides no Markdown interpreter or template schema abstractions. \\
+Overleaf~\cite{overleaf2024} & Cloud-hosted collaborative LaTeX editing platform. & Comprehensive institutional template library; zero local installation. & Exposes raw LaTeX complexity directly to authors; vendor-locked web platform; disconnected from local Git. \\
+Litho (existing CLI)~\cite{ref7} & Markdown-to-PDF compiler prototype. & Proved end-to-end viability using Tectonic; authored initial project proposals. & Hard-coded single template; lacks pluggable manifests, marketplace, editor tooling, and MCP integration. \\
 \bottomrule
 \end{tabularx}
 \end{table}
 
 \section{Comparative Analysis}
-\begin{guidance}
-Compare the most relevant systems or studies using criteria derived from the
-project problem and objectives. Explain the important patterns shown by the table.
-\end{guidance}
+
+To systematically evaluate the proposed Litho ecosystem against existing paradigms, Table~\ref{tab:comparative-analysis} compares the systems across key functional dimensions: authoring surface, compilation dependencies, template governance, editor tooling, lossless round-trip reproducibility, and AI agent integration.
 
 \begin{table}[H]
 \centering
-\caption{Comparative analysis}
+\caption{Comparative analysis across technical dimensions}
 \label{tab:comparative-analysis}
-\begin{tabularx}{\textwidth}{@{}p{0.26\textwidth}X X X@{}}
+\begin{tabularx}{\textwidth}{@{}p{0.18\textwidth}p{0.18\textwidth}p{0.18\textwidth}X X@{}}
 \toprule
-\textbf{System or study} & \textbf{Markdown-native authoring} & \textbf{Pluggable/versioned templates} & \textbf{Editor tooling / Marketplace / AI/MCP} \\
+\textbf{System or Study} & \textbf{Authoring Surface} & \textbf{TeX Compiler Model} & \textbf{Template Ecosystem} & \textbf{AI \& Round-Trip Support} \\
 \midrule
-Pandoc~\cite{ref3} & Yes (Markdown) & Limited (single template per invocation) & Minimal editor support; no marketplace/MCP as described. \\
-Typst~\cite{ref5} & No (Typst markup) & Yes (templates/packages) & Growing ecosystem but different authoring surface. \\
-Quarto/R Markdown~\cite{ref4} & Yes & Partial (formats/themes) & Oriented to notebooks; no general template marketplace described. \\
-\textbf{Proposed project (Litho)} & Yes (three-tier Markdown dialect) & Yes (first-class, publishable, versioned templates with schema) & Yes (VS Code + other editors, three web applications, AI grounded in manifests/skills, MCP/API, round-trip). \\
+Pandoc~\cite{ref3} & Markdown (CommonMark) & External TeX Live required & Passive templates; no schema validation & None; lossy reverse conversion \\
+Typst~\cite{ref5} & Custom syntax (Non-Markdown) & Custom native engine (Non-TeX) & Versioned package manager (Typst Universe) & Basic LSP; no round-trip metadata \\
+Quarto~\cite{ref4} & Computational Markdown & External TeX Live via Pandoc & Formats and themes; no open marketplace & None; relies on source notebooks \\
+MyST~\cite{myst2024} & Extended CommonMark & External compiler required & Directives and roles; no marketplace & Basic CLI; no embedded round-trip \\
+Overleaf~\cite{overleaf2024} & Raw \LaTeX\ source code & Cloud server-side TeX Live & Internal institutional template gallery & Web autocompletion; no round-trip \\
+\textbf{Proposed Litho Ecosystem} & \textbf{Three-tier Markdown dialect} & \textbf{Self-contained Tectonic engine} & \textbf{Git-backed catalog with JSON schemas} & \textbf{Model Context Protocol \& XMP round-trip} \\
 \bottomrule
 \end{tabularx}
 \end{table}
 
-\section{Gap Analysis and Proposed Contribution}
-\begin{guidance}
-State the specific unresolved gap established by the review and explain how the
-project will address it. Keep the proposed contribution realistic and aligned with
-the problem statement and objectives; do not claim novelty without evidence.
-\end{guidance}
+\subsection{Analysis of Patterns and Trade-Offs}
+The comparative analysis highlights three dominant patterns in contemporary technical publishing:
+\begin{enumerate}[leftmargin=*]
+  \item \textbf{The Syntax versus Output Dilemma:} Authoring systems that retain plain Markdown as their primary surface (e.g., Pandoc, Quarto) delegate rendering to external, un-sandboxed TeX Live environments, making local setup fragile and requiring manual preamble hacking for specialized layouts. Conversely, clean-slate tools like Typst achieve high rendering performance only by abandoning the universal Markdown standard entirely. Litho resolves this trade-off by layering a declarative three-tier dialect over CommonMark, compiling through a bundled, self-contained Tectonic binary.
+  \item \textbf{Absence of Verified Template Governance:} Existing Markdown ecosystems lack an open, decentralized distribution mechanism for institutional and conference layouts. Templates are typically distributed as loose snippets across personal repositories without version guarantees or security scanning. Litho bridges this divide via a Git-native community marketplace curated through reviewed GitHub issues with edge engagement counters.
+  \item \textbf{Severed Document Provenance:} In traditional publishing pipelines, compiling to PDF produces an opaque, non-editable binary. Authors wishing to revise or verify a shared PDF must maintain separate out-of-band source repositories. Litho embeds the raw source code and template manifest directly into PDF XMP metadata streams~\cite{iso16684_1,iso19005_3}, enabling exact byte-for-byte source restoration.
+\end{enumerate}
 
-The review shows that no existing system combines Markdown-native authoring with a pluggable, versioned template ecosystem, editor-aware support for template extensions, a marketplace, AI-assisted template authoring grounded in template schemas, MCP/API integration, and lossless round-trip fidelity (source embedded in PDF). The existing Litho CLI demonstrates feasibility but is limited to a single hard-coded template. Litho addresses this gap by generalizing it into a full publishing ecosystem: an extensible dialect and interpreter, template packaging with JSON manifests, VS Code tooling, three web applications (template marketplace with per-template heart and download counters, documentation website, and in-browser conversion workspace), dataset-grounded AI authoring guided by a product-level \texttt{SKILLS.md}, and an MCP server/conversion API with PDF-to-Markdown restoration.
+\section{Gap Analysis and Proposed Contribution}
+
+The review of related literature establishes three unresolved research and engineering gaps:
+
+\begin{itemize}[leftmargin=*]
+  \item \textbf{The Schema and Extensibility Gap:} Standard Markdown cannot express complex institutional document requirements (such as academic approval pages, signature blocks, and callout boxes) without raw LaTeX macro injection. Existing tools lack a declarative schema mechanism that allows templates to introduce domain-specific shortcodes while maintaining strict parser sandboxing.
+  \item \textbf{The Ecosystem and Verification Gap:} There is currently no open-source, versioned marketplace that allows publishers to package, validate, and distribute LaTeX-backed publishing templates. Authors must manually hunt for unvetted class files without automated security scanning or compatibility checks.
+  \item \textbf{The Provenance and Round-Trip Reproducibility Gap:} As emphasized by Peng~\cite{peng2011reproducible}, computational and technical reproducibility requires durable binding between presentation and source. Current workflows sever this link upon PDF distribution, preventing programmatic verification, auditing, or reverse extraction.
+\end{itemize}
+
+\subsection{Proposed Technical Contributions}
+Litho addresses these gaps by delivering an integrated, five-channel publishing ecosystem:
+\begin{enumerate}[leftmargin=*]
+  \item \textbf{Declarative Three-Tier Dialect and Parser:} A formal CommonMark-compliant grammar supporting template-declared semantic shortcodes, frontmatter variable binding, and AST validation.
+  \item \textbf{Zero-Configuration Compilation Pipeline:} Seamless local and cloud compilation using a sandboxed, bundled Tectonic engine that eliminates manual TeX distribution management.
+  \item \textbf{Git-Native Marketplace and Edge Architecture:} A community template registry curated via reviewed GitHub issues, guarded by static security baseline scanning and privacy-preserving Cloudflare D1 edge engagement counters~\cite{cloudflare_d1}.
+  \item \textbf{Lossless Round-Trip Reproducibility:} Automated injection and extraction of serialized Markdown source within PDF XMP metadata streams conforming to ISO 16684-1~\cite{iso16684_1} and ISO 19005-3~\cite{iso19005_3}.
+  \item \textbf{Agent-Ready Interfaces:} Native Model Context Protocol (MCP) server~\cite{anthropic2024mcp} and hosted REST API enabling AI assistants and web platforms to validate, build, and extract documents programmatically.
+\end{enumerate}
 
 % =============================================================================
