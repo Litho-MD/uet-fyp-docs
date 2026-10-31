@@ -17,15 +17,21 @@ document rather than copying them here.
 \begin{longtable}{@{}p{0.12\textwidth}p{0.11\textwidth}p{0.16\textwidth}p{0.23\textwidth}p{0.24\textwidth}@{}}
 \caption{Design traceability matrix}\label{tab:traceability}\\
 \toprule
-\textbf{Objective} & \textbf{Scope} & \textbf{Requirement} & \textbf{Design element} & \textbf{Testing-document reference} \\
+\textbf{Objective} & \textbf{Scope} & \textbf{Requirement} & \textbf{Design element} & \textbf{Testing reference} \\
 \midrule
 \endfirsthead
 \toprule
-\textbf{Objective} & \textbf{Scope} & \textbf{Requirement} & \textbf{Design element} & \textbf{Testing-document reference} \\
+\textbf{Objective} & \textbf{Scope} & \textbf{Requirement} & \textbf{Design element} & \textbf{Testing reference} \\
 \midrule
 \endhead
-OBJ-01 & SCP-01 & FR-01 & UC-01; appointment sequence; Appointment class & \placeholder{TEST-FR-01 / Section X} \\
-\placeholder{OBJ-XX} & \placeholder{SCP-XX} & \placeholder{FR-XX} & \placeholder{Diagram, component, model, or decision ID} & \placeholder{Test or validation reference} \\
+OBJ-01 & SCP-01 & FR-01, FR-02 & Dialect specification and tokenizer/parser/AST (\texttt{class-domain}, \texttt{flowchart-algorithm}) & TEST-FR-01, TEST-FR-02 \\
+OBJ-02 & SCP-01, SCP-02 & FR-03--FR-05, NFR-01 & Template-binding compiler and Tectonic build pipeline (\texttt{activity-build}, \texttt{sequence-build}) & TEST-FR-03--TEST-FR-05, TEST-NFR-01 \\
+OBJ-03 & SCP-03, SCP-04 & FR-09--FR-19 & CLI and VS Code extension components (\texttt{component}, \texttt{use-case}) & TEST-FR-09--TEST-FR-19 \\
+OBJ-04 & SCP-03, SCP-08 & FR-06--FR-08, FR-12, NFR-05 & PDF metadata embedding and extract-source flow (\texttt{sequence-build}, DIR-02) & TEST-FR-06--TEST-FR-08, TEST-FR-12, TEST-NFR-05 \\
+OBJ-05 & SCP-05 & FR-39--FR-42 & Template package, manifest, and release model (\texttt{class-domain}, \texttt{er-diagram}) & TEST-FR-39--TEST-FR-42 \\
+OBJ-06 & SCP-06, SCP-07 & FR-20--FR-32, FR-48--FR-51, NFR-06, NFR-08 & Marketplace, counters database, conversion web app, and AI authoring (\texttt{navigation-flow}, \texttt{ui-wireframe}, \texttt{er-diagram}) & TEST-FR-20--TEST-FR-32, TEST-FR-48--TEST-FR-51 \\
+OBJ-07 & SCP-08 & FR-33--FR-38, EIR-01, EIR-02 & MCP server, conversion API, and webhook interfaces (\texttt{component}, INT-05, INT-06) & TEST-FR-33--TEST-FR-38 \\
+OBJ-08 & SCP-09 & FR-43--FR-47, NFR-07 & Documentation website, CI pipeline, and test automation (\texttt{package}, \texttt{deployment}) & TEST-FR-43--TEST-FR-47, TEST-NFR-07 \\
 \bottomrule
 \end{longtable}
 }
@@ -46,9 +52,13 @@ data, expected results, and actual results in the testing document.
 \toprule
 \textbf{Target} & \textbf{Method} & \textbf{Evidence} & \textbf{Responsible role} \\
 \midrule
-Functional requirements & Functional and integration testing & Approved test results in the testing document & \placeholder{Team role} \\
-Stakeholder needs & \placeholder{Demonstration, usability study, review, or field evaluation} & \placeholder{Feedback or validation record} & \placeholder{Team role/stakeholder} \\
-Research findings & \placeholder{Statistical validation, cross-validation, triangulation, or expert review} & \placeholder{Analysis outputs} & \placeholder{Responsible role} \\
+Functional requirements & Automated unit, integration, and end-to-end tests on every pull request & CI test reports and approved results in the testing document & QA/DevOps lead \\
+Non-functional requirements & Compilation benchmarks, portability runs on Linux, macOS, and Windows, and sandbox and rate-limit security tests & Benchmark logs, CI matrix results, and security test notes & Language and tooling leads \\
+Round-trip fidelity & Byte-for-byte extraction tests plus large-document metadata tests & Round-trip test report & Language lead \\
+Template packaging and marketplace & Manifest schema validation, sample GitHub issue submissions, and a listing and review walkthrough & Validation reports and marketplace acceptance notes & Templates and marketplace leads \\
+AI-assisted authoring, MCP, and API & Contract tests with MCP clients and API consumers; evaluation of generated templates against the curated dataset & Integration logs and evaluation notes & Tooling and integrations lead \\
+Stakeholder needs & Demonstration to the supervisor and a usability walkthrough with students and template authors & Feedback records and supervisor acceptance notes & Project lead \\
+Documentation and adoption & Documentation build, link checking, and quick-start validation on a clean machine & Documentation build and link-check reports & QA/DevOps lead \\
 \bottomrule
 \end{tabularx}
 \end{table}
@@ -92,8 +102,14 @@ state a practical response.
 \toprule
 \textbf{ID} & \textbf{Risk} & \textbf{Likelihood} & \textbf{Impact} & \textbf{Response} & \textbf{Owner} \\
 \midrule
-RSK-01 & External API becomes unavailable. & Medium & High & Use an interface abstraction and maintain a documented fallback dataset or mock service. & \placeholder{Role} \\
-RSK-02 & \placeholder{Risk event} & \placeholder{Level} & \placeholder{Level} & \placeholder{Avoid, reduce, transfer, or accept} & \placeholder{Role} \\
+RSK-01 & Tectonic package coverage or engine updates break flagship template compilation. & Medium & High & Pin the engine version, validate templates in CI, and keep a documented package allowlist with fallback constructs. & Language lead \\
+RSK-02 & Untrusted template content escapes the sandbox or executes arbitrary macros. & Low & High & Restrict templates to a declarative schema and vetted package allowlist; compile in isolated containers with resource limits. & Tooling lead \\
+RSK-03 & GitHub API rate limits or outages disrupt registry browsing and submission. & Medium & Medium & Cache or statically generate the registry, add retries, and degrade gracefully while GitHub is unavailable. & Marketplace lead \\
+RSK-04 & Scope creep across three web applications and five conversion channels delays delivery. & High & High & Freeze must-have scope, deliver in phases, and defer Should-priority features to post-release. & Project lead \\
+RSK-05 & PDF metadata limits or very large documents break byte-for-byte source restoration. & Medium & High & Test large and binary-heavy documents, compress or attach source deterministically, and enforce size limits. & Language lead \\
+RSK-06 & Counters database outage or spam inflates or hides engagement metrics. & Medium & Medium & Rate-limit and de-duplicate hearts, keep counters non-critical to browsing, and back up the database daily. & Marketplace lead \\
+RSK-07 & AI-assisted authoring generates invalid syntax or hallucinated template fields. & High & Medium & Ground prompts in the curated dataset and manifest schema, validate output before use, and require human review. & Tooling lead \\
+RSK-08 & Team availability or FYP timeline slippage reduces integration and testing time. & Medium & High & Keep schedule buffers, review progress weekly, and share ownership of critical components. & Project lead \\
 \bottomrule
 \end{tabularx}
 \end{table}
@@ -106,6 +122,12 @@ added when required; keep detailed weekly task tracking in the selected manageme
 tool rather than duplicating it here.
 \end{guidance}
 
+The team follows an iterative, milestone-driven process with two-week increments,
+weekly progress reviews with the supervisor, and a shared GitHub backlog. Work is
+organized around the language and compiler core first, followed by tooling,
+templates, web applications, and integrations, so that later deliverables build on
+a stable conversion pipeline.
+
 \begin{table}[H]
 \centering
 \caption{Milestones and schedule}
@@ -114,8 +136,17 @@ tool rather than duplicating it here.
 \toprule
 \textbf{ID} & \textbf{Milestone or deliverable} & \textbf{Target date} & \textbf{Dependency} & \textbf{Owner} \\
 \midrule
-MS-01 & \placeholder{Approved requirements baseline} & \placeholder{Date} & \placeholder{None or ID} & \placeholder{Role} \\
-MS-02 & \placeholder{Prototype, study, evaluation, or release milestone} & \placeholder{Date} & \placeholder{MS-01} & \placeholder{Role} \\
+MS-01 & Approved requirements and design baseline & Semester 7, Week 4 & None & Project lead \\
+MS-02 & Language specification, tokenizer, parser, and AST prototype & Semester 7, Week 8 & MS-01 & Language lead \\
+MS-03 & Template-binding compiler and Tectonic PDF pipeline & Semester 7, Week 12 & MS-02 & Language lead \\
+MS-04 & CLI and VS Code extension minimum viable product & Semester 7, Week 14 & MS-03 & Tooling lead \\
+MS-05 & Marketplace, counters database, and conversion web app prototype & Semester 7, Week 15 & MS-03 & Marketplace lead \\
+MS-06 & Mid-project review and updated design document & Semester 7, Week 16 & MS-01--MS-05 & Project lead \\
+MS-07 & Flagship templates, house templates, and documentation website & Semester 8, Week 4 & MS-03, MS-05 & Templates and QA lead \\
+MS-08 & MCP server, conversion API, webhooks, and source restoration & Semester 8, Week 6 & MS-03 & Tooling lead \\
+MS-09 & AI-assisted authoring, curated dataset, and \texttt{SKILLS.md} & Semester 8, Week 8 & MS-07 & Tooling lead \\
+MS-10 & Integration, security hardening, and end-to-end testing & Semester 8, Week 10 & MS-04--MS-09 & QA/DevOps lead \\
+MS-11 & Final evaluation, documentation, and public release & Semester 8, Week 12 & MS-10 & Project lead \\
 \bottomrule
 \end{tabularx}
 \end{table}
@@ -135,10 +166,16 @@ unconnected individual submissions.
 \toprule
 \textbf{Member} & \textbf{Role} & \textbf{Principal responsibilities} \\
 \midrule
-\placeholder{Name and roll number} & \placeholder{Role} & \placeholder{Owned tasks, reviews, and deliverables} \\
+Rabia Nadeem (2023-CS-705) & Project lead; language and interpreter lead & Owns the dialect specification, parser, AST, compiler, and round-trip metadata design; maintains the traceability matrix and coordinates integration reviews. \\
+Abaidullah Bhatti (2023-CS-713) & Marketplace and web applications lead & Owns the template marketplace, counters database, conversion web app, GitHub issue submission workflow, and navigation, usability, and accessibility design. \\
+Abdul Rahman (2023-CS-725) & Tooling and integrations lead & Owns the CLI, VS Code extension, MCP server, conversion API, webhooks, template packaging, and AI-assisted authoring integration. \\
+Sohaib Shaukat (2023-CS-740) & Templates, QA, and DevOps lead & Owns flagship and house templates, the documentation website, test automation, CI/CD, security hardening, and release management. \\
 \bottomrule
 \end{tabularx}
 \end{table}
+
+All members share code review, documentation, and end-to-end integration testing;
+every deliverable is reviewed by at least one member outside its primary owner.
 
 \section{Source-Code, Data, and Artifact Management}
 \begin{guidance}
@@ -155,8 +192,12 @@ sensitive data and credentials will be kept out of the source repository.
 \toprule
 \textbf{Artifact} & \textbf{Storage and versioning} & \textbf{Access or protection} & \textbf{Backup or retention} \\
 \midrule
-Source code & \placeholder{Repository and branching/review approach} & \placeholder{Access control and secret handling} & \placeholder{Backup or release policy} \\
-\placeholder{Data, models, and documents} & \placeholder{Location and versioning} & \placeholder{Access rule} & \placeholder{Retention rule} \\
+Source code (interpreter, CLI, extensions, web applications) & GitHub monorepo with feature branches, pull-request review, and semantic version tags & Organization team access; credentials only in GitHub Actions secrets & Protected main branch, tagged releases, and repository backups \\
+Templates, manifests, and \texttt{SKILLS.md} & \texttt{templates/} directory and linked template repositories, versioned by release tag & Public read; maintainer review before listing & GitHub releases and tagged snapshots \\
+Design documents and diagrams & \texttt{Chapters/} and \texttt{diagrams/} sources (PlantUML and Mermaid) with exported images, all in Git & Team write access; supervisor review & Git history and release snapshots \\
+Curated dataset and AI prompts & \texttt{dataset/} directory versioned alongside templates & Public read; reviewed changes only & Release snapshots \\
+Counters database & Managed application database with schema migrations stored in the repository & Restricted credentials; no public access & Daily automated backups with tested restore \\
+Build and release artifacts (PDFs, VSIX, packages, container images) & GitHub Actions artifacts and GitHub Releases & Public releases; checksummed where applicable & Retained per release policy; CI artifacts kept for 90 days \\
 \bottomrule
 \end{tabularx}
 \end{table}
@@ -177,7 +218,25 @@ Section~\ref{chap:design} only when alternatives and trade-offs matter.
 \toprule
 \textbf{Tool or technology} & \textbf{Version} & \textbf{Purpose} & \textbf{Project use} \\
 \midrule
-\placeholder{Framework, engine, language, library, IDE, modeling tool, or platform} & \placeholder{Version} & \placeholder{General purpose} & \placeholder{Specific use in this project} \\
+Python & 3.12 & Programming language & Interpreter, CLI, conversion API, and MCP server \\
+Tectonic & Latest stable & Self-contained TeX engine & Markdown-to-PDF compilation \\
+CommonMark & 0.31 & Markdown specification & Baseline dialect and parser conformance \\
+LaTeX packages (TeX Live) & Pinned per template & Typesetting & Generated document output \\
+TypeScript and Node.js & Node 20 LTS & Application development & VS Code extension and web applications \\
+VS Code Extension API & Latest stable & Editor integration & Syntax highlighting, snippets, and IntelliSense \\
+Next.js and React & 15.x and 19.x & Web application framework & Marketplace, documentation, and conversion web apps \\
+Tailwind CSS & 4.x & Styling & Responsive and accessible user interfaces \\
+FastAPI & 0.11x & HTTP API framework & Conversion API and webhooks \\
+MCP Python SDK & Latest stable & AI assistant integration & MCP server operations \\
+Application database (SQL) & Managed service & Counter storage & Per-template hearts and downloads \\
+GitHub Issues, API, and Actions & Current & Registry and automation & Submission and review workflow, CI/CD \\
+PlantUML and Mermaid & Current & Diagram sources & Design diagrams in this document \\
+pytest and Playwright & Current & Automated testing & Unit, integration, and end-to-end tests \\
+Docker & Current & Process isolation & Sandboxed compilation workers \\
+Ruff, mypy, and ESLint & Current & Static quality checks & Linting and type checking in CI \\
+pdflatex and BibTeX & TeX Live & Document build & This design document \\
 \bottomrule
 \end{tabularx}
 \end{table}
+
+% =============================================================================

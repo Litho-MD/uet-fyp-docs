@@ -53,22 +53,57 @@ where applicable~\citep{ieee29148}.
 \toprule
 \textbf{ID} & \textbf{Requirement} & \textbf{Priority} & \textbf{Source} \\
 \midrule
-FR-01 & The system shall parse a Litho Markdown document according to the three-tier dialect and produce a valid AST. & Must & Language spec \\
-FR-02 & The system shall bind parsed content to a selected template's schema and generate compilable \texttt{.tex} source. & Must & Interpreter/compiler \\
-FR-03 & The system shall compile generated \texttt{.tex} to PDF using the Tectonic engine. & Must & Build pipeline \\
-FR-04 & The system shall embed the original Markdown source, template identifier, and version into the compiled PDF's metadata. & Must & Round-trip fidelity \\
-FR-05 & The CLI shall support \texttt{init}, \texttt{build}, \texttt{watch}, and \texttt{extract-source} commands. & Must & Author tooling \\
-FR-06 & The CLI shall support publisher commands \texttt{template create/validate/submit}. & Must & Publisher tooling \\
-FR-07 & The VS Code extension shall provide syntax highlighting, snippets, and schema-aware IntelliSense for core and template shortcodes. & Must & Editor tooling \\
-FR-09 & The marketplace shall allow browsing and viewing listed templates, and support template submission through a GitHub issue that maintainers review and label for listing. & Must & Marketplace \\
-FR-10 & The conversion web app shall provide in-browser Markdown-to-PDF conversion with template selection and PDF-to-source restoration. & Must & Conversion web app \\
-FR-11 & The conversion web app shall support AI-assisted template authoring and usage grounded in the curated dataset and each template's JSON manifest, with a product-level \texttt{SKILLS.md}. & Must & AI authoring \\
-FR-12 & The MCP server shall expose \texttt{build}, \texttt{validate}, \texttt{template}, and \texttt{extract-source} operations to AI assistants. & Must & MCP integration \\
-FR-13 & The hosted conversion API shall provide a webhook-triggerable export-to-PDF action and support PDF-to-Markdown source restoration. & Must & API integration \\
-FR-14 & The system shall provide flagship templates (university thesis/proposal, IEEE paper, technical book) and support unified organization house templates. & Must & Templates \\
-FR-15 & The documentation website shall document installation, configuration, and usage for the CLI, VS Code extension, conversion web app, MCP server, and hosted API. & Must & Documentation \\
-FR-16 & All conversion channels (CLI, VS Code extension, conversion web app, MCP server, and hosted API) shall invoke the same interpreter and template-binding pipeline. & Must & Cross-cutting \\
-FR-17 & The marketplace shall record and display the number of hearts and downloads for each listed template. & Must & Marketplace \\
+FR-01 & The system shall parse a Litho Markdown document according to the three-tier dialect. & Must & Language specification \\
+FR-02 & The system shall create an abstract syntax tree from a parsed Litho Markdown document. & Must & Interpreter \\
+FR-03 & The system shall bind parsed content to the schema of a selected template. & Must & Compiler \\
+FR-04 & The system shall generate \texttt{.tex} source from bound template content. & Must & Compiler \\
+FR-05 & The system shall compile generated \texttt{.tex} source to PDF through the Tectonic engine. & Must & Build pipeline \\
+FR-06 & The system shall embed the original Markdown source in compiled PDF metadata. & Must & Round-trip fidelity \\
+FR-07 & The system shall embed the template identifier in compiled PDF metadata. & Must & Round-trip fidelity \\
+FR-08 & The system shall embed the template version in compiled PDF metadata. & Must & Round-trip fidelity \\
+FR-09 & The CLI shall initialize a new Litho project. & Must & Author tooling \\
+FR-10 & The CLI shall build a Litho document into a PDF. & Must & Author tooling \\
+FR-11 & The CLI shall watch a Litho document and rebuild its PDF after source changes. & Must & Author tooling \\
+FR-12 & The CLI shall extract embedded Markdown source from a Litho-generated PDF. & Must & Author tooling \\
+FR-13 & The CLI shall create a template package. & Must & Publisher tooling \\
+FR-14 & The CLI shall validate a template package. & Must & Publisher tooling \\
+FR-15 & The CLI shall submit a template package for publication. & Must & Publisher tooling \\
+FR-16 & The VS Code extension shall provide Litho syntax highlighting. & Must & Editor tooling \\
+FR-17 & The VS Code extension shall provide Litho authoring snippets. & Must & Editor tooling \\
+FR-18 & The VS Code extension shall provide IntelliSense for core Litho syntax. & Must & Editor tooling \\
+FR-19 & The VS Code extension shall provide IntelliSense for template-defined shortcodes. & Must & Editor tooling \\
+FR-20 & The marketplace shall allow users to browse listed templates. & Must & Marketplace \\
+FR-21 & The marketplace shall display details for a listed template. & Must & Marketplace \\
+FR-22 & The marketplace shall accept a template submission through a GitHub issue. & Must & Marketplace \\
+FR-23 & The marketplace shall display templates approved for listing by maintainers. & Must & Marketplace \\
+FR-24 & The conversion web app shall accept Markdown input. & Must & Conversion web app \\
+FR-25 & The conversion web app shall allow the user to select a template. & Must & Conversion web app \\
+FR-26 & The conversion web app shall generate a PDF from submitted Markdown input. & Must & Conversion web app \\
+FR-27 & The conversion web app shall restore embedded Markdown source from a Litho-generated PDF. & Must & Conversion web app \\
+FR-28 & The conversion web app shall provide AI-assisted template authoring. & Must & AI authoring \\
+FR-29 & The conversion web app shall provide AI-assisted template usage. & Must & AI authoring \\
+FR-30 & The AI assistance shall use the curated template dataset as its context. & Must & AI authoring \\
+FR-31 & The AI assistance shall use a selected template's JSON manifest as its context. & Must & AI authoring \\
+FR-32 & The AI assistance shall use the product-level \texttt{SKILLS.md} guidance. & Must & AI authoring \\
+FR-33 & The MCP server shall expose a document build operation to AI assistants. & Must & MCP integration \\
+FR-34 & The MCP server shall expose a document validation operation to AI assistants. & Must & MCP integration \\
+FR-35 & The MCP server shall expose a template retrieval operation to AI assistants. & Must & MCP integration \\
+FR-36 & The MCP server shall expose a source-extraction operation to AI assistants. & Must & MCP integration \\
+FR-37 & The hosted conversion API shall provide a webhook-triggered PDF export operation. & Must & API integration \\
+FR-38 & The hosted conversion API shall restore embedded Markdown source from a Litho-generated PDF. & Must & API integration \\
+FR-39 & The system shall provide a university thesis or proposal template. & Must & Templates \\
+FR-40 & The system shall provide an IEEE paper template. & Must & Templates \\
+FR-41 & The system shall provide a technical book template. & Must & Templates \\
+FR-42 & The system shall support organization house templates. & Must & Templates \\
+FR-43 & The documentation website shall publish Litho installation guidance. & Must & Documentation \\
+FR-44 & The documentation website shall publish Litho configuration guidance. & Must & Documentation \\
+FR-45 & The documentation website shall publish Litho usage guidance. & Must & Documentation \\
+FR-46 & Each conversion channel shall invoke the shared interpreter pipeline. & Must & Cross-cutting \\
+FR-47 & Each conversion channel shall invoke the shared template-binding pipeline. & Must & Cross-cutting \\
+FR-48 & The marketplace shall record the heart count for each listed template. & Must & Marketplace \\
+FR-49 & The marketplace shall display the heart count for each listed template. & Must & Marketplace \\
+FR-50 & The marketplace shall record the download count for each listed template. & Must & Marketplace \\
+FR-51 & The marketplace shall display the download count for each listed template. & Must & Marketplace \\
 \bottomrule
 \end{tabularx}
 \end{table}
@@ -118,10 +153,10 @@ in Section~\ref{sec:data-design}.
 \midrule
 DIR-01 & Data & The system shall store template packages with schema, JSON manifest, assets, and version metadata; a product-level \texttt{SKILLS.md} shall guide AI usage. & Template packaging \\
 DIR-02 & Data & Compiled PDFs shall embed original Markdown source, template identifier, and version in document metadata (XMP/PDF metadata). & Round-trip fidelity \\
+DIR-03 & Data & The system shall persist per-template heart and download counts in an application database, keyed by template identifier. & Marketplace metrics \\
 EIR-01 & External API & The MCP server shall expose \texttt{build}/\texttt{validate}/\texttt{template}/\texttt{extract-source} operations over MCP. & AI assistants \\
 EIR-02 & External API & The conversion API shall accept Markdown input and template selection, return compiled PDF or errors, and support webhook-triggered export actions. & CMS/Markdown sites \\
 EIR-03 & External API & The marketplace shall read its published template registry from labeled GitHub issues and resolve template manifests and assets from linked GitHub repositories. & GitHub \\
-DIR-03 & Data & The system shall persist per-template heart and download counts in an application database, keyed by template identifier. & Marketplace metrics \\
 \bottomrule
 \end{tabularx}
 \end{table}

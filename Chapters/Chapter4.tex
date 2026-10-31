@@ -12,10 +12,8 @@ responsibilities, and principal interfaces. State the selected architectural sty
 only when it helps explain the design. Label every component and connector.
 \end{guidance}
 
-\diagram[md]{system-context.png}{Litho system context diagram}
-
-\clearpage
-\diagram[md]{high-level-architecture.png}{Litho high-level architecture}
+\diagramplaceholder{System context diagram}{Example content: Litho authors, template maintainers, GitHub, and the conversion pipeline boundary.}
+\diagramplaceholder{High-level architecture}{Example content: CLI and editor clients, three web applications, platform services, and the Tectonic build engine.}
 
 \begin{table}[H]
 \centering
@@ -29,7 +27,7 @@ INT-01 & CLI $\leftrightarrow$ Interpreter & Invoke parse/compile/validate/extra
 INT-02 & Interpreter $\leftrightarrow$ Tectonic & Pass generated \texttt{.tex}, receive compiled PDF; supply template-required packages. & Process invocation / filesystem \\
 INT-03 & Editor Extensions $\leftrightarrow$ Template Schema/Manifest & Load grammar, snippets, and IntelliSense from template schema and manifest. & Local files / extension APIs \\
 INT-04 & Marketplace $\leftrightarrow$ GitHub & Read labeled issues for the published template registry; resolve template manifests and assets from linked repositories. & GitHub REST API \\
-INT-05 & MCP Server $\leftrightarrow$ AI Assistants & Expose build/validate/template/ extract-source  operations. & MCP (JSON-RPC) \\
+INT-05 & MCP Server $\leftrightarrow$ AI Assistants & Expose build/validate/template/extract-source operations. & MCP (JSON-RPC) \\
 INT-06 & Conversion API $\leftrightarrow$ CMS/Websites & Accept Markdown + template, return PDF or error; support webhooks. & HTTP/REST (JSON) \\
 INT-07 & PDF $\leftrightarrow$ Extract-Source Tool & Read/write embedded Markdown source in PDF metadata. & PDF metadata (XMP) \\
 INT-08 & Conversion Web App $\leftrightarrow$ Interpreter/API & Submit Markdown with a selected template; return a compiled PDF or restored source. & HTTPS/JSON \\
@@ -52,7 +50,7 @@ Show external actors, system use cases, the system boundary, and justified
 \texttt{include}, \texttt{extend}, or generalization relationships. Use cases
 should represent user goals rather than interface screens.
 \end{guidance}
-\diagram[md]{use-case.png}{Litho use-case diagram}
+\diagramplaceholder{Use-case diagram}{Example use cases: Browse Marketplace, Convert a Document, Restore Source, and Submit a Template.}
 
 \begin{table}[H]
 \centering
@@ -69,7 +67,7 @@ Trigger & User runs \texttt{litho build} or triggers build from editor. \\
 Main flow & 1) Load \texttt{.md}; 2) Parse to AST; 3) Bind to template; 4) Generate \texttt{.tex}; 5) Compile via Tectonic; 6) Embed metadata; 7) Return PDF. \\
 Alternative or exception flows & Invalid syntax -> report parse errors; missing template -> report error; compilation failure -> report LaTeX errors. \\
 Postconditions & PDF generated with embedded source/metadata or errors reported. \\
-Related requirements & FR-01, FR-02, FR-03, FR-04, FR-05 \\
+Related requirements & FR-01--FR-08, FR-10 \\
 \bottomrule
 \end{tabularx}
 \end{table}
@@ -80,14 +78,14 @@ Model an important workflow using actions, control flows, decisions with guards,
 parallel paths where required, and clear initial and final nodes. Use swimlanes when
 responsibility changes are important.
 \end{guidance}
-\diagram[md]{activity-build.png}{Litho build activity diagram (swimlanes)}
+\diagramplaceholder{Activity diagram}{Example workflow: parse Markdown, bind the template, generate LaTeX, compile via Tectonic, and embed metadata.}
 
 \subsection{State-Machine Model \applicability{State-dependent systems and games}}
 \begin{guidance}
 Model the lifecycle of one important stateful entity. Show states, triggering
 events, guards where needed, actions, and initial and final states.
 \end{guidance}
-\diagram[sm]{state-template.png}{Template lifecycle state machine}
+\diagramplaceholder{State-machine diagram}{Example entity: Template; states may include Draft, Validated, Submitted, Listed, Deprecated, and Withdrawn.}
 
 \subsection{Sequence Model}
 \begin{guidance}
@@ -95,7 +93,7 @@ Show how an important scenario is realized through time-ordered messages among
 actors, system components, and external services. Use activation bars and combined
 fragments such as \texttt{alt}, \texttt{opt}, or \texttt{loop} where appropriate.
 \end{guidance}
-\diagram[md]{sequence-build.png}{Litho build sequence diagram}
+\diagramplaceholder{Sequence diagram}{Example scenario: an author builds a document and receives a PDF with the original source embedded.}
 
 The diagram shows parsing, template loading/binding, LaTeX generation, Tectonic compilation, and metadata embedding for round-trip fidelity.
 
@@ -111,14 +109,14 @@ that do not communicate a design decision.
 Show important domain concepts or software classes, relevant attributes and
 operations, relationships, multiplicities, and inheritance where justified.
 \end{guidance}
-\diagram[md]{class-domain.png}{Litho domain/class model}
+\diagramplaceholder{Class or domain diagram}{Example classes: Student, Adviser, Appointment, AvailabilitySlot, and Notification.}
 
 \subsection{Component Model}
 \begin{guidance}
 Show deployable or replaceable software components, their provided and required
 interfaces, and dependencies.
 \end{guidance}
-\diagram[md]{component.png}{Litho component diagram}
+\diagramplaceholder{Component diagram}{Example components: Web Client, Appointment Service, Authentication Service, and Data Store.}
 
 \subsection{Package Model \applicability{If required}}
 \begin{guidance}
@@ -126,14 +124,14 @@ Use a package diagram when the organization and dependencies of modules or layer
 need clarification. Omit it when the component or class model already communicates
 the structure adequately.
 \end{guidance}
-\diagram[sm]{package.png}{Litho package diagram}
+\diagramplaceholder{Package diagram}{Example packages: presentation, application, domain, and infrastructure.}
 
 \subsection{Deployment Model \applicability{Deployed, distributed, networked, or multi-device systems}}
 \begin{guidance}
 Show execution nodes, devices, environments, deployed artifacts, and communication
 paths. Distinguish physical or virtual nodes from software components.
 \end{guidance}
-\diagram[md]{deployment.png}{Litho deployment diagram}
+\diagramplaceholder{Deployment diagram}{Example nodes: user device, application server, database server, and external notification service.}
 
 \section{Data Design and Management}
 \label{sec:data-design}
@@ -145,7 +143,7 @@ and important indexing or retention decisions. Use an ER diagram, schema, or oth
 notation appropriate to the selected database model.
 \end{guidance}
 Litho does not use an application database for the template registry. The published registry is derived from GitHub issues that maintainers review and label as listed, while each template's linked repository and releases hold its manifest, assets, and version history. A small application database stores only the per-template heart and download counters, keyed by template identifier. The diagram below models the resulting registry and counter records.
-\diagram[md]{er-diagram.png}{Litho marketplace registry and engagement data model (GitHub issues and counters database)}
+\diagramplaceholder{Data model or schema}{Example entities: User, AvailabilitySlot, Appointment, and NotificationLog.}
 
 \section{Algorithm or Model Design \applicability{Research, Hybrid; Development or Game if a core algorithm or AI model is used}}
 \begin{guidance}
@@ -154,8 +152,6 @@ inputs, outputs, principal processing steps, assumptions, training or configurat
 and computational or fairness considerations where relevant. Cite established
 algorithms rather than presenting them as original work.
 \end{guidance}
-
-\diagram[md]{flowchart-algorithm.png}{Markdown-to-PDF compilation algorithm flowchart}
 
 \begin{table}[H]
 \centering
@@ -169,7 +165,7 @@ Name and purpose & Template-binding Markdown-to-LaTeX compilation (core interpre
 Inputs and outputs & Input: Litho Markdown (\texttt{.md}) and template ID/schema; Output: compilable \texttt{.tex} and compiled PDF with embedded metadata. \\
 Processing steps & Tokenize → Parse to AST → Load template schema/manifest/assets → Validate/bind → Generate LaTeX → Compile via Tectonic → Embed source/metadata → Output PDF. \\
 Assumptions and limits & Assumes CommonMark-compatible input with template-declared extensions; limited by Tectonic package coverage and template sandboxing. \\
-Related requirements & FR-01, FR-02, FR-03, FR-04, NFR-04, NFR-05, NFR-06 \\
+Related requirements & FR-01--FR-08, NFR-04, NFR-05, NFR-06 \\
 \bottomrule
 \end{tabularx}
 \end{table}
@@ -180,11 +176,10 @@ Present the navigation structure and key wireframes or prototypes. Explain how t
 design supports usability, accessibility, responsive layout, error prevention,
 feedback, and consistency. Do not include every minor screen.
 \end{guidance}
-\diagram[md]{navigation-flow.png}{Litho web applications navigation structure and user flow}
+\diagramplaceholder{Navigation structure or user flow}{Example: Sign In, Dashboard, Available Slots, Appointment Details, and Notifications.}
+\diagramplaceholder{Key wireframe or prototype}{Annotate important controls, content, validation, feedback, and accessibility decisions.}
 
 Litho exposes three separate web applications: the template marketplace for browsing and discovering listed templates, the documentation website for installation and configuration guidance, and the conversion web app where authors write or paste Markdown, optionally use AI-assisted authoring, select a template, and convert in either direction. The same conversion capability is also available through the VS Code extension, CLI, MCP server, and hosted API.
-
-\diagram[md]{ui-wireframe.png}{Litho conversion web app wireframe showing Markdown editor and PDF preview}
 
 \section{Security, Privacy, and Safety Design \applicability{If applicable}}
 \begin{guidance}
