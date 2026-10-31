@@ -6,7 +6,6 @@
 % =============================================================================
 
 \section{Design Traceability Matrix}
-{\footnotesize
 \begin{xltabular}{\textwidth}{@{}p{0.09\textwidth}p{0.13\textwidth}p{0.21\textwidth}X p{0.18\textwidth}@{}}
 \caption{Design traceability matrix}\label{tab:traceability}\\
 \toprule
@@ -17,18 +16,16 @@
 \textbf{Objective} & \textbf{Scope} & \textbf{Requirement} & \textbf{Design element} & \textbf{Testing reference} \\
 \midrule
 \endhead
-OBJ-01 & SCP-01 & FR-01, FR-02 & Dialect grammar specification (\texttt{class-domain}) & TEST-FR-01, TEST-FR-02 \\
-OBJ-02 & SCP-02--SCP-04 & FR-03--FR-05, NFR-01, NFR-06 & Compiler, parser, AST, and Tectonic build pipeline (\texttt{activity-build}, \texttt{sequence-build}, \texttt{flowchart-algorithm}, DD-01, SEC-01) & TEST-FR-03--TEST-FR-05, TEST-NFR-01, TEST-SEC-01 \\
-OBJ-03 & SCP-05, SCP-06 & FR-09--FR-19, NFR-02, NFR-03 & Author CLI and VS Code extension tooling (\texttt{component}, \texttt{use-case}) & TEST-FR-09--TEST-FR-19, TEST-NFR-02 \\
-OBJ-04 & SCP-07 & FR-06--FR-08, FR-12, NFR-05, DIR-03, DIR-04 & PDF XMP metadata stream embedding and source restoration (\texttt{sequence-build}, DD-03) & TEST-FR-06--TEST-FR-08, TEST-FR-12, TEST-NFR-05 \\
-OBJ-05 & SCP-08 & FR-39--FR-42, DIR-01 & Flagship and institutional house templates (\texttt{class-domain}, Appendix B) & TEST-FR-39--TEST-FR-42 \\
-OBJ-06 & SCP-10 & FR-20--FR-23, FR-48--FR-51, NFR-07, NFR-10, DIR-05, EIR-07, EIR-08 & GitHub-curated template marketplace and D1 engagement counters (\texttt{er-diagram}, DD-02, DD-04, SEC-02, SEC-03) & TEST-FR-20--TEST-FR-23, TEST-FR-48--TEST-FR-51 \\
-OBJ-07 & SCP-09, SCP-11 & FR-24--FR-32, DIR-02 & In-browser conversion workspace and manifest-grounded AI authoring (\texttt{navigation-flow}, \texttt{ui-wireframe}, SEC-04) & TEST-FR-24--TEST-FR-32 \\
-OBJ-08 & SCP-12 & FR-33--FR-38, EIR-01--EIR-06 & Model Context Protocol server and hosted REST conversion API (\texttt{component}, INT-05, INT-06) & TEST-FR-33--TEST-FR-38, TEST-API-01 \\
-OBJ-09 & SCP-13, SCP-14 & FR-43--FR-47, NFR-09 & Documentation website, CI/CD pipelines, and automated test suite (\texttt{package}, \texttt{deployment}) & TEST-FR-43--TEST-FR-47, TEST-NFR-09 \\
+OBJ-01 & SCP-01 & FR-01, FR-02 & Dialect specification and tokenizer/parser/AST (\texttt{class-domain}, \texttt{flowchart-algorithm}) & TEST-FR-01, TEST-FR-02 \\
+OBJ-02 & SCP-01, SCP-02 & FR-03--FR-05, NFR-01 & Template-binding compiler and Tectonic build pipeline (\texttt{activity-build}, \texttt{sequence-build}) & TEST-FR-03--TEST-FR-05, TEST-NFR-01 \\
+OBJ-03 & SCP-03, SCP-04 & FR-09--FR-19 & CLI and VS Code extension components (\texttt{component}, \texttt{use-case}) & TEST-FR-09--TEST-FR-19 \\
+OBJ-04 & SCP-03, SCP-08 & FR-06--FR-08, FR-12, NFR-05 & PDF metadata embedding and extract-source flow (\texttt{sequence-build}, DIR-02) & TEST-FR-06--TEST-FR-08, TEST-FR-12, TEST-NFR-05 \\
+OBJ-05 & SCP-05 & FR-39--FR-42 & Template package, manifest, and release model (\texttt{class-domain}, \texttt{er-diagram}) & TEST-FR-39--TEST-FR-42 \\
+OBJ-06 & SCP-06, SCP-07 & FR-20--FR-32, FR-48--FR-51, NFR-06, NFR-08 & Marketplace, counters database, conversion web app, and AI authoring (\texttt{navigation-flow}, \texttt{ui-wireframe}, \texttt{er-diagram}) & TEST-FR-20--TEST-FR-32, TEST-FR-48--TEST-FR-51 \\
+OBJ-07 & SCP-08 & FR-33--FR-38, EIR-01, EIR-02 & MCP server, conversion API, and webhook interfaces (\texttt{component}, INT-05, INT-06) & TEST-FR-33--TEST-FR-38 \\
+OBJ-08 & SCP-09 & FR-43--FR-47, NFR-07 & Documentation website, CI pipeline, and test automation (\texttt{package}, \texttt{deployment}) & TEST-FR-43--TEST-FR-47, TEST-NFR-07 \\
 \bottomrule
 \end{xltabular}
-}
 
 \section{Verification and Validation Strategy}
 \begin{xltabular}{\textwidth}{@{}p{0.20\textwidth}X X p{0.20\textwidth}@{}}
@@ -78,15 +75,14 @@ version consistent with this design document.
 \endfoot
 \bottomrule
 \endlastfoot
-Document title & Litho Software Testing and Quality Assurance Specification \\
-Version and date & Version 1.0; 24 October 2026 \\
-Repository or submission location & \texttt{docs/testing/software-testing-document.pdf} (tagged Git release) \\
-Responsible team member(s) & Rabia Nadeem (2023-CS-705), Abaidullah Bhatti (2023-CS-713), Abdul Rahman (2023-CS-725), Sohaib Shaukat (2023-CS-740) \\
+Document title & \placeholder{Project Software Testing Document} \\
+Version and date & \placeholder{Version; Day Month Year} \\
+Repository or submission location & \placeholder{Controlled path, repository location, or submission reference} \\
+Responsible team member(s) & \placeholder{Name(s) and role(s)} \\
 \end{xltabular}
 
 
 \section{Risk Assessment}
-{\small
 \begin{xltabular}{\textwidth}{@{}p{0.10\textwidth}X p{0.13\textwidth}p{0.11\textwidth}X p{0.14\textwidth}@{}}
 \caption{Risk register}\label{tab:risk-register}\\
 \toprule
@@ -112,7 +108,6 @@ RSK-07 & AI-assisted authoring generates invalid syntax or hallucinated template
 RSK-08 & Team availability or FYP timeline slippage reduces integration and testing time. & Medium & High & Keep schedule buffers, review progress weekly, and share ownership of critical components. & Project lead \\
 \bottomrule
 \end{xltabular}
-}
 
 \section{Project Management Approach and Schedule}
 The team follows an iterative, milestone-driven process with two-week increments,

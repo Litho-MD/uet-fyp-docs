@@ -125,7 +125,7 @@ NFR-01 & Performance & Local Markdown-to-PDF compilation for a typical proposal 
 NFR-02 & Portability & The CLI shall run on Linux, macOS, and Windows without requiring a full TeX distribution. & Must \\
 NFR-03 & Usability & Authors unfamiliar with LaTeX shall be able to produce a formatted document using a flagship template with no direct LaTeX editing required. & Must \\
 NFR-04 & Extensibility & New templates shall be added without modifying the core interpreter grammar; extensions shall be declared via template schema/manifests. & Must \\
-NFR-05 & Fidelity and Integrity & PDF source extraction shall recover the exact original Markdown source byte-for-byte (metadata round-trip) with no reconstruction loss. & Must \\
+NFR-05 & Integrity/Fidelity & PDF source extraction shall recover the exact original Markdown source byte-for-byte (metadata round-trip) with no reconstruction loss. & Must \\
 NFR-06 & Security (Sandbox) & Template compilation in web and API execution environments shall execute in an isolated process sandbox with shell escapes disabled. & Must \\
 NFR-07 & Security (Rate Limit) & Public conversion API endpoints shall enforce IP-prefix sliding-window rate limiting to prevent resource exhaustion and denial of service. & Must \\
 NFR-08 & Security (Macros) & Templates shall be strictly constrained to a declarative schema and pre-vetted macro packages, rejecting arbitrary un-sandboxed code execution. & Must \\
