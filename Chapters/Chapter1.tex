@@ -41,14 +41,21 @@ activities such as ``conduct a literature review'' or technologies such as
 design elements, and verification evidence through Chapter~\ref{chap:planning}.
 \end{guidance}
 
-\begin{table}[H]
-\centering
-\caption{Project objectives}
-\label{tab:objectives}
-\begin{tabularx}{\textwidth}{@{}p{0.14\textwidth}X@{}}
+\begin{xltabular}{\textwidth}{@{}p{0.14\textwidth}X@{}}
+\caption{Project objectives}\label{tab:objectives}\\
 \toprule
 \textbf{ID} & \textbf{Objective} \\
 \midrule
+\endfirsthead
+\multicolumn{2}{l}{\small\textit{(Continued from previous page)}}\\
+\toprule
+\textbf{ID} & \textbf{Objective} \\
+\midrule
+\endhead
+\multicolumn{2}{r}{\small\textit{(Continued on next page)}}\\
+\endfoot
+\bottomrule
+\endlastfoot
 OBJ-01 & A formal, CommonMark-compatible specification of the Litho Markdown dialect with template-declarable extensions. \\
 OBJ-02 & A parser, AST, template-binding compiler, and LaTeX code generator integrated with the Tectonic engine. \\
 OBJ-03 & A CLI and VS Code extension with syntax awareness and template-scoped IntelliSense. \\
@@ -58,9 +65,8 @@ OBJ-06 & A GitHub-curated template marketplace with per-template heart and downl
 OBJ-07 & An in-browser conversion web app with template selection, PDF-to-source restoration, and AI-assisted template authoring/usage grounded in the curated dataset and per-template manifests. \\
 OBJ-08 & An MCP server and hosted conversion API/webhooks for AI assistants and Markdown-based documentation websites. \\
 OBJ-09 & Testing, CI/CD, a documentation website, and community infrastructure for adoption and maintainability. \\
-\bottomrule
-\end{tabularx}
-\end{table}
+\end{xltabular}
+
 
 \section{Proposed Approach}
 \begin{guidance}
@@ -82,14 +88,21 @@ requirements chapter.
 
 \subsection{In Scope}
 
-\begin{table}[H]
-\centering
-\caption{In-scope items}
-\label{tab:in-scope}
-\begin{tabularx}{\textwidth}{@{}p{0.14\textwidth}X p{0.20\textwidth}@{}}
+\begin{xltabular}{\textwidth}{@{}p{0.14\textwidth}X p{0.20\textwidth}@{}}
+\caption{In-scope items}\label{tab:in-scope}\\
 \toprule
 \textbf{Scope ID} & \textbf{Included item} & \textbf{Objective(s)} \\
 \midrule
+\endfirsthead
+\multicolumn{3}{l}{\small\textit{(Continued from previous page)}}\\
+\toprule
+\textbf{Scope ID} & \textbf{Included item} & \textbf{Objective(s)} \\
+\midrule
+\endhead
+\multicolumn{3}{r}{\small\textit{(Continued on next page)}}\\
+\endfoot
+\bottomrule
+\endlastfoot
 SCP-01 & Litho Markdown dialect specification and formal grammar. & OBJ-01 \\
 SCP-02 & Tokenizer, parser, and AST for the Litho dialect. & OBJ-02 \\
 SCP-03 & Template-binding compiler and LaTeX code generator. & OBJ-02 \\
@@ -104,9 +117,8 @@ SCP-11 & In-browser conversion web app with template selection and PDF-to-source
 SCP-12 & MCP server and hosted conversion API/webhooks. & OBJ-08 \\
 SCP-13 & Documentation website covering installation, configuration, and usage. & OBJ-09 \\
 SCP-14 & Testing, CI/CD, and community infrastructure. & OBJ-09 \\
-\bottomrule
-\end{tabularx}
-\end{table}
+\end{xltabular}
+
 
 \subsection{Out of Scope \applicability{If applicable}}
 \begin{guidance}
@@ -114,20 +126,26 @@ State intentional exclusions and their reasons. If there are no meaningful
 exclusions, state this explicitly rather than inventing them.
 \end{guidance}
 
-\begin{table}[H]
-\centering
-\caption{Out-of-scope items}
-\label{tab:out-of-scope}
-\begin{tabularx}{\textwidth}{@{}p{0.14\textwidth}X X@{}}
+\begin{xltabular}{\textwidth}{@{}p{0.14\textwidth}X X@{}}
+\caption{Out-of-scope items}\label{tab:out-of-scope}\\
 \toprule
 \textbf{ID} & \textbf{Excluded item} & \textbf{Reason} \\
 \midrule
+\endfirsthead
+\multicolumn{3}{l}{\small\textit{(Continued from previous page)}}\\
+\toprule
+\textbf{ID} & \textbf{Excluded item} & \textbf{Reason} \\
+\midrule
+\endhead
+\multicolumn{3}{r}{\small\textit{(Continued on next page)}}\\
+\endfoot
+\bottomrule
+\endlastfoot
 EXC-01 & Re-implementing a full general-purpose TeX distribution. & Use the existing Tectonic engine to avoid unnecessary complexity. \\
 EXC-02 & Building a general WYSIWYG word processor from scratch. & Focus on Markdown-as-source with template binding and LaTeX output. \\
 EXC-03 & Native mobile apps for all platforms as primary deliverables. & Web applications and CLI/editor tooling are prioritized; mobile is not required. \\
-\bottomrule
-\end{tabularx}
-\end{table}
+\end{xltabular}
+
 
 \section{Users and Stakeholders}
 \begin{guidance}
@@ -135,22 +153,28 @@ Identify direct users and other parties who influence, maintain, fund, regulate,
 or benefit from the project. State their main needs and influence on the design.
 \end{guidance}
 
-\begin{table}[H]
-\centering
-\caption{Users and stakeholders}
-\label{tab:stakeholders}
-\begin{tabularx}{\textwidth}{@{}p{0.22\textwidth}p{0.18\textwidth}X X@{}}
+\begin{xltabular}{\textwidth}{@{}p{0.22\textwidth}p{0.18\textwidth}X X@{}}
+\caption{Users and stakeholders}\label{tab:stakeholders}\\
 \toprule
 \textbf{Stakeholder} & \textbf{Role} & \textbf{Need or interest} & \textbf{Design influence} \\
 \midrule
+\endfirsthead
+\multicolumn{4}{l}{\small\textit{(Continued from previous page)}}\\
+\toprule
+\textbf{Stakeholder} & \textbf{Role} & \textbf{Need or interest} & \textbf{Design influence} \\
+\midrule
+\endhead
+\multicolumn{4}{r}{\small\textit{(Continued on next page)}}\\
+\endfoot
+\bottomrule
+\endlastfoot
 Students/Researchers & Primary users & Write technical documents without learning LaTeX; version-control friendly source & Simple Markdown syntax, clear templates, CLI/editor integration \\
 Supervisors/Examiners & Reviewers & Consistent, publication-quality formatting & Enforce template structure and required fields \\
 Universities/Institutions & Publishers & Unified house templates across departments & Organization-level templates, branding, and schema enforcement \\
 Template Authors/Publishers & Contributors & Share and version reusable templates & Marketplace, packaging format (manifest/skills), validation/submission tools \\
 AI Assistants/Integrators & Automation users & Author/compile/reverse documents programmatically & MCP server, conversion API, webhooks, source extraction \\
 Project Supervisor & Academic stakeholder & Timely delivery, correctness, documentation & Adherence to FYP requirements and evaluation criteria \\
-\bottomrule
-\end{tabularx}
-\end{table}
+\end{xltabular}
+
 
 % =============================================================================

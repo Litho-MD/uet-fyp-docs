@@ -44,14 +44,21 @@ the major methods and responsible roles only; place detailed procedures, cases,
 data, expected results, and actual results in the testing document.
 \end{guidance}
 
-\begin{table}[H]
-\centering
-\caption{Verification and validation strategy}
-\label{tab:vv-strategy}
-\begin{tabularx}{\textwidth}{@{}p{0.20\textwidth}X X p{0.20\textwidth}@{}}
+\begin{xltabular}{\textwidth}{@{}p{0.20\textwidth}X X p{0.20\textwidth}@{}}
+\caption{Verification and validation strategy}\label{tab:vv-strategy}\\
 \toprule
 \textbf{Target} & \textbf{Method} & \textbf{Evidence} & \textbf{Responsible role} \\
 \midrule
+\endfirsthead
+\multicolumn{4}{l}{\small\textit{(Continued from previous page)}}\\
+\toprule
+\textbf{Target} & \textbf{Method} & \textbf{Evidence} & \textbf{Responsible role} \\
+\midrule
+\endhead
+\multicolumn{4}{r}{\small\textit{(Continued on next page)}}\\
+\endfoot
+\bottomrule
+\endlastfoot
 Functional requirements & Automated unit, integration, and end-to-end tests on every pull request & CI test reports and approved results in the testing document & QA/DevOps lead \\
 Non-functional requirements & Compilation benchmarks, portability runs on Linux, macOS, and Windows, and sandbox and rate-limit security tests & Benchmark logs, CI matrix results, and security test notes & Language and tooling leads \\
 Round-trip fidelity & Byte-for-byte extraction tests plus large-document metadata tests & Round-trip test report & Language lead \\
@@ -59,9 +66,8 @@ Template packaging and marketplace & Manifest schema validation, sample GitHub i
 AI-assisted authoring, MCP, and API & Contract tests with MCP clients and API consumers; evaluation of generated templates against the curated dataset & Integration logs and evaluation notes & Tooling and integrations lead \\
 Stakeholder needs & Demonstration to the supervisor and a usability walkthrough with students and template authors & Feedback records and supervisor acceptance notes & Project lead \\
 Documentation and adoption & Documentation build, link checking, and quick-start validation on a clean machine & Documentation build and link-check reports & QA/DevOps lead \\
-\bottomrule
-\end{tabularx}
-\end{table}
+\end{xltabular}
+
 
 \section{Testing-Document Reference}
 \begin{guidance}
@@ -70,21 +76,27 @@ criteria, test cases, datasets, procedures, results, and defect records. Keep it
 version consistent with this design document.
 \end{guidance}
 
-\begin{table}[H]
-\centering
-\caption{Software testing document reference}
-\label{tab:testing-reference}
-\begin{tabularx}{\textwidth}{@{}p{0.25\textwidth}X@{}}
+\begin{xltabular}{\textwidth}{@{}p{0.25\textwidth}X@{}}
+\caption{Software testing document reference}\label{tab:testing-reference}\\
 \toprule
 \textbf{Item} & \textbf{Reference} \\
 \midrule
+\endfirsthead
+\multicolumn{2}{l}{\small\textit{(Continued from previous page)}}\\
+\toprule
+\textbf{Item} & \textbf{Reference} \\
+\midrule
+\endhead
+\multicolumn{2}{r}{\small\textit{(Continued on next page)}}\\
+\endfoot
+\bottomrule
+\endlastfoot
 Document title & \placeholder{Project Software Testing Document} \\
 Version and date & \placeholder{Version; Day Month Year} \\
 Repository or submission location & \placeholder{Controlled path, repository location, or submission reference} \\
 Responsible team member(s) & \placeholder{Name(s) and role(s)} \\
-\bottomrule
-\end{tabularx}
-\end{table}
+\end{xltabular}
+
 
 \section{Risk Assessment}
 \begin{guidance}
@@ -128,14 +140,21 @@ organized around the language and compiler core first, followed by tooling,
 templates, web applications, and integrations, so that later deliverables build on
 a stable conversion pipeline.
 
-\begin{table}[H]
-\centering
-\caption{Milestones and schedule}
-\label{tab:schedule}
-\begin{tabularx}{\textwidth}{@{}p{0.14\textwidth}X p{0.20\textwidth}p{0.19\textwidth}p{0.16\textwidth}@{}}
+\begin{xltabular}{\textwidth}{@{}p{0.14\textwidth}X p{0.20\textwidth}p{0.19\textwidth}p{0.16\textwidth}@{}}
+\caption{Milestones and schedule}\label{tab:schedule}\\
 \toprule
 \textbf{ID} & \textbf{Milestone or deliverable} & \textbf{Target date} & \textbf{Dependency} & \textbf{Owner} \\
 \midrule
+\endfirsthead
+\multicolumn{5}{l}{\small\textit{(Continued from previous page)}}\\
+\toprule
+\textbf{ID} & \textbf{Milestone or deliverable} & \textbf{Target date} & \textbf{Dependency} & \textbf{Owner} \\
+\midrule
+\endhead
+\multicolumn{5}{r}{\small\textit{(Continued on next page)}}\\
+\endfoot
+\bottomrule
+\endlastfoot
 MS-01 & Approved requirements and design baseline & Semester 7, Week 4 & None & Project lead \\
 MS-02 & Language specification, tokenizer, parser, and AST prototype & Semester 7, Week 8 & MS-01 & Language lead \\
 MS-03 & Template-binding compiler and Tectonic PDF pipeline & Semester 7, Week 12 & MS-02 & Language lead \\
@@ -147,9 +166,8 @@ MS-08 & MCP server, conversion API, webhooks, and source restoration & Semester 
 MS-09 & AI-assisted authoring, curated dataset, and \texttt{SKILLS.md} & Semester 8, Week 8 & MS-07 & Tooling lead \\
 MS-10 & Integration, security hardening, and end-to-end testing & Semester 8, Week 10 & MS-04--MS-09 & QA/DevOps lead \\
 MS-11 & Final evaluation, documentation, and public release & Semester 8, Week 12 & MS-10 & Project lead \\
-\bottomrule
-\end{tabularx}
-\end{table}
+\end{xltabular}
+
 
 \section{Team Roles and Responsibilities}
 \begin{guidance}
@@ -158,21 +176,27 @@ should reflect actual responsibilities and not be used to divide the project int
 unconnected individual submissions.
 \end{guidance}
 
-\begin{table}[H]
-\centering
-\caption{Team roles and responsibilities}
-\label{tab:team-roles}
-\begin{tabularx}{\textwidth}{@{}p{0.24\textwidth}p{0.24\textwidth}X@{}}
+\begin{xltabular}{\textwidth}{@{}p{0.24\textwidth}p{0.24\textwidth}X@{}}
+\caption{Team roles and responsibilities}\label{tab:team-roles}\\
 \toprule
 \textbf{Member} & \textbf{Role} & \textbf{Principal responsibilities} \\
 \midrule
+\endfirsthead
+\multicolumn{3}{l}{\small\textit{(Continued from previous page)}}\\
+\toprule
+\textbf{Member} & \textbf{Role} & \textbf{Principal responsibilities} \\
+\midrule
+\endhead
+\multicolumn{3}{r}{\small\textit{(Continued on next page)}}\\
+\endfoot
+\bottomrule
+\endlastfoot
 Rabia Nadeem (2023-CS-705) & Project lead; language and interpreter lead & Owns the dialect specification, parser, AST, compiler, and round-trip metadata design; maintains the traceability matrix and coordinates integration reviews. \\
 Abaidullah Bhatti (2023-CS-713) & Marketplace and web applications lead & Owns the template marketplace, counters database, conversion web app, GitHub issue submission workflow, and navigation, usability, and accessibility design. \\
 Abdul Rahman (2023-CS-725) & Tooling and integrations lead & Owns the CLI, VS Code extension, MCP server, conversion API, webhooks, template packaging, and AI-assisted authoring integration. \\
 Sohaib Shaukat (2023-CS-740) & Templates, QA, and DevOps lead & Owns flagship and house templates, the documentation website, test automation, CI/CD, security hardening, and release management. \\
-\bottomrule
-\end{tabularx}
-\end{table}
+\end{xltabular}
+
 
 All members share code review, documentation, and end-to-end integration testing;
 every deliverable is reviewed by at least one member outside its primary owner.
@@ -184,23 +208,29 @@ will be named, versioned, reviewed, backed up, licensed, and accessed. Identify 
 sensitive data and credentials will be kept out of the source repository.
 \end{guidance}
 
-\begin{table}[H]
-\centering
-\caption{Artifact management}
-\label{tab:artifact-management}
-\begin{tabularx}{\textwidth}{@{}p{0.21\textwidth}X X X@{}}
+\begin{xltabular}{\textwidth}{@{}p{0.21\textwidth}X X X@{}}
+\caption{Artifact management}\label{tab:artifact-management}\\
 \toprule
 \textbf{Artifact} & \textbf{Storage and versioning} & \textbf{Access or protection} & \textbf{Backup or retention} \\
 \midrule
+\endfirsthead
+\multicolumn{4}{l}{\small\textit{(Continued from previous page)}}\\
+\toprule
+\textbf{Artifact} & \textbf{Storage and versioning} & \textbf{Access or protection} & \textbf{Backup or retention} \\
+\midrule
+\endhead
+\multicolumn{4}{r}{\small\textit{(Continued on next page)}}\\
+\endfoot
+\bottomrule
+\endlastfoot
 Source code (interpreter, CLI, extensions, web applications) & GitHub monorepo with feature branches, pull-request review, and semantic version tags & Organization team access; credentials only in GitHub Actions secrets & Protected main branch, tagged releases, and repository backups \\
 Templates, manifests, and \texttt{SKILLS.md} & \texttt{templates/} directory and linked template repositories, versioned by release tag & Public read; maintainer review before listing & GitHub releases and tagged snapshots \\
 Design documents and diagrams & \texttt{Chapters/} and \texttt{diagrams/} sources (PlantUML and Mermaid) with exported images, all in Git & Team write access; supervisor review & Git history and release snapshots \\
 Curated dataset and AI prompts & \texttt{dataset/} directory versioned alongside templates & Public read; reviewed changes only & Release snapshots \\
 Counters database & Managed application database with schema migrations stored in the repository & Restricted credentials; no public access & Daily automated backups with tested restore \\
 Build and release artifacts (PDFs, VSIX, packages, container images) & GitHub Actions artifacts and GitHub Releases & Public releases; checksummed where applicable & Retained per release policy; CI artifacts kept for 90 days \\
-\bottomrule
-\end{tabularx}
-\end{table}
+\end{xltabular}
+
 
 \section{Tools and Technologies}
 \label{sec:tools}
@@ -210,14 +240,21 @@ item's purpose and relevant version. Explain a selection decision in
 Section~\ref{chap:design} only when alternatives and trade-offs matter.
 \end{guidance}
 
-\begin{table}[H]
-\centering
-\caption{Tools and technologies}
-\label{tab:tools-technologies}
-\begin{tabularx}{\textwidth}{@{}p{0.24\textwidth}p{0.20\textwidth}X X@{}}
+\begin{xltabular}{\textwidth}{@{}p{0.24\textwidth}p{0.20\textwidth}X X@{}}
+\caption{Tools and technologies}\label{tab:tools-technologies}\\
 \toprule
 \textbf{Tool or technology} & \textbf{Version} & \textbf{Purpose} & \textbf{Project use} \\
 \midrule
+\endfirsthead
+\multicolumn{4}{l}{\small\textit{(Continued from previous page)}}\\
+\toprule
+\textbf{Tool or technology} & \textbf{Version} & \textbf{Purpose} & \textbf{Project use} \\
+\midrule
+\endhead
+\multicolumn{4}{r}{\small\textit{(Continued on next page)}}\\
+\endfoot
+\bottomrule
+\endlastfoot
 Python & 3.12 & Programming language & Interpreter, CLI, conversion API, and MCP server \\
 Tectonic & Latest stable & Self-contained TeX engine & Markdown-to-PDF compilation \\
 CommonMark & 0.31 & Markdown specification & Baseline dialect and parser conformance \\
@@ -235,8 +272,7 @@ pytest and Playwright & Current & Automated testing & Unit, integration, and end
 Docker & Current & Process isolation & Sandboxed compilation workers \\
 Ruff, mypy, and ESLint & Current & Static quality checks & Linting and type checking in CI \\
 pdflatex and BibTeX & TeX Live & Document build & This design document \\
-\bottomrule
-\end{tabularx}
-\end{table}
+\end{xltabular}
+
 
 % =============================================================================

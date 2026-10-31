@@ -15,14 +15,21 @@ only when it helps explain the design. Label every component and connector.
 \diagramplaceholder{System context diagram}{Example content: Litho authors, template maintainers, GitHub, and the conversion pipeline boundary.}
 \diagramplaceholder{High-level architecture}{Example content: CLI and editor clients, three web applications, platform services, and the Tectonic build engine.}
 
-\begin{table}[H]
-\centering
-\caption{Major interfaces}
-\label{tab:major-interfaces}
-\begin{tabularx}{\textwidth}{@{}p{0.16\textwidth}p{0.22\textwidth}X X@{}}
+\begin{xltabular}{\textwidth}{@{}p{0.16\textwidth}p{0.22\textwidth}X X@{}}
+\caption{Major interfaces}\label{tab:major-interfaces}\\
 \toprule
 \textbf{ID} & \textbf{Interface} & \textbf{Purpose and exchanged information} & \textbf{Protocol or format} \\
 \midrule
+\endfirsthead
+\multicolumn{4}{l}{\small\textit{(Continued from previous page)}}\\
+\toprule
+\textbf{ID} & \textbf{Interface} & \textbf{Purpose and exchanged information} & \textbf{Protocol or format} \\
+\midrule
+\endhead
+\multicolumn{4}{r}{\small\textit{(Continued on next page)}}\\
+\endfoot
+\bottomrule
+\endlastfoot
 INT-01 & CLI $\leftrightarrow$ Interpreter & Invoke parse/compile/validate/extract-source on \texttt{.md} files and templates. & Python API/local calls \\
 INT-02 & Interpreter $\leftrightarrow$ Tectonic & Pass generated \texttt{.tex}, receive compiled PDF; supply template-required packages. & Process invocation / filesystem \\
 INT-03 & Editor Extensions $\leftrightarrow$ Template Schema/Manifest & Load grammar, snippets, and IntelliSense from template schema and manifest. & Local files / extension APIs \\
@@ -33,9 +40,8 @@ INT-07 & PDF $\leftrightarrow$ Extract-Source Tool & Read/write embedded Markdow
 INT-08 & Conversion Web App $\leftrightarrow$ Interpreter/API & Submit Markdown with a selected template; return a compiled PDF or restored source. & HTTPS/JSON \\
 INT-09 & Documentation Website $\leftrightarrow$ Repository & Publish versioned installation, configuration, and usage guides from the documentation source. & Static build / Git \\
 INT-10 & Marketplace $\leftrightarrow$ Counters Database & Read and increment per-template heart and download counts. & SQL/ORM \\
-\bottomrule
-\end{tabularx}
-\end{table}
+\end{xltabular}
+
 
 \section{Behavioural and Interaction Design \applicability{Development, Hybrid, Game; Research if applicable}}
 \begin{guidance}
@@ -52,14 +58,21 @@ should represent user goals rather than interface screens.
 \end{guidance}
 \diagramplaceholder{Use-case diagram}{Example use cases: Browse Marketplace, Convert a Document, Restore Source, and Submit a Template.}
 
-\begin{table}[H]
-\centering
-\caption{Use-case specification (example)}
-\label{tab:use-case-specification}
-\begin{tabularx}{\textwidth}{@{}p{0.24\textwidth}X@{}}
+\begin{xltabular}{\textwidth}{@{}p{0.24\textwidth}X@{}}
+\caption{Use-case specification (example)}\label{tab:use-case-specification}\\
 \toprule
 \textbf{Field} & \textbf{Description} \\
 \midrule
+\endfirsthead
+\multicolumn{2}{l}{\small\textit{(Continued from previous page)}}\\
+\toprule
+\textbf{Field} & \textbf{Description} \\
+\midrule
+\endhead
+\multicolumn{2}{r}{\small\textit{(Continued on next page)}}\\
+\endfoot
+\bottomrule
+\endlastfoot
 Use-case ID and name & UC-01: Build PDF Locally \\
 Primary actor & Author/Student \\
 Preconditions & Markdown file and selected template available; Litho CLI/editor configured. \\
@@ -68,9 +81,8 @@ Main flow & 1) Load \texttt{.md}; 2) Parse to AST; 3) Bind to template; 4) Gener
 Alternative or exception flows & Invalid syntax -> report parse errors; missing template -> report error; compilation failure -> report LaTeX errors. \\
 Postconditions & PDF generated with embedded source/metadata or errors reported. \\
 Related requirements & FR-01--FR-08, FR-10 \\
-\bottomrule
-\end{tabularx}
-\end{table}
+\end{xltabular}
+
 
 \subsection{Activity Model}
 \begin{guidance}
@@ -153,22 +165,28 @@ and computational or fairness considerations where relevant. Cite established
 algorithms rather than presenting them as original work.
 \end{guidance}
 
-\begin{table}[H]
-\centering
-\caption{Core algorithm or model}
-\label{tab:algorithm-model}
-\begin{tabularx}{\textwidth}{@{}p{0.18\textwidth}X@{}}
+\begin{xltabular}{\textwidth}{@{}p{0.18\textwidth}X@{}}
+\caption{Core algorithm or model}\label{tab:algorithm-model}\\
 \toprule
 \textbf{Item} & \textbf{Description} \\
 \midrule
+\endfirsthead
+\multicolumn{2}{l}{\small\textit{(Continued from previous page)}}\\
+\toprule
+\textbf{Item} & \textbf{Description} \\
+\midrule
+\endhead
+\multicolumn{2}{r}{\small\textit{(Continued on next page)}}\\
+\endfoot
+\bottomrule
+\endlastfoot
 Name and purpose & Template-binding Markdown-to-LaTeX compilation (core interpreter pipeline). \\
 Inputs and outputs & Input: Litho Markdown (\texttt{.md}) and template ID/schema; Output: compilable \texttt{.tex} and compiled PDF with embedded metadata. \\
 Processing steps & Tokenize → Parse to AST → Load template schema/manifest/assets → Validate/bind → Generate LaTeX → Compile via Tectonic → Embed source/metadata → Output PDF. \\
 Assumptions and limits & Assumes CommonMark-compatible input with template-declared extensions; limited by Tectonic package coverage and template sandboxing. \\
 Related requirements & FR-01--FR-08, NFR-04, NFR-05, NFR-06 \\
-\bottomrule
-\end{tabularx}
-\end{table}
+\end{xltabular}
+
 
 \section{User Interface and Accessibility Design \applicability{User-facing Development, Hybrid, and Game projects; Research prototypes if applicable}}
 \begin{guidance}
@@ -189,19 +207,25 @@ authorization, data protection, logging, secure failure, privacy, and safety. Do
 not make general claims such as ``the system is secure'' without specific controls.
 \end{guidance}
 
-\begin{table}[H]
-\centering
-\caption{Security, privacy, and safety controls}
-\label{tab:security-controls}
-\begin{tabularx}{\textwidth}{@{}p{0.16\textwidth}X X p{0.19\textwidth}@{}}
+\begin{xltabular}{\textwidth}{@{}p{0.16\textwidth}X X p{0.19\textwidth}@{}}
+\caption{Security, privacy, and safety controls}\label{tab:security-controls}\\
 \toprule
 \textbf{Design ID} & \textbf{Risk or requirement} & \textbf{Design control} & \textbf{Related requirement(s)} \\
 \midrule
+\endfirsthead
+\multicolumn{4}{l}{\small\textit{(Continued from previous page)}}\\
+\toprule
+\textbf{Design ID} & \textbf{Risk or requirement} & \textbf{Design control} & \textbf{Related requirement(s)} \\
+\midrule
+\endhead
+\multicolumn{4}{r}{\small\textit{(Continued on next page)}}\\
+\endfoot
+\bottomrule
+\endlastfoot
 SEC-01 & Unauthorized access to appointment records & Role-based authorization is checked at the service layer before records are returned or modified. & FR-XX, NFR-XX \\
 SEC-02 & \placeholder{Threat, privacy concern, or safety hazard} & \placeholder{Specific design control} & \placeholder{Requirement IDs} \\
-\bottomrule
-\end{tabularx}
-\end{table}
+\end{xltabular}
+
 
 \section{Design Decisions and Rationale}
 \begin{guidance}
@@ -210,17 +234,23 @@ Focus on decisions that materially affect quality, cost, risk, maintainability, 
 project feasibility. Do not repeat the tools list from Section~\ref{sec:tools}.
 \end{guidance}
 
-\begin{table}[H]
-\centering
-\caption{Design decisions}
-\label{tab:design-decisions}
-\begin{tabularx}{\textwidth}{@{}p{0.14\textwidth}X X X@{}}
+\begin{xltabular}{\textwidth}{@{}p{0.14\textwidth}X X X@{}}
+\caption{Design decisions}\label{tab:design-decisions}\\
 \toprule
 \textbf{ID} & \textbf{Decision} & \textbf{Alternatives considered} & \textbf{Rationale and trade-off} \\
 \midrule
-DD-01 & \placeholder{Selected design decision} & \placeholder{Feasible alternatives} & \placeholder{Evidence-based reason and accepted limitation} \\
+\endfirsthead
+\multicolumn{4}{l}{\small\textit{(Continued from previous page)}}\\
+\toprule
+\textbf{ID} & \textbf{Decision} & \textbf{Alternatives considered} & \textbf{Rationale and trade-off} \\
+\midrule
+\endhead
+\multicolumn{4}{r}{\small\textit{(Continued on next page)}}\\
+\endfoot
 \bottomrule
-\end{tabularx}
-\end{table}
+\endlastfoot
+DD-01 & \placeholder{Selected design decision} & \placeholder{Feasible alternatives} & \placeholder{Evidence-based reason and accepted limitation} \\
+\end{xltabular}
+
 
 % =============================================================================

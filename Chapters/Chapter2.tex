@@ -12,14 +12,21 @@ resources on which the project depends. Include only items that affect requireme
 design, delivery, or evaluation.
 \end{guidance}
 
-\begin{table}[H]
-\centering
-\caption{Assumptions, constraints, and dependencies}
-\label{tab:acd}
-\begin{tabularx}{\textwidth}{@{}p{0.13\textwidth}p{0.18\textwidth}X X@{}}
+\begin{xltabular}{\textwidth}{@{}p{0.13\textwidth}p{0.18\textwidth}X X@{}}
+\caption{Assumptions, constraints, and dependencies}\label{tab:acd}\\
 \toprule
 \textbf{ID} & \textbf{Type} & \textbf{Statement} & \textbf{Implication} \\
 \midrule
+\endfirsthead
+\multicolumn{4}{l}{\small\textit{(Continued from previous page)}}\\
+\toprule
+\textbf{ID} & \textbf{Type} & \textbf{Statement} & \textbf{Implication} \\
+\midrule
+\endhead
+\multicolumn{4}{r}{\small\textit{(Continued on next page)}}\\
+\endfoot
+\bottomrule
+\endlastfoot
 ACD-01 & Assumption & Users have access to a modern web browser. & A separate desktop application is not required. \\
 ACD-02 & Assumption & Authors are familiar with basic Markdown. & Documentation and editor tooling can assume Markdown literacy; no WYSIWYG editor is required. \\
 ACD-03 & Assumption & Template publishers and maintainers have GitHub accounts. & Submission, review, and listing rely on GitHub identity; no separate account system is needed. \\
@@ -31,9 +38,8 @@ ACD-08 & Dependency & Tectonic engine and its package ecosystem. & Template cove
 ACD-09 & Dependency & GitHub (issues, labels, repositories, API). & Template submission, review, listing, and asset downloads depend on GitHub availability. \\
 ACD-10 & Dependency & Application database for heart and download counters. & Engagement counts are unavailable if the database is down; registry browsing continues. \\
 ACD-11 & Dependency & Python and Node.js runtimes, plus the VS Code Extension API. & The CLI, API, and MCP server require Python; the web apps require Node hosting; editor features depend on the VS Code API. \\
-\bottomrule
-\end{tabularx}
-\end{table}
+\end{xltabular}
+
 
 \section{Functional Requirements \applicability{Development, Hybrid, Game; Research Software Prototype}}
 \begin{guidance}
@@ -45,14 +51,21 @@ consistent requirements-engineering convention such as ISO/IEC/IEEE 29148
 where applicable~\citep{ieee29148}.
 \end{guidance}
 
-\begin{table}[H]
-\centering
-\caption{Functional requirements}
-\label{tab:functional-requirements}
-\begin{tabularx}{\textwidth}{@{}p{0.12\textwidth}X p{0.15\textwidth}p{0.20\textwidth}@{}}
+\begin{xltabular}{\textwidth}{@{}p{0.12\textwidth}X p{0.15\textwidth}p{0.20\textwidth}@{}}
+\caption{Functional requirements}\label{tab:functional-requirements}\\
 \toprule
 \textbf{ID} & \textbf{Requirement} & \textbf{Priority} & \textbf{Source} \\
 \midrule
+\endfirsthead
+\multicolumn{4}{l}{\small\textit{(Continued from previous page)}}\\
+\toprule
+\textbf{ID} & \textbf{Requirement} & \textbf{Priority} & \textbf{Source} \\
+\midrule
+\endhead
+\multicolumn{4}{r}{\small\textit{(Continued on next page)}}\\
+\endfoot
+\bottomrule
+\endlastfoot
 FR-01 & The system shall parse a Litho Markdown document according to the three-tier dialect. & Must & Language specification \\
 FR-02 & The system shall create an abstract syntax tree from a parsed Litho Markdown document. & Must & Interpreter \\
 FR-03 & The system shall bind parsed content to the schema of a selected template. & Must & Compiler \\
@@ -104,9 +117,8 @@ FR-48 & The marketplace shall record the heart count for each listed template. &
 FR-49 & The marketplace shall display the heart count for each listed template. & Must & Marketplace \\
 FR-50 & The marketplace shall record the download count for each listed template. & Must & Marketplace \\
 FR-51 & The marketplace shall display the download count for each listed template. & Must & Marketplace \\
-\bottomrule
-\end{tabularx}
-\end{table}
+\end{xltabular}
+
 
 \section{Non-Functional Requirements \applicability{Development, Hybrid, Game; Research Software Prototype}}
 \begin{guidance}
@@ -115,14 +127,21 @@ terms such as \emph{fast}, \emph{secure}, and \emph{user-friendly} with measurab
 targets under stated conditions. Include only attributes relevant to the project.
 \end{guidance}
 
-\begin{table}[H]
-\centering
-\caption{Non-functional requirements}
-\label{tab:nonfunctional-requirements}
-\begin{tabularx}{\textwidth}{@{}p{0.12\textwidth}p{0.18\textwidth}X p{0.15\textwidth}@{}}
+\begin{xltabular}{\textwidth}{@{}p{0.12\textwidth}p{0.18\textwidth}X p{0.15\textwidth}@{}}
+\caption{Non-functional requirements}\label{tab:nonfunctional-requirements}\\
 \toprule
 \textbf{ID} & \textbf{Attribute} & \textbf{Measurable requirement} & \textbf{Priority} \\
 \midrule
+\endfirsthead
+\multicolumn{4}{l}{\small\textit{(Continued from previous page)}}\\
+\toprule
+\textbf{ID} & \textbf{Attribute} & \textbf{Measurable requirement} & \textbf{Priority} \\
+\midrule
+\endhead
+\multicolumn{4}{r}{\small\textit{(Continued on next page)}}\\
+\endfoot
+\bottomrule
+\endlastfoot
 NFR-01 & Performance & Local Markdown-to-PDF compilation for a typical proposal document (10--15 pages) shall complete in under 10 seconds on a mid-range machine (using Tectonic's self-contained build). & Must \\
 NFR-02 & Portability & The CLI shall run on Linux, macOS, and Windows without requiring a full TeX distribution. & Must \\
 NFR-03 & Usability & Authors unfamiliar with LaTeX shall be able to produce a formatted document using a flagship template with no direct LaTeX editing required. & Must \\
@@ -131,9 +150,8 @@ NFR-05 & Integrity/Fidelity & PDF source extraction shall recover the exact orig
 NFR-06 & Security & Template compilation in the web/API context shall be sandboxed; API endpoints shall be rate-limited; templates shall be restricted to a declarative schema plus vetted macro packages. & Must \\
 NFR-07 & Maintainability & Changes shall be validated by automated tests (grammar/interpreter, metadata round-trip, golden-file PDF regression per flagship template) in CI. & Must \\
 NFR-08 & Discoverability & Templates shall be versioned and discoverable via the marketplace with metadata and usage documentation. & Should \\
-\bottomrule
-\end{tabularx}
-\end{table}
+\end{xltabular}
+
 
 \section{Data and External Interface Requirements \applicability{If applicable}}
 \begin{guidance}
@@ -143,23 +161,29 @@ contract, format, direction, and constraints; detailed internal data design belo
 in Section~\ref{sec:data-design}.
 \end{guidance}
 
-\begin{table}[H]
-\centering
-\caption{Data and external interface requirements}
-\label{tab:data-interface-requirements}
-\begin{tabularx}{\textwidth}{@{}p{0.12\textwidth}p{0.19\textwidth}X X@{}}
+\begin{xltabular}{\textwidth}{@{}p{0.12\textwidth}p{0.19\textwidth}X X@{}}
+\caption{Data and external interface requirements}\label{tab:data-interface-requirements}\\
 \toprule
 \textbf{ID} & \textbf{Type} & \textbf{Requirement} & \textbf{Source or system} \\
 \midrule
+\endfirsthead
+\multicolumn{4}{l}{\small\textit{(Continued from previous page)}}\\
+\toprule
+\textbf{ID} & \textbf{Type} & \textbf{Requirement} & \textbf{Source or system} \\
+\midrule
+\endhead
+\multicolumn{4}{r}{\small\textit{(Continued on next page)}}\\
+\endfoot
+\bottomrule
+\endlastfoot
 DIR-01 & Data & The system shall store template packages with schema, JSON manifest, assets, and version metadata; a product-level \texttt{SKILLS.md} shall guide AI usage. & Template packaging \\
 DIR-02 & Data & Compiled PDFs shall embed original Markdown source, template identifier, and version in document metadata (XMP/PDF metadata). & Round-trip fidelity \\
 DIR-03 & Data & The system shall persist per-template heart and download counts in an application database, keyed by template identifier. & Marketplace metrics \\
 EIR-01 & External API & The MCP server shall expose \texttt{build}/\texttt{validate}/\texttt{template}/\texttt{extract-source} operations over MCP. & AI assistants \\
 EIR-02 & External API & The conversion API shall accept Markdown input and template selection, return compiled PDF or errors, and support webhook-triggered export actions. & CMS/Markdown sites \\
 EIR-03 & External API & The marketplace shall read its published template registry from labeled GitHub issues and resolve template manifests and assets from linked GitHub repositories. & GitHub \\
-\bottomrule
-\end{tabularx}
-\end{table}
+\end{xltabular}
+
 
 \section{Legal, Ethical, Privacy, and Safety Requirements \applicability{If applicable}}
 \begin{guidance}
@@ -169,20 +193,26 @@ people, personal data, health information, children, surveillance, or consequent
 automated decisions require explicit treatment.
 \end{guidance}
 
-\begin{table}[H]
-\centering
-\caption{Legal, ethical, privacy, and safety requirements}
-\label{tab:leps-requirements}
-\begin{tabularx}{\textwidth}{@{}p{0.12\textwidth}p{0.18\textwidth}X X@{}}
+\begin{xltabular}{\textwidth}{@{}p{0.12\textwidth}p{0.18\textwidth}X X@{}}
+\caption{Legal, ethical, privacy, and safety requirements}\label{tab:leps-requirements}\\
 \toprule
 \textbf{ID} & \textbf{Category} & \textbf{Requirement or obligation} & \textbf{Applicable authority or source} \\
 \midrule
+\endfirsthead
+\multicolumn{4}{l}{\small\textit{(Continued from previous page)}}\\
+\toprule
+\textbf{ID} & \textbf{Category} & \textbf{Requirement or obligation} & \textbf{Applicable authority or source} \\
+\midrule
+\endhead
+\multicolumn{4}{r}{\small\textit{(Continued on next page)}}\\
+\endfoot
+\bottomrule
+\endlastfoot
 PR-01 & Privacy & User content submitted to the marketplace/API shall be handled according to stated privacy practices; template submissions are public GitHub issues; source restoration is opt-in and limited to Litho-generated PDFs. & Project policy \\
 IP-01 & Intellectual Property & Templates published to the marketplace shall respect licensing; template authors retain rights as specified by marketplace terms. & Marketplace terms \\
 SE-01 & Security/Safety & Untrusted templates/macros shall not execute arbitrary code outside the sandboxed, declarative schema; LaTeX macro execution shall be restricted to vetted packages. & Secure design \\
 LE-01 & Licensing & Open-source components (Tectonic, CommonMark, etc.) shall be used in compliance with their licenses. & Component licenses \\
-\bottomrule
-\end{tabularx}
-\end{table}
+\end{xltabular}
+
 
 % =============================================================================

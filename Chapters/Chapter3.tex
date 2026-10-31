@@ -13,21 +13,27 @@ exclusion criteria. Follow departmental requirements for the minimum number and
 type of sources.
 \end{guidance}
 
-\begin{table}[H]
-\centering
-\caption{Review method summary}
-\label{tab:review-method}
-\begin{tabularx}{\textwidth}{@{}p{0.27\textwidth}X@{}}
+\begin{xltabular}{\textwidth}{@{}p{0.27\textwidth}X@{}}
+\caption{Review method summary}\label{tab:review-method}\\
 \toprule
 \textbf{Item} & \textbf{Description} \\
 \midrule
+\endfirsthead
+\multicolumn{2}{l}{\small\textit{(Continued from previous page)}}\\
+\toprule
+\textbf{Item} & \textbf{Description} \\
+\midrule
+\endhead
+\multicolumn{2}{r}{\small\textit{(Continued on next page)}}\\
+\endfoot
+\bottomrule
+\endlastfoot
 Sources searched & Official documentation (CommonMark, Pandoc, Quarto, Typst, Tectonic) and project repositories (including the existing Litho CLI). \\
 Search terms & Markdown to LaTeX, template-driven publishing, document conversion, Pandoc templates, Typst, Tectonic, MCP document tooling. \\
 Coverage period & 2014--2026 \\
 Selection criteria & Tools/systems relevant to Markdown authoring, LaTeX typesetting, template ecosystems, or extensible publishing. \\
-\bottomrule
-\end{tabularx}
-\end{table}
+\end{xltabular}
+
 
 \section{Related Systems and Solutions \applicability{Development, Hybrid, Game}}
 \begin{guidance}
@@ -36,22 +42,28 @@ problem addressed, important features, strengths, and limitations relevant to th
 proposed project. Avoid promotional description.
 \end{guidance}
 
-\begin{table}[H]
-\centering
-\caption{Related systems and solutions}
-\label{tab:related-systems}
-\begin{tabularx}{\textwidth}{@{}p{0.20\textwidth}X X X@{}}
+\begin{xltabular}{\textwidth}{@{}p{0.20\textwidth}X X X@{}}
+\caption{Related systems and solutions}\label{tab:related-systems}\\
 \toprule
 \textbf{System and citation} & \textbf{Relevant features} & \textbf{Strengths} & \textbf{Limitations} \\
 \midrule
+\endfirsthead
+\multicolumn{4}{l}{\small\textit{(Continued from previous page)}}\\
+\toprule
+\textbf{System and citation} & \textbf{Relevant features} & \textbf{Strengths} & \textbf{Limitations} \\
+\midrule
+\endhead
+\multicolumn{4}{r}{\small\textit{(Continued on next page)}}\\
+\endfoot
+\bottomrule
+\endlastfoot
 Pandoc~\cite{ref3} & Universal document converter; template substitution. & Widely used, supports many formats. & Template-agnostic conversion model; limited per-template extensible syntax; no built-in marketplace/editor schema tooling. \\
 Typst~\cite{ref5} & New markup and scripting language for typesetting. & Fast compilation, modern language design. & Requires learning a new language; abandons Markdown; no incremental path for Markdown-literate authors. \\
 Quarto/R Markdown~\cite{ref4} & Publishing for computational documents. & Great for notebooks and reproducible reports. & Oriented to data science; depends on Pandoc; not a general Markdown template marketplace. \\
 Tectonic~\cite{ref6} & Modern self-contained TeX engine. & Simplifies LaTeX installation and caching. & General engine; no Markdown dialect or template system. \\
 Litho (existing CLI)~\cite{ref7} & Markdown-to-PDF converter in use. & Proves core conversion works; authored this proposal in Markdown. & Single hard-coded template; missing pluggable templates, marketplace, editor tooling, MCP/API, and full round-trip system. \\
-\bottomrule
-\end{tabularx}
-\end{table}
+\end{xltabular}
+
 
 \section{Comparative Analysis}
 \begin{guidance}
@@ -59,21 +71,27 @@ Compare the most relevant systems or studies using criteria derived from the
 project problem and objectives. Explain the important patterns shown by the table.
 \end{guidance}
 
-\begin{table}[H]
-\centering
-\caption{Comparative analysis}
-\label{tab:comparative-analysis}
-\begin{tabularx}{\textwidth}{@{}p{0.26\textwidth}X X X@{}}
+\begin{xltabular}{\textwidth}{@{}p{0.26\textwidth}X X X@{}}
+\caption{Comparative analysis}\label{tab:comparative-analysis}\\
 \toprule
 \textbf{System or study} & \textbf{Markdown-native authoring} & \textbf{Pluggable/versioned templates} & \textbf{Editor tooling / Marketplace / AI/MCP} \\
 \midrule
+\endfirsthead
+\multicolumn{4}{l}{\small\textit{(Continued from previous page)}}\\
+\toprule
+\textbf{System or study} & \textbf{Markdown-native authoring} & \textbf{Pluggable/versioned templates} & \textbf{Editor tooling / Marketplace / AI/MCP} \\
+\midrule
+\endhead
+\multicolumn{4}{r}{\small\textit{(Continued on next page)}}\\
+\endfoot
+\bottomrule
+\endlastfoot
 Pandoc~\cite{ref3} & Yes (Markdown) & Limited (single template per invocation) & Minimal editor support; no marketplace/MCP as described. \\
 Typst~\cite{ref5} & No (Typst markup) & Yes (templates/packages) & Growing ecosystem but different authoring surface. \\
 Quarto/R Markdown~\cite{ref4} & Yes & Partial (formats/themes) & Oriented to notebooks; no general template marketplace described. \\
 \textbf{Proposed project (Litho)} & Yes (three-tier Markdown dialect) & Yes (first-class, publishable, versioned templates with schema) & Yes (VS Code + other editors, three web applications, AI grounded in manifests/skills, MCP/API, round-trip). \\
-\bottomrule
-\end{tabularx}
-\end{table}
+\end{xltabular}
+
 
 \section{Gap Analysis and Proposed Contribution}
 \begin{guidance}
