@@ -6,12 +6,6 @@
 % =============================================================================
 
 \section{Assumptions, Constraints, and Dependencies}
-\begin{guidance}
-Record conditions assumed to be true, limits imposed on the project, and
-external resources on which the project depends. Include only items that affect
-requirements, design, delivery, or evaluation.
-\end{guidance}
-
 \begin{xltabular}{\textwidth}{@{}p{0.13\textwidth}p{0.18\textwidth}X X@{}}
 \caption{Assumptions, constraints, and dependencies}\label{tab:acd}\\
 \toprule
@@ -41,16 +35,7 @@ ACD-11 & Dependency & Python and Node.js runtimes, plus the VS Code Extension AP
 \end{xltabular}
 
 
-\section{Functional Requirements \applicability{Development, Hybrid, Game; Research Software Prototype}}
-\begin{guidance}
-Specify observable system behaviour. Give each requirement a stable identifier
-and write one testable statement using ``The system shall ...''. Do not describe
-implementation details unless they are genuine constraints. Detailed acceptance
-criteria and test cases belong in the software testing document. Follow a
-consistent requirements-engineering convention such as ISO/IEC/IEEE 29148
-where applicable~\citep{ieee29148}.
-\end{guidance}
-
+\section{Functional Requirements}
 \begin{xltabular}{\textwidth}{@{}p{0.12\textwidth}X p{0.15\textwidth}p{0.20\textwidth}@{}}
 \caption{Functional requirements}\label{tab:functional-requirements}\\
 \toprule
@@ -120,14 +105,8 @@ FR-51 & The marketplace shall display the download count for each listed templat
 \end{xltabular}
 
 
-\section{Non-Functional Requirements \applicability{Development, Hybrid, Game; Research Software Prototype}}
-\begin{guidance}
-State measurable quality requirements and operational constraints. Replace vague
-terms such as \emph{fast}, \emph{secure}, and \emph{user-friendly} with measurable
-targets under stated conditions. Include only attributes relevant to the project.
-\end{guidance}
-
-\begin{xltabular}{\textwidth}{@{}p{0.11\textwidth}p{0.21\textwidth}X p{0.14\textwidth}@{}}
+\section{Non-Functional Requirements}
+\begin{xltabular}{\textwidth}{@{}p{0.12\textwidth}p{0.18\textwidth}X p{0.15\textwidth}@{}}
 \caption{Non-functional requirements}\label{tab:nonfunctional-requirements}\\
 \toprule
 \textbf{ID} & \textbf{Attribute} & \textbf{Measurable requirement} & \textbf{Priority} \\
@@ -155,14 +134,7 @@ NFR-10 & Discoverability & Templates shall be versioned via semantic versioning 
 \end{xltabular}
 
 
-\section{Data and External Interface Requirements \applicability{If applicable}}
-\begin{guidance}
-Specify required data inputs and outputs and interfaces with users, devices,
-software services, networks, or external organizations. Describe the required
-contract, format, direction, and constraints; detailed internal data design belongs
-in Section~\ref{sec:data-design}.
-\end{guidance}
-
+\section{Data and External Interface Requirements}
 \begin{xltabular}{\textwidth}{@{}p{0.12\textwidth}p{0.19\textwidth}X X@{}}
 \caption{Data and external interface requirements}\label{tab:data-interface-requirements}\\
 \toprule
@@ -194,15 +166,8 @@ EIR-08 & External API & The marketplace shall resolve template manifests, docume
 \end{xltabular}
 
 
-\section{Legal, Ethical, Privacy, and Safety Requirements \applicability{If applicable}}
-\begin{guidance}
-Identify applicable consent, intellectual-property, licensing, privacy,
-data-protection, institutional-approval, and safety obligations. Projects involving
-people, personal data, health information, children, surveillance, or consequential
-automated decisions require explicit treatment.
-\end{guidance}
-
-\begin{xltabular}{\textwidth}{@{}p{0.10\textwidth}p{0.20\textwidth}X X@{}}
+\section{Legal, Ethical, Privacy, and Safety Requirements}
+\begin{xltabular}{\textwidth}{@{}p{0.12\textwidth}p{0.18\textwidth}X X@{}}
 \caption{Legal, ethical, privacy, and safety requirements}\label{tab:leps-requirements}\\
 \toprule
 \textbf{ID} & \textbf{Category} & \textbf{Requirement or obligation} & \textbf{Applicable authority or source} \\

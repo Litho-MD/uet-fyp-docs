@@ -6,41 +6,15 @@
 % =============================================================================
 
 \section{Executive Summary}
-\begin{guidance}
-Summarize the problem, intended users, proposed approach, principal deliverables,
-and expected value. Write this section last and keep it understandable without
-the rest of the document.
-\end{guidance}
-
 Authors of technical documents face a trade-off: LaTeX produces publication-quality typesetting but has a steep learning curve, while word processors and plain Markdown are more approachable but lack template support, extensibility, and diff-friendly workflows. Litho is a template-driven Markdown-to-LaTeX publishing ecosystem that lets authors write in a three-tier Markdown dialect, bind content to publisher-authored LaTeX templates, and compile to polished PDFs without requiring LaTeX expertise. The system provides a formal grammar and interpreter, a CLI, editor tooling across VS Code and other editors, three web applications (template marketplace, documentation website, and in-browser conversion workspace), flagship templates, AI-assisted template authoring, per-template heart and download counters stored in a small application database, an MCP server and conversion API, and lossless round-trip fidelity by embedding the original Markdown source in compiled PDF metadata. The expected value is a git-friendly, extensible, and publishable authoring platform that separates institutional formatting from content while preserving publication-quality output.
 
 \section{Background and Motivation}
-\begin{guidance}
-Explain the context, current practice, affected users or organizations, and why
-the problem is worth addressing. Support factual claims with credible references.
-Do not repeat the complete literature review.
-\end{guidance}
-
 Markdown is the default plain-text format for developers and students, while LaTeX remains the standard for typeset technical documents such as theses, papers, and proposals~\cite{ref1,ref2}. Existing tools fall short: Pandoc offers best-effort conversion but does not cover all Markdown syntax and lacks a marketplace of versioned, schema-validated templates or extensible per-template syntax~\cite{ref3}; Quarto/R Markdown focus on computational notebooks~\cite{ref4}; and Typst introduces a new language instead of building on Markdown~\cite{ref5}. There is a need for a platform that keeps Markdown as the authoring surface, treats templates as first-class publishable artifacts, and provides editor-aware tooling.
 
 \section{Problem Statement}
-\begin{guidance}
-State the existing condition, the specific gap or difficulty, its consequences,
-and the need for the proposed work. Describe the problem rather than presenting a
-chosen technology as the problem.
-\end{guidance}
-
 Students and researchers must choose between writing LaTeX directly (steep learning curve, hard to modify templates), using word processors (not diff-friendly, poor separation of content and formatting), or converting Markdown generically (cannot express template-specific requirements like Gantt charts, required fields, or callouts). Additionally, editors lack awareness of extended template syntax, breaking the ``what you write is close to what you get'' experience. There is a need for an extensible, template-driven Markdown dialect with a compiler and first-class editor tooling that enforces institutional formatting while keeping content in plain, version-controllable text.
 
 \section{Objectives}
-\begin{guidance}
-Define the specific outcomes the project intends to achieve. Objectives should be
-clear, feasible, and measurable. Describe intended results rather than routine
-activities such as ``conduct a literature review'' or technologies such as
-``use Flutter.'' Each objective must be supported by scope items, requirements,
-design elements, and verification evidence through Chapter~\ref{chap:planning}.
-\end{guidance}
-
 \begin{xltabular}{\textwidth}{@{}p{0.14\textwidth}X@{}}
 \caption{Project objectives}\label{tab:objectives}\\
 \toprule
@@ -69,23 +43,9 @@ OBJ-09 & Testing, CI/CD, a documentation website, and community infrastructure f
 
 
 \section{Proposed Approach}
-\begin{guidance}
-Provide a high-level description of how the project will address the stated
-problem. Development and game projects should summarize the proposed solution;
-research projects should summarize the research approach; hybrid projects should
-state both. Detailed architecture and methodology belong in Chapter~\ref{chap:design}.
-\end{guidance}
-
 The proposed approach is to develop Litho as a template-driven publishing ecosystem: define a three-tier Markdown dialect, build a Python-based interpreter (tokenizer/parser/AST/compiler/codegen), compile via a Tectonic engine, and expose functionality through a CLI. Editor support will be added via a VS Code extension. Templates will be packaged with a JSON manifest, published through a Next.js marketplace curated from reviewed GitHub issues, with AI-assisted authoring grounded in a curated dataset and a product-level \texttt{SKILLS.md}. Three web applications will be delivered: a template marketplace, a documentation website covering usage and configuration, and an in-browser conversion workspace. A small application database will store only per-template heart and download counters; the template registry itself remains derived from labeled GitHub issues. Conversion will be available through five channels---the CLI, VS Code extension, conversion web app, MCP server, and hosted API---all backed by the same interpreter pipeline. AI assistants and third-party sites will integrate via the MCP server and FastAPI conversion API with webhooks. Round-trip fidelity will be ensured by embedding source/metadata in PDFs and providing extract/restore operations.
 
 \section{Scope}
-\begin{guidance}
-Define the approved boundaries of the project. Each scope item should express one
-capability, user group, platform, data source, integration, or deliverable and
-should map to at least one objective. Detailed behaviour belongs in the
-requirements chapter.
-\end{guidance}
-
 \subsection{In Scope}
 
 \begin{xltabular}{\textwidth}{@{}p{0.14\textwidth}X p{0.20\textwidth}@{}}
@@ -120,12 +80,7 @@ SCP-14 & Testing, CI/CD, and community infrastructure. & OBJ-09 \\
 \end{xltabular}
 
 
-\subsection{Out of Scope \applicability{If applicable}}
-\begin{guidance}
-State intentional exclusions and their reasons. If there are no meaningful
-exclusions, state this explicitly rather than inventing them.
-\end{guidance}
-
+\subsection{Out of Scope}
 \begin{xltabular}{\textwidth}{@{}p{0.14\textwidth}X X@{}}
 \caption{Out-of-scope items}\label{tab:out-of-scope}\\
 \toprule
@@ -148,12 +103,7 @@ EXC-03 & Native mobile apps for all platforms as primary deliverables. & Web app
 
 
 \section{Users and Stakeholders}
-\begin{guidance}
-Identify direct users and other parties who influence, maintain, fund, regulate,
-or benefit from the project. State their main needs and influence on the design.
-\end{guidance}
-
-\begin{xltabular}{\textwidth}{@{}p{0.25\textwidth}p{0.17\textwidth}X X@{}}
+\begin{xltabular}{\textwidth}{@{}p{0.22\textwidth}p{0.18\textwidth}X X@{}}
 \caption{Users and stakeholders}\label{tab:stakeholders}\\
 \toprule
 \textbf{Stakeholder} & \textbf{Role} & \textbf{Need or interest} & \textbf{Design influence} \\

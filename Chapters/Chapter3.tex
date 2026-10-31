@@ -6,18 +6,11 @@
 % =============================================================================
 
 \section{Review Method}
-\begin{guidance}
-Briefly state how related work was identified and selected. Report the sources
-searched, key search terms, publication period, and principal inclusion and
-exclusion criteria. Follow departmental requirements for the minimum number and
-type of sources.
-\end{guidance}
-
 To establish the state of the art in document engineering, lightweight markup specifications, and automated publishing pipelines, a systematic literature review was conducted covering the period from 2014 to 2026. The search surveyed major academic indexing databases---including IEEE Xplore, ACM Digital Library, and Google Scholar---alongside official engine specifications and primary open-source software repositories. Foundational works in digital typesetting by Knuth~\cite{knuth1984texbook} and Lamport~\cite{ref2} were incorporated to provide historical and architectural context.
 
 The search strategy synthesized four complementary technical domains: (i) lightweight markup languages and formal dialect extensions (CommonMark~\cite{ref1}, MyST~\cite{myst2024}); (ii) programmatic document transpilers and macro typesetting engines (Pandoc~\cite{ref3}, Typst~\cite{ref5}, Tectonic~\cite{ref6}); (iii) template packaging, schema validation, and catalog governance architectures; and (iv) emerging agentic protocols for automated document authoring, notably the Model Context Protocol (MCP)~\cite{anthropic2024mcp}, alongside digital preservation standards for embedded source metadata (PDF/\allowbreak A-3 standard~\cite{iso19005_3}, XMP~\cite{iso16684_1}).
 
-\begin{xltabular}{\textwidth}{@{}p{0.28\textwidth}X@{}}
+\begin{xltabular}{\textwidth}{@{}p{0.27\textwidth}X@{}}
 \caption{Review method summary}\label{tab:review-method}\\
 \toprule
 \textbf{Item} & \textbf{Description} \\
@@ -39,13 +32,7 @@ Selection criteria & Peer-reviewed studies, formal language specifications, and 
 \end{xltabular}
 
 
-\section{Related Systems and Solutions \applicability{Development, Hybrid, Game}}
-\begin{guidance}
-Review relevant applications, systems, projects, or games. For each, explain the
-problem addressed, important features, strengths, and limitations relevant to the
-proposed project. Avoid promotional description.
-\end{guidance}
-
+\section{Related Systems and Solutions}
 Existing technical publishing solutions can be classified into four primary categories: universal document transpilers, scientific notebook publishing frameworks, clean-slate typesetting languages, and collaborative cloud LaTeX editors.
 
 \subsection{Universal Document Transpilers: Pandoc}
@@ -92,11 +79,6 @@ Litho (existing CLI)~\cite{ref7} & Markdown-to-PDF compiler prototype. & Proved 
 
 
 \section{Comparative Analysis}
-\begin{guidance}
-Compare the most relevant systems or studies using criteria derived from the
-project problem and objectives. Explain the important patterns shown by the table.
-\end{guidance}
-
 To systematically evaluate the proposed Litho ecosystem against existing paradigms, Table~\ref{tab:comparative-analysis} compares the systems across key functional dimensions: authoring surface, compilation dependencies, template governance, editor tooling, lossless round-trip reproducibility, and AI agent integration.
 
 \begin{xltabular}{\textwidth}{@{}p{0.18\textwidth}p{0.18\textwidth}p{0.18\textwidth}X X@{}}

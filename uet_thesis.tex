@@ -11,6 +11,7 @@
 \usepackage[utf8]{inputenc}
 \usepackage{lmodern}
 \usepackage{microtype}
+\usepackage[htt]{hyphenat}
 \usepackage[square,numbers,comma,sort&compress]{natbib}
 \usepackage{url}
 \usepackage{verbatim}
@@ -41,6 +42,16 @@
 
 \newcommand{\placeholder}[1]{\textcolor{PlaceholderBlue}{\textit{<#1>}}}
 \newcommand{\applicability}[1]{\texorpdfstring{\normalfont\small\textit{(#1)}}{(#1)}}
+\newcommand{\inputwithbreakabletext}[1]{%
+  \begingroup
+    \catcode`\/=\active
+    \begingroup
+      \lccode`\~=`\/
+      \lowercase{\endgroup
+        \def~{\char47\penalty\exhyphenpenalty}}%
+    \input{#1}%
+  \endgroup
+}
 
 \newenvironment{guidance}
   {\begin{quote}\small\color{GuidanceGray}\textbf{Guidance.} }
@@ -134,16 +145,16 @@ repeating information.
 \pagestyle{fancy}
 \onehalfspacing
 
-\input{./Chapters/Chapter1}
-\input{./Chapters/Chapter2}
-\input{./Chapters/Chapter3}
-\input{./Chapters/Chapter4}
-\input{./Chapters/Chapter5}
+\inputwithbreakabletext{./Chapters/Chapter1}
+\inputwithbreakabletext{./Chapters/Chapter2}
+\inputwithbreakabletext{./Chapters/Chapter3}
+\inputwithbreakabletext{./Chapters/Chapter4}
+\inputwithbreakabletext{./Chapters/Chapter5}
 
 \addtocontents{toc}{\vspace{2em}}
 \appendix
-\input{./Chapters/AppendixA}
-\input{./Chapters/AppendixB}
+\inputwithbreakabletext{./Chapters/AppendixA}
+\inputwithbreakabletext{./Chapters/AppendixB}
 
 \addtocontents{toc}{\vspace{2em}}
 \backmatter
