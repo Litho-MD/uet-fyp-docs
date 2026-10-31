@@ -1,8 +1,7 @@
 % This file is included by uet_thesis.tex.
-% Appendix B: Supporting Specifications
+% Replace blue placeholders and remove example text before submission.
 
 \chapter{Supporting Specifications \applicability{If applicable}}
-\label{app:specifications}
 \begin{guidance}
 Place lengthy supporting material here only when it is necessary for understanding
 or reproducing the design, such as API contracts, data dictionaries, detailed
@@ -10,72 +9,4 @@ pseudocode, questionnaires, or supplementary diagrams. Refer to every included
 item from the main document.
 \end{guidance}
 
-\section{Litho Template Manifest Specification}
-Every publishable Litho template repository must place a declarative JSON manifest named \texttt{litho.json} at its root. The manifest defines author metadata, entrypoint \LaTeX\ files, required template variables, supported shortcodes, and license constraints.
-
-\begin{verbatim}
-{
-  "$schema": 
-    "https://litho-publishing.org/schemas/template-v1.json",
-  "name": "uet-thesis-template",
-  "version": "1.0.0",
-  "displayName": 
-    "UET Lahore CS Final Year Project Design Document Template",
-  "description": 
-    "Official thesis template conforming to UET guidelines.",
-  "authors": [
-    {
-      "name": "Litho Core Team",
-      "email": "templates@litho-publishing.org",
-      "github": "Litho-MD"
-    }
-  ],
-  "license": "MIT",
-  "category": "Academic",
-  "tags": ["uet", "thesis", "design-document", "academic"],
-  "entrypoint": "uet_thesis.tex",
-  "classFile": "uet_thesis.cls",
-  "requiredVariables": [
-    {
-      "key": "title",
-      "type": "string",
-      "description": "Full document title"
-    },
-    {
-      "key": "projectType",
-      "type": "enum",
-      "options": ["Development", "Research", "Hybrid", "Game"],
-      "description": "Academic project classification"
-    },
-    {
-      "key": "session",
-      "type": "string",
-      "example": "2023-2027",
-      "description": "Academic session span"
-    },
-    {
-      "key": "authors",
-      "type": "array",
-      "itemType": "object",
-      "description": "List of student authors with roll numbers"
-    },
-    {
-      "key": "advisor",
-      "type": "string",
-      "description": "Advisor or supervisor name and designation"
-    }
-  ],
-  "supportedShortcodes": [
-    {
-      "name": "callout",
-      "parameters": ["type", "title"],
-      "description": "Rendered visual warning, tip, or note box"
-    },
-    {
-      "name": "gantt",
-      "parameters": ["file"],
-      "description": "Embedded project timeline diagram"
-    }
-  ]
-}
-\end{verbatim}
+\placeholder{Insert supporting specification or remove this appendix.}
