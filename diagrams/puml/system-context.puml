@@ -1,0 +1,46 @@
+@startuml system-context
+!theme plain
+title Litho System Context Diagram
+
+actor "Author/Student" as Author
+actor "Template Publisher" as Publisher
+actor "Maintainer" as Maintainer
+actor "AI Assistant" as AI
+actor "CMS/Website" as CMS
+
+rectangle "Litho Ecosystem" {
+  [CLI/Editor Tools] as CLI
+  [Interpreter + Tectonic] as Core
+  [Template Marketplace] as Marketplace
+  [Documentation Website] as Docs
+  [Conversion Web App] as Convert
+  [Counters Database] as Counters
+  [MCP Server] as MCP
+  [Conversion API/Webhooks] as API
+}
+
+[GitHub Issues/Repos] as GitHub
+
+Author --> CLI : Write .md, build PDF
+Author --> Convert : Author and convert in browser
+Author --> Docs : Read usage and configuration
+Publisher --> GitHub : Submit template issue
+Maintainer --> GitHub : Review and label issue
+Marketplace --> GitHub : Read listed templates
+Marketplace --> Counters : Record/read hearts and downloads
+Counters --> Marketplace : Return counts
+AI --> MCP : Request build/validate/extract
+CMS --> API : Request export-to-PDF
+
+CLI --> Core : Compile
+Core --> CLI : PDF + metadata
+Marketplace --> Core : Use templates
+Convert --> Core : Convert Markdown or PDF
+MCP --> Core : Invoke operations
+API --> Core : Invoke operations
+Core --> Marketplace : Return results
+Core --> Convert : Return results
+Core --> MCP : Return results
+Core --> API : Return results
+
+@enduml

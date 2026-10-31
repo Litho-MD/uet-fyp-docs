@@ -1,0 +1,39 @@
+flowchart TB
+  subgraph "User Devices"
+    CLI[CLI Tool]
+    VSC[VS Code]
+    Browser[Web Browser]
+  end
+  
+  subgraph "Local Build"
+    Int[Interpreter]
+    Tectonic[Tectonic Engine]
+  end
+  
+  subgraph "Cloud Platform"
+    Market[Template Marketplace - Next.js]
+    Docs[Documentation Website]
+    Convert[Conversion Web App]
+    GitHub[(GitHub: Issues/Repos)]
+    DB[(Counters Database)]
+    MCP[MCP Server]
+    API[Conversion API]
+    CDN[Static Assets]
+  end
+  
+  CLI --> Int
+  VSC --> Int
+  Int --> Tectonic
+  Tectonic --> PDF[PDF with Metadata]
+  
+  Browser --> Market
+  Browser --> Docs
+  Browser --> Convert
+  Market --> GitHub
+  Market --> DB
+  Docs --> CDN
+  Convert --> API
+  Convert --> GitHub
+  MCP --> Int
+  API --> Int
+  Market --> CDN

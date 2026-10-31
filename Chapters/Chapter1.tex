@@ -12,7 +12,7 @@ and expected value. Write this section last and keep it understandable without
 the rest of the document.
 \end{guidance}
 
-\placeholder{Provide a concise executive summary, normally 150--250 words.}
+Authors of technical documents face a trade-off: LaTeX produces publication-quality typesetting but has a steep learning curve, while word processors and plain Markdown are more approachable but lack template support, extensibility, and diff-friendly workflows. Litho is a template-driven Markdown-to-LaTeX publishing ecosystem that lets authors write in a three-tier Markdown dialect, bind content to publisher-authored LaTeX templates, and compile to polished PDFs without requiring LaTeX expertise. The system provides a formal grammar and interpreter, a CLI, editor tooling across VS Code and other editors, three web applications (template marketplace, documentation website, and in-browser conversion workspace), flagship templates, AI-assisted template authoring, per-template heart and download counters stored in a small application database, an MCP server and conversion API, and lossless round-trip fidelity by embedding the original Markdown source in compiled PDF metadata. The expected value is a git-friendly, extensible, and publishable authoring platform that separates institutional formatting from content while preserving publication-quality output.
 
 \section{Background and Motivation}
 \begin{guidance}
@@ -21,7 +21,7 @@ the problem is worth addressing. Support factual claims with credible references
 Do not repeat the complete literature review.
 \end{guidance}
 
-\placeholder{Describe the project context and motivation.}
+Markdown is the default plain-text format for developers and students, while LaTeX remains the standard for typeset technical documents such as theses, papers, and proposals~\cite{ref1,ref2}. Existing tools fall short: Pandoc offers best-effort conversion but does not cover all Markdown syntax and lacks a marketplace of versioned, schema-validated templates or extensible per-template syntax~\cite{ref3}; Quarto/R Markdown focus on computational notebooks~\cite{ref4}; and Typst introduces a new language instead of building on Markdown~\cite{ref5}. There is a need for a platform that keeps Markdown as the authoring surface, treats templates as first-class publishable artifacts, and provides editor-aware tooling.
 
 \section{Problem Statement}
 \begin{guidance}
@@ -30,14 +30,7 @@ and the need for the proposed work. Describe the problem rather than presenting 
 chosen technology as the problem.
 \end{guidance}
 
-\begin{examplebox}
-Students currently arrange advising appointments through unstructured messages.
-This makes availability difficult to track, causes scheduling conflicts, and
-provides no reliable appointment record. A structured mechanism is therefore
-needed to coordinate and record advising appointments.
-\end{examplebox}
-
-\placeholder{State the project problem in one focused paragraph.}
+Students and researchers must choose between writing LaTeX directly (steep learning curve, hard to modify templates), using word processors (not diff-friendly, poor separation of content and formatting), or converting Markdown generically (cannot express template-specific requirements like Gantt charts, required fields, or callouts). Additionally, editors lack awareness of extended template syntax, breaking the ``what you write is close to what you get'' experience. There is a need for an extensible, template-driven Markdown dialect with a compiler and first-class editor tooling that enforces institutional formatting while keeping content in plain, version-controllable text.
 
 \section{Objectives}
 \begin{guidance}
@@ -56,8 +49,14 @@ design elements, and verification evidence through Chapter~\ref{chap:planning}.
 \toprule
 \textbf{ID} & \textbf{Objective} \\
 \midrule
-OBJ-01 & Enable registered students to request and track advising appointments through a single system. \\
-OBJ-02 & \placeholder{Specific and measurable project outcome} \\
+OBJ-01 & Specify and implement the CommonMark-compatible Litho Markdown dialect with template-declarable extensions and a formal grammar. \\
+OBJ-02 & Implement the parser, AST, template-binding compiler, and LaTeX code generator with integration to the Tectonic engine. \\
+OBJ-03 & Provide author tooling (CLI and VS Code extension) with syntax awareness and template-scoped IntelliSense. \\
+OBJ-04 & Enable lossless round-trip fidelity by embedding the original Markdown source in PDF and supporting source restoration. \\
+OBJ-05 & Develop flagship templates and support unified organization (house) templates. \\
+OBJ-06 & Build a GitHub-curated template marketplace with per-template heart and download counters, and an in-browser conversion web app, with submissions via reviewed and labeled GitHub issues, AI-assisted template authoring/usage grounded in a curated dataset and per-template manifests, and a product-level \texttt{SKILLS.md}. \\
+OBJ-07 & Provide an MCP server and hosted conversion API/webhooks to integrate Litho with AI assistants and Markdown-based documentation websites. \\
+OBJ-08 & Establish testing, CI/CD, a documentation website, and community infrastructure for adoption and maintainability. \\
 \bottomrule
 \end{tabularx}
 \end{table}
@@ -70,13 +69,7 @@ research projects should summarize the research approach; hybrid projects should
 state both. Detailed architecture and methodology belong in Chapter~\ref{chap:design}.
 \end{guidance}
 
-\begin{examplebox}
-The project will develop a web-based appointment portal with separate student
-and adviser roles. A hybrid project could additionally evaluate whether the
-portal reduces scheduling time through a controlled user study.
-\end{examplebox}
-
-\placeholder{Describe the proposed solution and/or research approach.}
+The proposed approach is to develop Litho as a template-driven publishing ecosystem: define a three-tier Markdown dialect, build a Python-based interpreter (tokenizer/parser/AST/compiler/codegen), compile via a Tectonic engine, and expose functionality through a CLI. Editor support will be added via a VS Code extension. Templates will be packaged with a JSON manifest, published through a Next.js marketplace curated from reviewed GitHub issues, with AI-assisted authoring grounded in a curated dataset and a product-level \texttt{SKILLS.md}. Three web applications will be delivered: a template marketplace, a documentation website covering usage and configuration, and an in-browser conversion workspace. A small application database will store only per-template heart and download counters; the template registry itself remains derived from labeled GitHub issues. Conversion will be available through five channels---the CLI, VS Code extension, conversion web app, MCP server, and hosted API---all backed by the same interpreter pipeline. AI assistants and third-party sites will integrate via the MCP server and FastAPI conversion API with webhooks. Round-trip fidelity will be ensured by embedding source/metadata in PDFs and providing extract/restore operations.
 
 \section{Scope}
 \begin{guidance}
@@ -96,9 +89,15 @@ requirements chapter.
 \toprule
 \textbf{Scope ID} & \textbf{Included item} & \textbf{Objective(s)} \\
 \midrule
-SCP-01 & Appointment requests by registered students. & OBJ-01 \\
-SCP-02 & Appointment approval and rescheduling by advisers. & OBJ-01 \\
-SCP-03 & \placeholder{One project capability or boundary} & \placeholder{OBJ-XX} \\
+SCP-01 & Litho language specification and interpreter (grammar, AST, compiler, codegen). & OBJ-01, OBJ-02 \\
+SCP-02 & Tectonic-based PDF compilation pipeline. & OBJ-02 \\
+SCP-03 & CLI (\texttt{init/build/watch/extract-source}) and publisher commands. & OBJ-03, OBJ-04 \\
+SCP-04 & Editor tooling for VS Code extension. & OBJ-03 \\
+SCP-05 & Flagship templates (thesis/proposal, IEEE, book) and unified organization templates. & OBJ-05 \\
+SCP-06 & Template packaging (JSON manifest), dataset, and AI-assisted authoring/usage with a product-level \texttt{SKILLS.md}. & OBJ-06 \\
+SCP-07 & Web applications: template marketplace (with heart/download counters), documentation website, and in-browser conversion workspace. & OBJ-06, OBJ-08 \\
+SCP-08 & MCP server, conversion API, and webhooks with PDF-to-Markdown source restoration. & OBJ-07 \\
+SCP-09 & Testing, CI/CD, and community infrastructure. & OBJ-08 \\
 \bottomrule
 \end{tabularx}
 \end{table}
@@ -117,8 +116,9 @@ exclusions, state this explicitly rather than inventing them.
 \toprule
 \textbf{ID} & \textbf{Excluded item} & \textbf{Reason} \\
 \midrule
-EXC-01 & Integration with the university's central timetable system. & The external interface is unavailable during the FYP period. \\
-EXC-02 & \placeholder{Excluded item} & \placeholder{Clear boundary reason} \\
+EXC-01 & Re-implementing a full general-purpose TeX distribution. & Use the existing Tectonic engine to avoid unnecessary complexity. \\
+EXC-02 & Building a general WYSIWYG word processor from scratch. & Focus on Markdown-as-source with template binding and LaTeX output. \\
+EXC-03 & Native mobile apps for all platforms as primary deliverables. & Web applications and CLI/editor tooling are prioritized; mobile is not required. \\
 \bottomrule
 \end{tabularx}
 \end{table}
@@ -137,8 +137,12 @@ or benefit from the project. State their main needs and influence on the design.
 \toprule
 \textbf{Stakeholder} & \textbf{Role} & \textbf{Need or interest} & \textbf{Design influence} \\
 \midrule
-Registered student & Primary user & Request and track appointments & Simple mobile-responsive interface \\
-\placeholder{Stakeholder} & \placeholder{Role} & \placeholder{Need} & \placeholder{Design implication} \\
+Students/Researchers & Primary users & Write technical documents without learning LaTeX; version-control friendly source & Simple Markdown syntax, clear templates, CLI/editor integration \\
+Supervisors/Examiners & Reviewers & Consistent, publication-quality formatting & Enforce template structure and required fields \\
+Universities/Institutions & Publishers & Unified house templates across departments & Organization-level templates, branding, and schema enforcement \\
+Template Authors/Publishers & Contributors & Share and version reusable templates & Marketplace, packaging format (manifest/skills), validation/submission tools \\
+AI Assistants/Integrators & Automation users & Author/compile/reverse documents programmatically & MCP server, conversion API, webhooks, source extraction \\
+Project Supervisor & Academic stakeholder & Timely delivery, correctness, documentation & Adherence to FYP requirements and evaluation criteria \\
 \bottomrule
 \end{tabularx}
 \end{table}

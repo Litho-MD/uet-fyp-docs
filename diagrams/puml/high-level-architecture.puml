@@ -1,0 +1,62 @@
+@startuml high-level-architecture
+!theme plain
+title Litho High-Level Architecture
+
+package "Authoring Layer" {
+  [CLI] as CLI
+  [VS Code Extension] as VSC
+  [Vim/Emacs/JetBrains Plugins] as Editors
+}
+
+package "Core" {
+  [Tokenizer/Parser/AST] as Parser
+  [Template Binder/Compiler] as Compiler
+  [LaTeX Codegen] as Codegen
+  [Interpreter API] as Interp
+  [Tectonic Engine] as Tectonic
+}
+
+package "Templates & Packaging" {
+  [Template Schema] as Schema
+  [JSON Manifest] as Manifest
+  [SKILLS.md] as Skills
+  [Flagship/Org Templates] as Templates
+}
+
+package "Web Applications" {
+  [Template Marketplace (Next.js)] as Market
+  [Documentation Website] as Docs
+  [Conversion Web App] as Convert
+}
+
+package "Platform Services" {
+  [GitHub Issues/Repos] as GitHub
+  [Counters Database] as CounterDB
+  [Template Dataset] as Dataset
+  [MCP Server] as MCP
+  [Conversion API/Webhooks] as API
+}
+
+CLI --> Interp
+VSC --> Interp
+Editors --> Interp
+Convert --> Interp
+Interp --> Parser
+Parser --> Compiler
+Compiler --> Codegen
+Codegen --> Tectonic
+Tectonic --> Interp
+Compiler --> Schema
+Compiler --> Templates
+Templates --> Manifest
+Templates --> Skills
+Market --> GitHub
+Market --> CounterDB
+Market --> Dataset
+Docs --> GitHub
+MCP --> Interp
+API --> Interp
+GitHub --> Market
+CounterDB --> Market
+Dataset --> Market
+@enduml

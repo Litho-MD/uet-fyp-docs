@@ -1,0 +1,46 @@
+@startuml component
+!theme plain
+title Litho Component Diagram
+
+package "Clients" {
+  [CLI] as CLI
+  [VS Code Ext] as VSC
+  [Editor Plugins] as Plugins
+  [Web Browser] as Browser
+}
+
+package "Web Applications" {
+  [Template Marketplace] as Market
+  [Documentation Website] as Docs
+  [Conversion Web App] as Convert
+}
+
+package "Services" {
+  [Interpreter Service] as InterpSvc
+  [MCP Server] as MCP
+  [Conversion API] as API
+}
+
+package "Platform" {
+  [GitHub Issues/Repos] as GitHub
+  [Counters Database] as CounterDB
+}
+
+package "Build" {
+  [Tectonic Engine] as Tectonic
+}
+
+CLI --> InterpSvc
+VSC --> InterpSvc
+Plugins --> InterpSvc
+Browser --> Market
+Browser --> Docs
+Browser --> Convert
+Market --> GitHub
+Market --> CounterDB
+Docs --> GitHub
+Convert --> InterpSvc
+MCP --> InterpSvc
+API --> InterpSvc
+InterpSvc --> Tectonic
+@enduml

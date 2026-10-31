@@ -63,6 +63,24 @@
   \end{figure}
 }
 
+% Diagram sizing presets: sm, md (default half A4), lg, fl (full page)
+\newcommand{\diagram}[3][md]{%
+  \begin{figure}[H]
+    \centering
+    \ifx#1sm
+      \includegraphics[width=0.6\textwidth,height=0.25\textheight,keepaspectratio]{#2}
+    \else\ifx#1lg
+      \includegraphics[width=0.95\textwidth,height=0.7\textheight,keepaspectratio]{#2}
+    \else\ifx#1fl
+      \includegraphics[width=\textwidth,height=0.9\textheight,keepaspectratio]{#2}
+    \else
+      \includegraphics[width=0.85\textwidth,height=0.5\textheight,keepaspectratio]{#2}
+    \fi\fi\fi
+    \caption{#3}
+    \label{fig:#2}
+  \end{figure}
+}
+
 \begin{document}
 
 % -----------------------------------------------------------------------------
@@ -70,7 +88,7 @@
 % -----------------------------------------------------------------------------
 \title{\texorpdfstring{Litho: A Template-Driven Markdown-to-LaTeX Publishing Ecosystem for Reproducible Technical Documents\\{\large Final Year Project Design Document}}{Litho: A Template-Driven Markdown-to-LaTeX Publishing Ecosystem for Reproducible Technical Documents - Final Year Project Design Document}}
 \session{2023--2027 \quad Project Type: Development}
-\advisor{Lecturer: Waleed Tariq}
+\advisor{Waleed Tariq (Lecturer)}
 \authors{%
 Rabia Nadeem \quad 2023-CS-705 \\
 Abaidullah Bhatti \quad 2023-CS-713 \\

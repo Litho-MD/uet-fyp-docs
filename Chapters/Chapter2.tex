@@ -21,8 +21,16 @@ design, delivery, or evaluation.
 \textbf{ID} & \textbf{Type} & \textbf{Statement} & \textbf{Implication} \\
 \midrule
 ACD-01 & Assumption & Users have access to a modern web browser. & A separate desktop application is not required. \\
-ACD-02 & Constraint & \placeholder{Project limitation} & \placeholder{Effect on requirements or design} \\
-ACD-03 & Dependency & \placeholder{External service, dataset, approval, or device} & \placeholder{Effect if unavailable} \\
+ACD-02 & Assumption & Authors are familiar with basic Markdown. & Documentation and editor tooling can assume Markdown literacy; no WYSIWYG editor is required. \\
+ACD-03 & Assumption & Template publishers and maintainers have GitHub accounts. & Submission, review, and listing rely on GitHub identity; no separate account system is needed. \\
+ACD-04 & Constraint & LaTeX compilation must work without a full TeX Live installation. & Rely on Tectonic's self-contained engine and bundled packages. \\
+ACD-05 & Constraint & The project must be delivered within the FYP timeline by a small student team. & Scope prioritizes the core pipeline, three web applications, and five conversion channels; lower-priority features are deferred. \\
+ACD-06 & Constraint & Templates must be declarative and sandboxed. & No arbitrary LaTeX macro execution; templates are limited to a schema plus vetted packages. \\
+ACD-07 & Constraint & Marketplace reads must respect GitHub API rate limits. & The registry is cached or statically generated rather than polled continuously. \\
+ACD-08 & Dependency & Tectonic engine and its package ecosystem. & Template coverage is limited by the packages available to Tectonic. \\
+ACD-09 & Dependency & GitHub (issues, labels, repositories, API). & Template submission, review, listing, and asset downloads depend on GitHub availability. \\
+ACD-10 & Dependency & Application database for heart and download counters. & Engagement counts are unavailable if the database is down; registry browsing continues. \\
+ACD-11 & Dependency & Python and Node.js runtimes, plus the VS Code Extension API. & The CLI, API, and MCP server require Python; the web apps require Node hosting; editor features depend on the VS Code API. \\
 \bottomrule
 \end{tabularx}
 \end{table}
@@ -45,8 +53,22 @@ where applicable~\citep{ieee29148}.
 \toprule
 \textbf{ID} & \textbf{Requirement} & \textbf{Priority} & \textbf{Source} \\
 \midrule
-FR-01 & The system shall allow a registered student to submit an appointment request for an available time slot. & Must & Student user \\
-FR-02 & The system shall \placeholder{one observable behaviour}. & \placeholder{Priority} & \placeholder{Stakeholder or source} \\
+FR-01 & The system shall parse a Litho Markdown document according to the three-tier dialect and produce a valid AST. & Must & Language spec \\
+FR-02 & The system shall bind parsed content to a selected template's schema and generate compilable \texttt{.tex} source. & Must & Interpreter/compiler \\
+FR-03 & The system shall compile generated \texttt{.tex} to PDF using the Tectonic engine. & Must & Build pipeline \\
+FR-04 & The system shall embed the original Markdown source, template identifier, and version into the compiled PDF's metadata. & Must & Round-trip fidelity \\
+FR-05 & The CLI shall support \texttt{init}, \texttt{build}, \texttt{watch}, and \texttt{extract-source} commands. & Must & Author tooling \\
+FR-06 & The CLI shall support publisher commands \texttt{template create/validate/submit}. & Must & Publisher tooling \\
+FR-07 & The VS Code extension shall provide syntax highlighting, snippets, and schema-aware IntelliSense for core and template shortcodes. & Must & Editor tooling \\
+FR-09 & The marketplace shall allow browsing and viewing listed templates, and support template submission through a GitHub issue that maintainers review and label for listing. & Must & Marketplace \\
+FR-10 & The conversion web app shall provide in-browser Markdown-to-PDF conversion with template selection and PDF-to-source restoration. & Must & Conversion web app \\
+FR-11 & The conversion web app shall support AI-assisted template authoring and usage grounded in the curated dataset and each template's JSON manifest, with a product-level \texttt{SKILLS.md}. & Must & AI authoring \\
+FR-12 & The MCP server shall expose \texttt{build}, \texttt{validate}, \texttt{template}, and \texttt{extract-source} operations to AI assistants. & Must & MCP integration \\
+FR-13 & The hosted conversion API shall provide a webhook-triggerable export-to-PDF action and support PDF-to-Markdown source restoration. & Must & API integration \\
+FR-14 & The system shall provide flagship templates (university thesis/proposal, IEEE paper, technical book) and support unified organization house templates. & Must & Templates \\
+FR-15 & The documentation website shall document installation, configuration, and usage for the CLI, VS Code extension, conversion web app, MCP server, and hosted API. & Must & Documentation \\
+FR-16 & All conversion channels (CLI, VS Code extension, conversion web app, MCP server, and hosted API) shall invoke the same interpreter and template-binding pipeline. & Must & Cross-cutting \\
+FR-17 & The marketplace shall record and display the number of hearts and downloads for each listed template. & Must & Marketplace \\
 \bottomrule
 \end{tabularx}
 \end{table}
@@ -66,8 +88,14 @@ targets under stated conditions. Include only attributes relevant to the project
 \toprule
 \textbf{ID} & \textbf{Attribute} & \textbf{Measurable requirement} & \textbf{Priority} \\
 \midrule
-NFR-01 & Performance & Under normal operating load, 95\% of appointment-list requests shall complete within two seconds. & Must \\
-NFR-02 & Accessibility & \placeholder{Measurable accessibility target} & \placeholder{Priority} \\
+NFR-01 & Performance & Local Markdown-to-PDF compilation for a typical proposal document (10--15 pages) shall complete in under 10 seconds on a mid-range machine (using Tectonic's self-contained build). & Must \\
+NFR-02 & Portability & The CLI shall run on Linux, macOS, and Windows without requiring a full TeX distribution. & Must \\
+NFR-03 & Usability & Authors unfamiliar with LaTeX shall be able to produce a formatted document using a flagship template with no direct LaTeX editing required. & Must \\
+NFR-04 & Extensibility & New templates shall be added without modifying the core interpreter grammar; extensions shall be declared via template schema/manifests. & Must \\
+NFR-05 & Integrity/Fidelity & PDF source extraction shall recover the exact original Markdown source byte-for-byte (metadata round-trip) with no reconstruction loss. & Must \\
+NFR-06 & Security & Template compilation in the web/API context shall be sandboxed; API endpoints shall be rate-limited; templates shall be restricted to a declarative schema plus vetted macro packages. & Must \\
+NFR-07 & Maintainability & Changes shall be validated by automated tests (grammar/interpreter, metadata round-trip, golden-file PDF regression per flagship template) in CI. & Must \\
+NFR-08 & Discoverability & Templates shall be versioned and discoverable via the marketplace with metadata and usage documentation. & Should \\
 \bottomrule
 \end{tabularx}
 \end{table}
@@ -88,8 +116,12 @@ in Section~\ref{sec:data-design}.
 \toprule
 \textbf{ID} & \textbf{Type} & \textbf{Requirement} & \textbf{Source or system} \\
 \midrule
-DIR-01 & Data & The system shall store each appointment with a unique identifier, participant identifiers, date, time, and status. & Appointment process \\
-EIR-01 & External API & \placeholder{Required operation, protocol, format, and constraint} & \placeholder{External system} \\
+DIR-01 & Data & The system shall store template packages with schema, JSON manifest, assets, and version metadata; a product-level \texttt{SKILLS.md} shall guide AI usage. & Template packaging \\
+DIR-02 & Data & Compiled PDFs shall embed original Markdown source, template identifier, and version in document metadata (XMP/PDF metadata). & Round-trip fidelity \\
+EIR-01 & External API & The MCP server shall expose \texttt{build}/\texttt{validate}/\texttt{template}/\texttt{extract-source} operations over MCP. & AI assistants \\
+EIR-02 & External API & The conversion API shall accept Markdown input and template selection, return compiled PDF or errors, and support webhook-triggered export actions. & CMS/Markdown sites \\
+EIR-03 & External API & The marketplace shall read its published template registry from labeled GitHub issues and resolve template manifests and assets from linked GitHub repositories. & GitHub \\
+DIR-03 & Data & The system shall persist per-template heart and download counts in an application database, keyed by template identifier. & Marketplace metrics \\
 \bottomrule
 \end{tabularx}
 \end{table}
@@ -110,8 +142,10 @@ automated decisions require explicit treatment.
 \toprule
 \textbf{ID} & \textbf{Category} & \textbf{Requirement or obligation} & \textbf{Applicable authority or source} \\
 \midrule
-PR-01 & Privacy & Personal data shall be collected only for stated project purposes and accessed only by authorized roles. & \placeholder{Policy, law, ethics approval, or stakeholder} \\
-ER-01 & Ethics & \placeholder{Consent, participant protection, or ethical requirement} & \placeholder{Approval or guideline} \\
+PR-01 & Privacy & User content submitted to the marketplace/API shall be handled according to stated privacy practices; template submissions are public GitHub issues; source restoration is opt-in and limited to Litho-generated PDFs. & Project policy \\
+IP-01 & Intellectual Property & Templates published to the marketplace shall respect licensing; template authors retain rights as specified by marketplace terms. & Marketplace terms \\
+SE-01 & Security/Safety & Untrusted templates/macros shall not execute arbitrary code outside the sandboxed, declarative schema; LaTeX macro execution shall be restricted to vetted packages. & Secure design \\
+LE-01 & Licensing & Open-source components (Tectonic, CommonMark, etc.) shall be used in compliance with their licenses. & Component licenses \\
 \bottomrule
 \end{tabularx}
 \end{table}

@@ -1,0 +1,55 @@
+@startuml class-domain
+!theme plain
+title Litho Domain/Class Model
+
+class Document {
+  +id: UUID
+  +title: String
+  +author: String
+  +content: Markdown
+  +templateId: String
+  +version: String
+}
+
+class Template {
+  +id: String
+  +name: String
+  +version: String
+  +schema: JSON
+  +manifest: JSON
+  +skills: String
+}
+
+class TemplateAsset {
+  +id: UUID
+  +templateId: String
+  +type: String
+  +path: String
+}
+
+class RegistryEntry {
+  +issueNumber: int
+  +repositoryUrl: String
+  +labels: List<String>
+  +listedAt: Date
+}
+
+class TemplateRelease {
+  +tag: String
+  +version: String
+  +changelog: String
+}
+
+class TemplateStats {
+  +templateId: String
+  +hearts: int
+  +downloads: int
+  +updatedAt: Date
+}
+
+Document "*" --> "1" Template : uses
+Template "1" *-- "*" TemplateAsset : contains
+Template "1" -- "1" RegistryEntry : listed as
+Template "1" *-- "*" TemplateRelease : has
+Template "1" -- "1" TemplateStats : tracks
+@enduml

@@ -1,0 +1,50 @@
+@startuml use-case
+!theme plain
+title Litho Use Case Diagram
+
+left to right direction
+actor Author
+actor "Template Publisher" as Publisher
+actor "Maintainer" as Maintainer
+actor "AI Assistant" as AI
+actor "CMS/Integrator" as CMS
+
+rectangle Litho {
+  usecase "Write & Edit Markdown" as UC1
+  usecase "Build PDF Locally" as UC2
+  usecase "Extract Source from PDF" as UC3
+  usecase "Use Template from Marketplace" as UC4
+  usecase "Submit Template via GitHub Issue" as UC5
+  usecase "Validate Template" as UC6
+  usecase "Author via AI" as UC7
+  usecase "Convert via API/Webhook" as UC8
+  usecase "Invoke via MCP" as UC9
+  usecase "Review & Label Template Issue" as UC10
+  usecase "Browse Template Marketplace" as UC11
+  usecase "Read Documentation" as UC12
+  usecase "Convert in Conversion Web App" as UC13
+  usecase "Heart a Template" as UC14
+  usecase "Download a Template" as UC15
+}
+
+Author --> UC1
+Author --> UC2
+Author --> UC3
+Author --> UC4
+Author --> UC11
+Author --> UC12
+Author --> UC13
+Author --> UC14
+Author --> UC15
+Publisher --> UC5
+Publisher --> UC6
+Maintainer --> UC10
+AI --> UC7
+AI --> UC9
+CMS --> UC8
+UC2 ..> UC4 : <<include>>
+UC5 ..> UC6 : <<include>>
+UC10 ..> UC6 : <<include>>
+UC13 ..> UC4 : <<include>>
+UC7 ..> UC5 : <<extend>>
+@enduml
