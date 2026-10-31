@@ -7,9 +7,9 @@
 
 \section{Assumptions, Constraints, and Dependencies}
 \begin{guidance}
-Record conditions assumed to be true, limits imposed on the project, and external
-resources on which the project depends. Include only items that affect requirements,
-design, delivery, or evaluation.
+Record conditions assumed to be true, limits imposed on the project, and
+external resources on which the project depends. Include only items that affect
+requirements, design, delivery, or evaluation.
 \end{guidance}
 
 \begin{xltabular}{\textwidth}{@{}p{0.13\textwidth}p{0.18\textwidth}X X@{}}
@@ -147,9 +147,11 @@ NFR-02 & Portability & The CLI shall run on Linux, macOS, and Windows without re
 NFR-03 & Usability & Authors unfamiliar with LaTeX shall be able to produce a formatted document using a flagship template with no direct LaTeX editing required. & Must \\
 NFR-04 & Extensibility & New templates shall be added without modifying the core interpreter grammar; extensions shall be declared via template schema/manifests. & Must \\
 NFR-05 & Integrity/Fidelity & PDF source extraction shall recover the exact original Markdown source byte-for-byte (metadata round-trip) with no reconstruction loss. & Must \\
-NFR-06 & Security & Template compilation in the web/API context shall be sandboxed; API endpoints shall be rate-limited; templates shall be restricted to a declarative schema plus vetted macro packages. & Must \\
-NFR-07 & Maintainability & Changes shall be validated by automated tests (grammar/interpreter, metadata round-trip, golden-file PDF regression per flagship template) in CI. & Must \\
-NFR-08 & Discoverability & Templates shall be versioned and discoverable via the marketplace with metadata and usage documentation. & Should \\
+NFR-06 & Security (Sandbox) & Template compilation in web and API execution environments shall execute in an isolated process sandbox with shell escapes disabled. & Must \\
+NFR-07 & Security (Rate Limit) & Public conversion API endpoints shall enforce IP-prefix sliding-window rate limiting to prevent resource exhaustion and denial of service. & Must \\
+NFR-08 & Security (Macros) & Templates shall be strictly constrained to a declarative schema and pre-vetted macro packages, rejecting arbitrary un-sandboxed code execution. & Must \\
+NFR-09 & Maintainability & Changes shall be validated by automated tests (grammar/interpreter, metadata round-trip, golden-file PDF regression per flagship template) in CI. & Must \\
+NFR-10 & Discoverability & Templates shall be versioned via semantic versioning and discoverable through marketplace search, category filtering, and metadata inspection. & Should \\
 \end{xltabular}
 
 
@@ -176,12 +178,19 @@ in Section~\ref{sec:data-design}.
 \endfoot
 \bottomrule
 \endlastfoot
-DIR-01 & Data & The system shall store template packages with schema, JSON manifest, assets, and version metadata; a product-level \texttt{SKILLS.md} shall guide AI usage. & Template packaging \\
-DIR-02 & Data & Compiled PDFs shall embed original Markdown source, template identifier, and version in document metadata (XMP/PDF metadata). & Round-trip fidelity \\
-DIR-03 & Data & The system shall persist per-template heart and download counts in an application database, keyed by template identifier. & Marketplace metrics \\
-EIR-01 & External API & The MCP server shall expose \texttt{build}/\texttt{validate}/\texttt{template}/\texttt{extract-source} operations over MCP. & AI assistants \\
-EIR-02 & External API & The conversion API shall accept Markdown input and template selection, return compiled PDF or errors, and support webhook-triggered export actions. & CMS/Markdown sites \\
-EIR-03 & External API & The marketplace shall read its published template registry from labeled GitHub issues and resolve template manifests and assets from linked GitHub repositories. & GitHub \\
+DIR-01 & Data & The system shall store template packages comprising declarative schemas, JSON manifests, asset files, and semantic version metadata. & Template packaging \\
+DIR-02 & Data & The system shall provide a product-level \texttt{SKILLS.md} specification defining schema rules and authoring constraints for AI agents. & AI authoring contract \\
+DIR-03 & Data & Compiled PDFs shall embed original Markdown source text within document XMP metadata streams conforming to ISO 16684-1. & Round-trip fidelity \\
+DIR-04 & Data & Compiled PDFs shall embed active template identifiers and version tags within document XMP metadata streams. & Round-trip provenance \\
+DIR-05 & Data & The system shall persist per-template heart and download counts in an application database, keyed by unique template identifier. & Marketplace metrics \\
+EIR-01 & External API & The MCP server shall expose a \texttt{build} tool over JSON-RPC for programmatic document compilation by AI agents. & AI assistants \\
+EIR-02 & External API & The MCP server shall expose a \texttt{validate} tool over JSON-RPC for syntax and template schema validation. & AI assistants \\
+EIR-03 & External API & The MCP server shall expose a \texttt{template} tool over JSON-RPC for querying listed template metadata and manifests. & AI assistants \\
+EIR-04 & External API & The MCP server shall expose an \texttt{extract-source} tool over JSON-RPC for recovering embedded source code from PDFs. & AI assistants \\
+EIR-05 & External API & The conversion API shall accept Markdown input and template selection over HTTP POST and return compiled PDF documents or structured error diagnostics. & CMS/Markdown sites \\
+EIR-06 & External API & The conversion API shall provide a webhook-triggered export action to compile and deliver PDFs upon content publication. & External CMS webhooks \\
+EIR-07 & External API & The marketplace shall read its published registry by querying labeled GitHub issues from configured repository sources. & GitHub Issue API \\
+EIR-08 & External API & The marketplace shall resolve template manifests, documentation, and preview assets from linked public GitHub repositories. & GitHub REST/GraphQL \\
 \end{xltabular}
 
 
@@ -208,11 +217,13 @@ automated decisions require explicit treatment.
 \endfoot
 \bottomrule
 \endlastfoot
-PR-01 & Privacy & User content submitted to the marketplace/API shall be handled according to stated privacy practices; template submissions are public GitHub issues; source restoration is opt-in and limited to Litho-generated PDFs. & Project policy \\
-IP-01 & Intellectual Property & Templates published to the marketplace shall respect licensing; template authors retain rights as specified by marketplace terms. & Marketplace terms \\
-SE-01 & Security/Safety & Untrusted templates/macros shall not execute arbitrary code outside the sandboxed, declarative schema; LaTeX macro execution shall be restricted to vetted packages. & Secure design \\
-LE-01 & Licensing & Open-source components (Tectonic, CommonMark, etc.) shall be used in compliance with their licenses. & Component licenses \\
+PR-01 & Privacy & User document contents submitted to the web conversion application and API shall be processed ephemerally in memory without persistent storage. & Project policy \\
+PR-02 & Privacy & Template submissions shall be published openly through GitHub issues with author attribution and transparent review records. & Public issue tracking \\
+PR-03 & Privacy & PDF source restoration shall be strictly bounded to documents containing explicit Litho-embedded metadata streams. & Opt-in restoration policy \\
+IP-01 & Intellectual Property & Templates published to the marketplace shall declare an approved open-source license; template authors retain copyright as specified by marketplace terms. & Marketplace terms \\
+SE-01 & Security/Safety & Compilation processes shall execute within restricted process sandboxes without arbitrary filesystem or network socket access. & Secure compiler design \\
+SE-02 & Security/Safety & LaTeX macro execution shall be strictly restricted to vetted macro packages, rejecting arbitrary shell escapes. & Secure compiler design \\
+LE-01 & Licensing & Open-source components (Tectonic, CommonMark, KaTeX) shall be utilized in strict compliance with their respective upstream licenses. & Component licenses \\
 \end{xltabular}
-
 
 % =============================================================================

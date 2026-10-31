@@ -1,5 +1,5 @@
 % This file is included by uet_thesis.tex.
-% Replace blue placeholders and remove example text before submission.
+% Appendix A: Definitions, Acronyms, and Domain Terms
 
 \chapter{Definitions, Acronyms, and Domain Terms}
 \label{app:terms}
@@ -8,7 +8,7 @@ Define abbreviations and specialized terms that a reader may not know. Do not li
 common computing terms unless they have a project-specific meaning.
 \end{guidance}
 
-\begin{longtable}{@{}p{0.27\textwidth}p{0.68\textwidth}@{}}
+\begin{longtable}{@{}p{0.25\textwidth}p{0.70\textwidth}@{}}
 \caption{Definitions, acronyms, and domain terms}\label{tab:terms}\\
 \toprule
 \textbf{Term or acronym} & \textbf{Definition} \\
@@ -18,7 +18,13 @@ common computing terms unless they have a project-specific meaning.
 \textbf{Term or acronym} & \textbf{Definition} \\
 \midrule
 \endhead
-\placeholder{Term} & \placeholder{Clear project-specific definition} \\
-\placeholder{Acronym} & \placeholder{Expanded form and meaning} \\
+AST & \textbf{Abstract Syntax Tree}: A hierarchical tree data structure representing the syntactic elements of Markdown source code after tokenization and dialect parsing. \\
+CommonMark & A strongly specified, unambiguous standard syntax specification for Markdown that serves as Litho's base tier-one authoring surface. \\
+Tectonic & A modernized, self-contained XeTeX-based document compiler distributed as a single portable Rust binary with automated, on-demand CTAN package retrieval. \\
+MCP & \textbf{Model Context Protocol}: An open standard specification developed by Anthropic enabling AI models to interact with local and remote developer tools, compilers, and file extractors. \\
+XMP Metadata & \textbf{Extensible Metadata Platform}: An ISO standard (ISO 16684-1) for serializing and embedding XML-based document metadata and raw source code into digital assets such as PDFs. \\
+Round-Trip Fidelity & The engineering capability to extract and restore the exact original plain-text Markdown source from a compiled PDF output with zero byte loss or structural drift. \\
+Jamstack & A modern web development architecture based on client-side JavaScript, reusable APIs, and pre-rendered static Markup utilized by the Litho template marketplace. \\
+D1 & Cloudflare's serverless, globally distributed relational SQL database (SQLite-compatible) utilized strictly for storing anonymous aggregate engagement counters. \\
 \bottomrule
 \end{longtable}

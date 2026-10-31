@@ -121,14 +121,14 @@ that do not communicate a design decision.
 Show important domain concepts or software classes, relevant attributes and
 operations, relationships, multiplicities, and inheritance where justified.
 \end{guidance}
-\diagramplaceholder{Class or domain diagram}{Example classes: Student, Adviser, Appointment, AvailabilitySlot, and Notification.}
+\diagramplaceholder{Class or domain diagram}{Core Litho domain classes: ASTNode, MarkdownParser, TemplateSchema, CompilerContext, XmpMetadataStream, and PackageManifest.}
 
 \subsection{Component Model}
 \begin{guidance}
 Show deployable or replaceable software components, their provided and required
 interfaces, and dependencies.
 \end{guidance}
-\diagramplaceholder{Component diagram}{Example components: Web Client, Appointment Service, Authentication Service, and Data Store.}
+\diagramplaceholder{Component diagram}{Core Litho components: Parser Engine, Tectonic Compiler, CLI Tooling, Marketplace Web App, VS Code Language Client, and MCP Server.}
 
 \subsection{Package Model \applicability{If required}}
 \begin{guidance}
@@ -155,7 +155,7 @@ and important indexing or retention decisions. Use an ER diagram, schema, or oth
 notation appropriate to the selected database model.
 \end{guidance}
 Litho does not use an application database for the template registry. The published registry is derived from GitHub issues that maintainers review and label as listed, while each template's linked repository and releases hold its manifest, assets, and version history. A small application database stores only the per-template heart and download counters, keyed by template identifier. The diagram below models the resulting registry and counter records.
-\diagramplaceholder{Data model or schema}{Example entities: User, AvailabilitySlot, Appointment, and NotificationLog.}
+\diagramplaceholder{Data model or schema}{Litho registry model: Labeled GitHub Issue Registry, Template Manifest, and Edge Engagement Counter (hearts and downloads).}
 
 \section{Algorithm or Model Design \applicability{Research, Hybrid; Development or Game if a core algorithm or AI model is used}}
 \begin{guidance}
@@ -194,7 +194,7 @@ Present the navigation structure and key wireframes or prototypes. Explain how t
 design supports usability, accessibility, responsive layout, error prevention,
 feedback, and consistency. Do not include every minor screen.
 \end{guidance}
-\diagramplaceholder{Navigation structure or user flow}{Example: Sign In, Dashboard, Available Slots, Appointment Details, and Notifications.}
+\diagramplaceholder{Navigation structure or user flow}{Litho web navigation flow: Template Marketplace (Catalog, Filter, Detail), Documentation Website, and In-Browser Conversion Workspace.}
 \diagramplaceholder{Key wireframe or prototype}{Annotate important controls, content, validation, feedback, and accessibility decisions.}
 
 Litho exposes three separate web applications: the template marketplace for browsing and discovering listed templates, the documentation website for installation and configuration guidance, and the conversion web app where authors write or paste Markdown, optionally use AI-assisted authoring, select a template, and convert in either direction. The same conversion capability is also available through the VS Code extension, CLI, MCP server, and hosted API.
@@ -222,8 +222,10 @@ not make general claims such as ``the system is secure'' without specific contro
 \endfoot
 \bottomrule
 \endlastfoot
-SEC-01 & Unauthorized access to appointment records & Role-based authorization is checked at the service layer before records are returned or modified. & FR-XX, NFR-XX \\
-SEC-02 & \placeholder{Threat, privacy concern, or safety hazard} & \placeholder{Specific design control} & \placeholder{Requirement IDs} \\
+SEC-01 & Arbitrary code execution in TeX engine & Invoke Tectonic with shell escapes strictly disabled and filesystem access restricted to the isolated build workspace. & FR-05, NFR-06, SE-01 \\
+SEC-02 & Malicious template repository injection & Automated static security baseline scanning of submitted repository trees and declarative manifest schema validation prior to listing. & FR-14, FR-22, NFR-08, SE-02 \\
+SEC-03 & Denial of service and metric abuse & IP-prefix sliding-window rate limiting on public conversion endpoints and edge counter increments without persisting client IP addresses. & FR-48--FR-51, NFR-07, DIR-05 \\
+SEC-04 & Cross-site scripting (XSS) and input poisoning & Strict HTML escaping of author-supplied Markdown metadata and enforcement of HTTPS URL protocol whitelists for template assets. & FR-24, FR-26, NFR-06, PR-01 \\
 \end{xltabular}
 
 
@@ -249,7 +251,10 @@ project feasibility. Do not repeat the tools list from Section~\ref{sec:tools}.
 \endfoot
 \bottomrule
 \endlastfoot
-DD-01 & \placeholder{Selected design decision} & \placeholder{Feasible alternatives} & \placeholder{Evidence-based reason and accepted limitation} \\
+DD-01 & Adopt Tectonic as the self-contained XeTeX compilation engine. & Full TeX Live distribution (~5 GB installation), MiKTeX, or pdfLaTeX via Pandoc. & Bundles XeTeX, fontconfig, and on-demand CTAN package retrieval into a single portable binary without requiring system-wide TeX installations. Trade-off: initial build requires internet connectivity to cache packages. \\
+DD-02 & Git-backed template distribution indexed via reviewed GitHub issues. & Centralized relational database (PostgreSQL/Supabase) or cloud object storage (S3) with custom auth. & Leverages distributed version control, issue tracking, and commit signing for open community curation with zero user credential management. Trade-off: catalog updates depend on GitHub API rate limits. \\
+DD-03 & Embed original Markdown source into PDF XMP document metadata streams. & Heuristic reverse decompilation (transpiling generated LaTeX back to Markdown via regex or AST invertors). & Guarantees byte-for-byte lossless round-trip recovery of comments, frontmatter, and formatting. Trade-off: slightly increases compiled PDF file size (typically by 5--30 KB). \\
+DD-04 & Jamstack static site generation with edge engagement counters (Next.js + Cloudflare D1). & Monolithic full-stack server-side rendered application (Node.js/Express or Django). & Maximizes global CDN delivery speed and eliminates server maintenance vulnerability surfaces, while edge counters handle lightweight reactions. Trade-off: new listings require catalog rebuild. \\
 \end{xltabular}
 
 
