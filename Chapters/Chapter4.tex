@@ -15,7 +15,7 @@ only when it helps explain the design. Label every component and connector.
 \diagramplaceholder{System context diagram}{Example content: Litho authors, template maintainers, GitHub, and the conversion pipeline boundary.}
 \diagramplaceholder{High-level architecture}{Example content: CLI and editor clients, three web applications, platform services, and the Tectonic build engine.}
 
-\begin{xltabular}{\textwidth}{@{}p{0.16\textwidth}p{0.22\textwidth}X X@{}}
+\begin{xltabular}{\textwidth}{@{}p{0.13\textwidth}p{0.24\textwidth}X X@{}}
 \caption{Major interfaces}\label{tab:major-interfaces}\\
 \toprule
 \textbf{ID} & \textbf{Interface} & \textbf{Purpose and exchanged information} & \textbf{Protocol or format} \\
@@ -30,11 +30,11 @@ only when it helps explain the design. Label every component and connector.
 \endfoot
 \bottomrule
 \endlastfoot
-INT-01 & CLI $\leftrightarrow$ Interpreter & Invoke parse/compile/validate/extract-source on \texttt{.md} files and templates. & Python API/local calls \\
+INT-01 & CLI $\leftrightarrow$ Interpreter & Invoke parse, compile, validate, and extract-source on \texttt{.md} files and templates. & Python API/local calls \\
 INT-02 & Interpreter $\leftrightarrow$ Tectonic & Pass generated \texttt{.tex}, receive compiled PDF; supply template-required packages. & Process invocation / filesystem \\
 INT-03 & Editor Extensions $\leftrightarrow$ Template Schema/Manifest & Load grammar, snippets, and IntelliSense from template schema and manifest. & Local files / extension APIs \\
 INT-04 & Marketplace $\leftrightarrow$ GitHub & Read labeled issues for the published template registry; resolve template manifests and assets from linked repositories. & GitHub REST API \\
-INT-05 & MCP Server $\leftrightarrow$ AI Assistants & Expose build/validate/template/extract-source operations. & MCP (JSON-RPC) \\
+INT-05 & MCP Server $\leftrightarrow$ AI Assistants & Expose build, validate, template, and extract-source operations. & MCP (JSON-RPC) \\
 INT-06 & Conversion API $\leftrightarrow$ CMS/Websites & Accept Markdown + template, return PDF or error; support webhooks. & HTTP/REST (JSON) \\
 INT-07 & PDF $\leftrightarrow$ Extract-Source Tool & Read/write embedded Markdown source in PDF metadata. & PDF metadata (XMP) \\
 INT-08 & Conversion Web App $\leftrightarrow$ Interpreter/API & Submit Markdown with a selected template; return a compiled PDF or restored source. & HTTPS/JSON \\

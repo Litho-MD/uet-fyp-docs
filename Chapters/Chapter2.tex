@@ -127,7 +127,7 @@ terms such as \emph{fast}, \emph{secure}, and \emph{user-friendly} with measurab
 targets under stated conditions. Include only attributes relevant to the project.
 \end{guidance}
 
-\begin{xltabular}{\textwidth}{@{}p{0.12\textwidth}p{0.18\textwidth}X p{0.15\textwidth}@{}}
+\begin{xltabular}{\textwidth}{@{}p{0.11\textwidth}p{0.21\textwidth}X p{0.14\textwidth}@{}}
 \caption{Non-functional requirements}\label{tab:nonfunctional-requirements}\\
 \toprule
 \textbf{ID} & \textbf{Attribute} & \textbf{Measurable requirement} & \textbf{Priority} \\
@@ -146,7 +146,7 @@ NFR-01 & Performance & Local Markdown-to-PDF compilation for a typical proposal 
 NFR-02 & Portability & The CLI shall run on Linux, macOS, and Windows without requiring a full TeX distribution. & Must \\
 NFR-03 & Usability & Authors unfamiliar with LaTeX shall be able to produce a formatted document using a flagship template with no direct LaTeX editing required. & Must \\
 NFR-04 & Extensibility & New templates shall be added without modifying the core interpreter grammar; extensions shall be declared via template schema/manifests. & Must \\
-NFR-05 & Integrity/Fidelity & PDF source extraction shall recover the exact original Markdown source byte-for-byte (metadata round-trip) with no reconstruction loss. & Must \\
+NFR-05 & Fidelity and Integrity & PDF source extraction shall recover the exact original Markdown source byte-for-byte (metadata round-trip) with no reconstruction loss. & Must \\
 NFR-06 & Security (Sandbox) & Template compilation in web and API execution environments shall execute in an isolated process sandbox with shell escapes disabled. & Must \\
 NFR-07 & Security (Rate Limit) & Public conversion API endpoints shall enforce IP-prefix sliding-window rate limiting to prevent resource exhaustion and denial of service. & Must \\
 NFR-08 & Security (Macros) & Templates shall be strictly constrained to a declarative schema and pre-vetted macro packages, rejecting arbitrary un-sandboxed code execution. & Must \\
@@ -202,7 +202,7 @@ people, personal data, health information, children, surveillance, or consequent
 automated decisions require explicit treatment.
 \end{guidance}
 
-\begin{xltabular}{\textwidth}{@{}p{0.12\textwidth}p{0.18\textwidth}X X@{}}
+\begin{xltabular}{\textwidth}{@{}p{0.10\textwidth}p{0.20\textwidth}X X@{}}
 \caption{Legal, ethical, privacy, and safety requirements}\label{tab:leps-requirements}\\
 \toprule
 \textbf{ID} & \textbf{Category} & \textbf{Requirement or obligation} & \textbf{Applicable authority or source} \\
@@ -221,8 +221,8 @@ PR-01 & Privacy & User document contents submitted to the web conversion applica
 PR-02 & Privacy & Template submissions shall be published openly through GitHub issues with author attribution and transparent review records. & Public issue tracking \\
 PR-03 & Privacy & PDF source restoration shall be strictly bounded to documents containing explicit Litho-embedded metadata streams. & Opt-in restoration policy \\
 IP-01 & Intellectual Property & Templates published to the marketplace shall declare an approved open-source license; template authors retain copyright as specified by marketplace terms. & Marketplace terms \\
-SE-01 & Security/Safety & Compilation processes shall execute within restricted process sandboxes without arbitrary filesystem or network socket access. & Secure compiler design \\
-SE-02 & Security/Safety & LaTeX macro execution shall be strictly restricted to vetted macro packages, rejecting arbitrary shell escapes. & Secure compiler design \\
+SE-01 & Security and Safety & Compilation processes shall execute within restricted process sandboxes without arbitrary filesystem or network socket access. & Secure compiler design \\
+SE-02 & Security and Safety & LaTeX macro execution shall be strictly restricted to vetted macro packages, rejecting arbitrary shell escapes. & Secure compiler design \\
 LE-01 & Licensing & Open-source components (Tectonic, CommonMark, KaTeX) shall be utilized in strict compliance with their respective upstream licenses. & Component licenses \\
 \end{xltabular}
 
