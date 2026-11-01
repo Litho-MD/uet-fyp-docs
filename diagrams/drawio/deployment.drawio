@@ -1,0 +1,124 @@
+<mxfile host="65bd71144e">
+    <diagram name="Deployment" id="litho-deployment">
+        <mxGraphModel dx="1529" dy="2237" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="800" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="cd" parent="1" style="shape=cube;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;darkOpacity=0.05;darkOpacity2=0.1;size=10;verticalAlign=top;align=left;spacingLeft=10;spacingTop=6;fontSize=14;fontStyle=1;fillColor=#f0f6fc;strokeColor=#6c8ebf;" value="&lt;i&gt;«device»&lt;/i&gt;&lt;br&gt;Author Workstation" vertex="1">
+                    <mxGeometry height="390" width="340" x="20" y="150" as="geometry"/>
+                </mxCell>
+                <mxCell id="cdb" parent="cd" style="rounded=1;dashed=1;whiteSpace=wrap;html=1;verticalAlign=top;align=left;spacingLeft=8;spacingTop=4;fontSize=12;fontStyle=1;fillColor=#ffffff;strokeColor=#666666;" value="&lt;i&gt;«execution environment»&lt;/i&gt;&lt;br&gt;Web Browser" vertex="1">
+                    <mxGeometry height="80" width="300" x="20" y="58" as="geometry"/>
+                </mxCell>
+                <mxCell id="cdt" parent="cd" style="rounded=1;dashed=1;whiteSpace=wrap;html=1;verticalAlign=top;align=left;spacingLeft=8;spacingTop=4;fontSize=12;fontStyle=1;fillColor=#ffffff;strokeColor=#666666;arcSize=6;" value="&lt;i&gt;«execution environment»&lt;/i&gt;&lt;br&gt;Local Toolchain" vertex="1">
+                    <mxGeometry height="225" width="300" x="20" y="145" as="geometry"/>
+                </mxCell>
+                <mxCell id="cli" parent="cdt" style="shape=note;size=12;whiteSpace=wrap;html=1;fontSize=13;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="&lt;i&gt;«artifact»&lt;/i&gt;&lt;br&gt;&lt;b&gt;Litho CLI&lt;/b&gt;" vertex="1">
+                    <mxGeometry height="50" width="270" x="15" y="45" as="geometry"/>
+                </mxCell>
+                <mxCell id="vsx" parent="cdt" style="shape=note;size=12;whiteSpace=wrap;html=1;fontSize=13;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="&lt;i&gt;«artifact»&lt;/i&gt;&lt;br&gt;&lt;b&gt;VS Code Extension&lt;/b&gt;" vertex="1">
+                    <mxGeometry height="50" width="270" x="15" y="105" as="geometry"/>
+                </mxCell>
+                <mxCell id="tect" parent="cdt" style="shape=note;size=12;whiteSpace=wrap;html=1;fontSize=13;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="&lt;i&gt;«artifact»&lt;/i&gt;&lt;br&gt;&lt;b&gt;Tectonic&lt;/b&gt;" vertex="1">
+                    <mxGeometry height="50" width="270" x="15" y="165" as="geometry"/>
+                </mxCell>
+                <mxCell id="vc" parent="1" style="shape=cube;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;darkOpacity=0.05;darkOpacity2=0.1;size=10;verticalAlign=top;align=left;spacingLeft=10;spacingTop=6;fontSize=14;fontStyle=1;fillColor=#f0f6fc;strokeColor=#6c8ebf;" value="&lt;i&gt;«execution environment»&lt;/i&gt;&lt;br&gt;Vercel" vertex="1">
+                    <mxGeometry height="390" width="410" x="500" y="150" as="geometry"/>
+                </mxCell>
+                <mxCell id="conv" parent="vc" style="shape=note;size=12;whiteSpace=wrap;html=1;fontSize=13;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="&lt;i&gt;«artifact»&lt;/i&gt;&lt;br&gt;&lt;b&gt;Conversion Web App&lt;/b&gt;" vertex="1">
+                    <mxGeometry height="110" width="370" x="20" y="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="docs" parent="vc" style="shape=note;size=12;whiteSpace=wrap;html=1;fontSize=13;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="&lt;i&gt;«artifact»&lt;/i&gt;&lt;br&gt;&lt;b&gt;Documentation Site&lt;/b&gt;" vertex="1">
+                    <mxGeometry height="70" width="370" x="20" y="190" as="geometry"/>
+                </mxCell>
+                <mxCell id="mkt" parent="vc" style="shape=note;size=12;whiteSpace=wrap;html=1;fontSize=13;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="&lt;i&gt;«artifact»&lt;/i&gt;&lt;br&gt;&lt;b&gt;Template Marketplace&lt;/b&gt;" vertex="1">
+                    <mxGeometry height="90" width="370" x="20" y="280" as="geometry"/>
+                </mxCell>
+                <mxCell id="pp" parent="1" style="shape=cube;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;darkOpacity=0.05;darkOpacity2=0.1;size=10;verticalAlign=top;align=center;fontSize=14;fontStyle=1;spacingTop=6;fillColor=#f0f6fc;strokeColor=#6c8ebf;" value="&lt;i&gt;«execution environment»&lt;/i&gt;&lt;br&gt;Container PaaS" vertex="1">
+                    <mxGeometry height="390" width="480" x="1030" y="150" as="geometry"/>
+                </mxCell>
+                <mxCell id="api" parent="pp" style="rounded=1;whiteSpace=wrap;html=1;fontSize=13;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="&lt;i&gt;«container»&lt;/i&gt;&lt;br&gt;&lt;b&gt;Conversion API&lt;/b&gt;" vertex="1">
+                    <mxGeometry height="120" width="210" x="20" y="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="mcp" parent="pp" style="rounded=1;whiteSpace=wrap;html=1;fontSize=13;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="&lt;i&gt;«container»&lt;/i&gt;&lt;br&gt;&lt;b&gt;MCP Server&lt;/b&gt;" vertex="1">
+                    <mxGeometry height="120" width="210" x="250" y="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="wk" parent="pp" style="rounded=1;whiteSpace=wrap;html=1;fontSize=13;fillColor=#e1d5e7;strokeColor=#9673a6;verticalAlign=top;spacingTop=6;" value="&lt;i&gt;«container»&lt;/i&gt; &lt;b&gt;Compile Worker (sandboxed)&lt;/b&gt;" vertex="1">
+                    <mxGeometry height="140" width="440" x="20" y="235" as="geometry"/>
+                </mxCell>
+                <mxCell id="wtect" parent="wk" style="shape=note;size=12;whiteSpace=wrap;html=1;fontSize=13;fillColor=#ffe6cc;strokeColor=#d79b00;" value="&lt;i&gt;«artifact»&lt;/i&gt;&lt;br&gt;&lt;b&gt;Tectonic&lt;/b&gt;" vertex="1">
+                    <mxGeometry height="70" width="195" x="15" y="45" as="geometry"/>
+                </mxCell>
+                <mxCell id="wcache" parent="wk" style="shape=note;size=12;whiteSpace=wrap;html=1;fontSize=13;fillColor=#ffe6cc;strokeColor=#d79b00;" value="&lt;i&gt;«artifact»&lt;/i&gt;&lt;br&gt;&lt;b&gt;Package Cache&lt;/b&gt;" vertex="1">
+                    <mxGeometry height="70" width="195" x="230" y="45" as="geometry"/>
+                </mxCell>
+                <mxCell id="llm" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fontSize=13;fillColor=#ffe6cc;strokeColor=#d79b00;" value="&lt;i&gt;«external service»&lt;/i&gt;&lt;br&gt;&lt;b&gt;LLM Provider&lt;/b&gt;" vertex="1">
+                    <mxGeometry height="70" width="300" x="555" y="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="cms" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fontSize=13;fillColor=#ffe6cc;strokeColor=#d79b00;" value="&lt;i&gt;«external system»&lt;/i&gt;&lt;br&gt;&lt;b&gt;CMS Sites&lt;/b&gt;" vertex="1">
+                    <mxGeometry height="70" width="210" x="1050" y="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="ai" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fontSize=13;fillColor=#ffe6cc;strokeColor=#d79b00;" value="&lt;i&gt;«external system»&lt;/i&gt;&lt;br&gt;&lt;b&gt;AI Assistants&lt;/b&gt;" vertex="1">
+                    <mxGeometry height="70" width="210" x="1280" y="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="ctan" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fontSize=13;fillColor=#ffe6cc;strokeColor=#d79b00;" value="&lt;i&gt;«external service»&lt;/i&gt;&lt;br&gt;&lt;b&gt;CTAN Packages&lt;/b&gt;" vertex="1">
+                    <mxGeometry height="80" width="200" x="90" y="610" as="geometry"/>
+                </mxCell>
+                <mxCell id="gh" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fontSize=13;fillColor=#ffe6cc;strokeColor=#d79b00;" value="&lt;i&gt;«external service»&lt;/i&gt;&lt;br&gt;&lt;b&gt;GitHub&lt;/b&gt;" vertex="1">
+                    <mxGeometry height="90" width="320" x="400" y="610" as="geometry"/>
+                </mxCell>
+                <mxCell id="db" parent="1" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=12;fontSize=13;fillColor=#d5e8d4;strokeColor=#82b366;" value="&lt;i&gt;«database server»&lt;/i&gt;&lt;br&gt;&lt;b&gt;PostgreSQL&lt;/b&gt;" vertex="1">
+                    <mxGeometry height="110" width="190" x="745" y="600" as="geometry"/>
+                </mxCell>
+                <mxCell id="e1" edge="1" parent="1" source="cdb" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=none;strokeWidth=1.5;fontSize=12;labelBackgroundColor=#ffffff;exitX=1;exitY=0.5;entryX=0.001;entryY=0.253;entryDx=0;entryDy=0;entryPerimeter=0;" target="vc" value="HTTPS">
+                    <mxGeometry relative="1" x="0.0515" as="geometry">
+                        <Array as="points"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="e2" edge="1" parent="1" source="cd" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=none;strokeWidth=1.5;fontSize=12;labelBackgroundColor=#ffffff;exitX=0.93;exitY=1;entryX=0;entryY=0.5;" target="gh" value="HTTPS">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e3" edge="1" parent="1" source="tect" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=none;strokeWidth=1.5;fontSize=12;labelBackgroundColor=#ffffff;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" target="ctan" value="HTTPS">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e4" edge="1" parent="1" source="conv" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=none;strokeWidth=1.5;fontSize=12;labelBackgroundColor=#ffffff;exitX=0.5;exitY=0;entryX=0.5;entryY=1;" target="llm" value="HTTPS">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e5" edge="1" parent="1" source="conv" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=none;strokeWidth=1.5;fontSize=12;labelBackgroundColor=#ffffff;exitX=1;exitY=0.5;entryX=0;entryY=0.458;" target="api" value="HTTPS">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e6" edge="1" parent="1" source="cms" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=none;strokeWidth=1.5;fontSize=12;labelBackgroundColor=#ffffff;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" target="api" value="Webhook">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e7" edge="1" parent="1" source="ai" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=none;strokeWidth=1.5;fontSize=12;labelBackgroundColor=#ffffff;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" target="mcp" value="MCP">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e8" edge="1" parent="1" source="api" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=none;strokeWidth=1.5;fontSize=12;labelBackgroundColor=#ffffff;exitX=0.5;exitY=1;entryX=0.239;entryY=0.005;entryDx=0;entryDy=0;entryPerimeter=0;" target="wk" value="Compile job">
+                    <mxGeometry relative="1" x="0.2952" as="geometry">
+                        <Array as="points"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="e9" edge="1" parent="1" source="mcp" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=none;strokeWidth=1.5;fontSize=12;labelBackgroundColor=#ffffff;exitX=0.5;exitY=1;entryX=0.762;entryY=-0.01;entryDx=0;entryDy=0;entryPerimeter=0;" target="wk" value="Compile job">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e10" edge="1" parent="1" source="mkt" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=none;strokeWidth=1.5;fontSize=12;labelBackgroundColor=#ffffff;exitX=0.054;exitY=1;entryX=0.4375;entryY=0;" target="gh" value="REST API">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e11" edge="1" parent="1" source="mkt" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=none;strokeWidth=1.5;fontSize=12;labelBackgroundColor=#ffffff;exitX=0.865;exitY=1;entryX=0.5;entryY=0;" target="db" value="SQL">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e12" edge="1" parent="1" source="gh" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=open;endFill=0;dashed=1;strokeWidth=1.5;fontSize=12;labelBackgroundColor=#ffffff;exitX=0.9375;exitY=0;entryX=0.488;entryY=1;" target="vc" value="Deploy">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e13" edge="1" parent="1" source="gh" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=open;endFill=0;dashed=1;strokeWidth=1.5;fontSize=12;labelBackgroundColor=#ffffff;exitX=0.5;exitY=1;entryX=0.146;entryY=1;" target="pp" value="Deploy">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="560" y="745"/>
+                            <mxPoint x="1100" y="745"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>
