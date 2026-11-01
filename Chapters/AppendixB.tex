@@ -1,12 +1,67 @@
 % This file is included by uet_thesis.tex.
-% Replace blue placeholders and remove example text before submission.
 
-\chapter{Supporting Specifications \applicability{If applicable}}
-\begin{guidance}
-Place lengthy supporting material here only when it is necessary for understanding
-or reproducing the design, such as API contracts, data dictionaries, detailed
-pseudocode, questionnaires, or supplementary diagrams. Refer to every included
-item from the main document.
-\end{guidance}
+\chapter{Template Manifest and Package Specification}
+\label{app:template-manifest}
 
-\placeholder{Insert supporting specification or remove this appendix.}
+This appendix defines the minimum structure of a publishable Litho template
+package. The package is declarative: template authors describe supported fields,
+assets, and rendering constraints without adding arbitrary interpreter code. The
+manifest is validated by the publisher tooling before a package is submitted for
+review, as required by FR-13--FR-15 and DIR-01.
+
+\section{Package Layout}
+\begin{xltabular}{\textwidth}{@{}p{0.28\textwidth}X@{}}
+\caption{Template package contents}\label{tab:template-package}\\
+\toprule
+\textbf{Path} & \textbf{Purpose} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Path} & \textbf{Purpose} \\
+\midrule
+\endhead
+\texttt{manifest.json} & Required identity, version, schema, field, asset, and compatibility metadata. \\
+\texttt{schema.json} & Declarative validation rules for frontmatter and template-specific document fields. \\
+\texttt{template/} & Template resources used by the binding and document-generation stages. \\
+\texttt{assets/} & Logos, fonts, diagrams, and other package resources referenced by the template. \\
+\texttt{README.md} & Authoring instructions, supported features, licensing, and limitations. \\
+\bottomrule
+\end{xltabular}
+
+\section{Manifest Fields}
+\begin{xltabular}{\textwidth}{@{}p{0.24\textwidth}p{0.16\textwidth}X@{}}
+\caption{Required manifest fields}\label{tab:manifest-fields}\\
+\toprule
+\textbf{Field} & \textbf{Required} & \textbf{Meaning} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Field} & \textbf{Required} & \textbf{Meaning} \\
+\midrule
+\endhead
+\texttt{id} & Yes & Stable, unique identifier used by the CLI, editor, marketplace, and API. \\
+\texttt{name} & Yes & Human-readable template name. \\
+\texttt{version} & Yes & Semantic version of the published package. \\
+\texttt{description} & Yes & Short explanation of the template's intended use. \\
+\texttt{license} & Yes & License covering the template, assets, and permitted redistribution. \\
+\texttt{authors} & Yes & Publisher names and contact or repository information. \\
+\texttt{schema} & Yes & Supported fields, types, defaults, and validation constraints. \\
+\texttt{assets} & Yes & Package-local assets and their permitted uses. \\
+\texttt{compatibility} & Yes & Supported Litho dialect and engine versions. \\
+\texttt{entrypoint} & Yes & Template resource used to generate the target document. \\
+\bottomrule
+\end{xltabular}
+
+\section{Validation and Publication Rules}
+\begin{enumerate}
+  \item The manifest must be valid JSON and contain every required field.
+  \item The package identifier and semantic version must be unique for the selected
+  release.
+  \item Every schema field referenced by the template must be declared in the
+  manifest, and every referenced asset must exist inside the package.
+  \item Template resources must use only the approved declarative constructs and
+  package dependencies; arbitrary macro execution is not permitted.
+  \item The CLI must report validation errors before submission. A package may be
+  submitted to the marketplace only after schema, asset, compatibility, and
+  licensing checks pass.
+\end{enumerate}

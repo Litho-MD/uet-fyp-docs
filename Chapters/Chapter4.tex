@@ -12,8 +12,8 @@ responsibilities, and principal interfaces. State the selected architectural sty
 only when it helps explain the design. Label every component and connector.
 \end{guidance}
 
-\diagramplaceholder{System context diagram}{Example content: Litho authors, template maintainers, GitHub, and the conversion pipeline boundary.}
-\diagramplaceholder{High-level architecture}{Example content: CLI and editor clients, three web applications, platform services, and the Tectonic build engine.}
+\diagram[lg]{system-context}{System context diagram}
+\diagram[fl]{high-level-architecture}{High-level architecture of Litho: actors, five conversion channels and two web applications, the shared interpreter pipeline, AI services, sandboxed build workers, and external services}
 
 \begin{xltabular}{\textwidth}{@{}p{0.13\textwidth}p{0.24\textwidth}X X@{}}
 \caption{Major interfaces}\label{tab:major-interfaces}\\
@@ -34,7 +34,7 @@ INT-01 & CLI $\leftrightarrow$ Interpreter & Invoke parse, compile, validate, an
 INT-02 & Interpreter $\leftrightarrow$ Tectonic & Pass generated \texttt{.tex}, receive compiled PDF; supply template-required packages. & Process invocation / filesystem \\
 INT-03 & Editor Extensions $\leftrightarrow$ Template Schema/Manifest & Load grammar, snippets, and IntelliSense from template schema and manifest. & Local files / extension APIs \\
 INT-04 & Marketplace $\leftrightarrow$ GitHub & Read labeled issues for the published template registry; resolve template manifests and assets from linked repositories. & GitHub REST API \\
-INT-05 & MCP Server $\leftrightarrow$ AI Assistants & Expose build, validate, template, and extract-source operations. & MCP (JSON-RPC) \\
+INT-05 & MCP Server $\leftrightarrow$ AI Assistants & Expose build, validate, template retrieval/generation/modification, specification-to-Markdown conversion, and extract-source operations guided by \texttt{skills.md}. & MCP (JSON-RPC) \\
 INT-06 & Conversion API $\leftrightarrow$ CMS/Websites & Accept Markdown + template, return PDF or error; support webhooks. & HTTP/REST (JSON) \\
 INT-07 & PDF $\leftrightarrow$ Extract-Source Tool & Read/write embedded Markdown source in PDF metadata. & PDF metadata (XMP) \\
 INT-08 & Conversion Web App $\leftrightarrow$ Interpreter/API & Submit Markdown with a selected template; return a compiled PDF or restored source. & HTTPS/JSON \\
@@ -56,7 +56,7 @@ Show external actors, system use cases, the system boundary, and justified
 \texttt{include}, \texttt{extend}, or generalization relationships. Use cases
 should represent user goals rather than interface screens.
 \end{guidance}
-\diagramplaceholder{Use-case diagram}{Example use cases: Browse Marketplace, Convert a Document, Restore Source, and Submit a Template.}
+\diagramplaceholder{Use-case diagram}{Show external actors, system use cases, the system boundary, and justified relationships.}
 
 \begin{xltabular}{\textwidth}{@{}p{0.24\textwidth}X@{}}
 \caption{Use-case specification (example)}\label{tab:use-case-specification}\\
@@ -121,14 +121,14 @@ that do not communicate a design decision.
 Show important domain concepts or software classes, relevant attributes and
 operations, relationships, multiplicities, and inheritance where justified.
 \end{guidance}
-\diagramplaceholder{Class or domain diagram}{Core Litho domain classes: ASTNode, MarkdownParser, TemplateSchema, CompilerContext, XmpMetadataStream, and PackageManifest.}
+\diagramplaceholder{Class or domain diagram}{Show important domain concepts or software classes, attributes, operations, relationships, and multiplicities.}
 
 \subsection{Component Model}
 \begin{guidance}
 Show deployable or replaceable software components, their provided and required
 interfaces, and dependencies.
 \end{guidance}
-\diagramplaceholder{Component diagram}{Core Litho components: Parser Engine, Tectonic Compiler, CLI Tooling, Marketplace Web App, VS Code Language Client, and MCP Server.}
+\diagramplaceholder{Component diagram}{Show deployable or replaceable software components, their interfaces, and dependencies.}
 
 \subsection{Package Model \applicability{If required}}
 \begin{guidance}
@@ -136,14 +136,14 @@ Use a package diagram when the organization and dependencies of modules or layer
 need clarification. Omit it when the component or class model already communicates
 the structure adequately.
 \end{guidance}
-\diagramplaceholder{Package diagram}{Example packages: presentation, application, domain, and infrastructure.}
+\diagramplaceholder{Package diagram}{Show the organization and dependencies of the system modules or layers.}
 
 \subsection{Deployment Model \applicability{Deployed, distributed, networked, or multi-device systems}}
 \begin{guidance}
 Show execution nodes, devices, environments, deployed artifacts, and communication
 paths. Distinguish physical or virtual nodes from software components.
 \end{guidance}
-\diagramplaceholder{Deployment diagram}{Example nodes: user device, application server, database server, and external notification service.}
+\diagramplaceholder{Deployment diagram}{Show execution nodes, deployed artifacts, environments, and communication paths.}
 
 \section{Data Design and Management}
 \label{sec:data-design}
@@ -155,7 +155,7 @@ and important indexing or retention decisions. Use an ER diagram, schema, or oth
 notation appropriate to the selected database model.
 \end{guidance}
 Litho does not use an application database for the template registry. The published registry is derived from GitHub issues that maintainers review and label as listed, while each template's linked repository and releases hold its manifest, assets, and version history. A small application database stores only the per-template heart and download counters, keyed by template identifier. The diagram below models the resulting registry and counter records.
-\diagramplaceholder{Data model or schema}{Litho registry model: Labeled GitHub Issue Registry, Template Manifest, and Edge Engagement Counter (hearts and downloads).}
+\diagramplaceholder{Data model or schema}{Show persistent entities, identifiers, relationships, integrity constraints, and important indexing or retention decisions.}
 
 \section{Algorithm or Model Design}
 \begin{guidance}
@@ -195,9 +195,9 @@ design supports usability, accessibility, responsive layout, error prevention,
 feedback, and consistency. Do not include every minor screen.
 \end{guidance}
 \diagramplaceholder{Navigation structure or user flow}{Litho web navigation flow: Template Marketplace (Catalog, Filter, Detail), Documentation Website, and In-Browser Conversion Workspace.}
-\diagramplaceholder{Key wireframe or prototype}{Annotate important controls, content, validation, feedback, and accessibility decisions.}
+\diagramplaceholder{Key wireframe or prototype}{Show the key screens, layout, navigation, and interaction states of the Litho web applications.}
 
-Litho exposes three separate web applications: the template marketplace for browsing and discovering listed templates, the documentation website for installation and configuration guidance, and the conversion web app where authors write or paste Markdown, optionally use AI-assisted authoring, select a template, and convert in either direction. The same conversion capability is also available through the VS Code extension, CLI, MCP server, and hosted API.
+Litho exposes three separate web applications: the template marketplace for browsing and discovering listed templates, the documentation website for installation and configuration guidance, and the conversion web app where authors write or paste Markdown, optionally use AI-assisted template generation, specification-to-documentation conversion, or template modification, select a template, and convert in either direction. Agents can also leverage the MCP server with the \texttt{skills.md} playbook to perform the same workflows programmatically. The same conversion capability is also available through the VS Code extension, CLI, MCP server, and hosted API.
 
 \section{Security, Privacy, and Safety Design \applicability{If applicable}}
 \begin{guidance}
@@ -224,6 +224,7 @@ not make general claims such as ``the system is secure'' without specific contro
 \endlastfoot
 SEC-01 & Arbitrary code execution in TeX engine & Invoke Tectonic with shell escapes strictly disabled and filesystem access restricted to the isolated build workspace. & FR-05, NFR-06, SE-01 \\
 SEC-02 & Malicious template repository injection & Automated static security baseline scanning of submitted repository trees and declarative manifest schema validation prior to listing. & FR-14, FR-22, NFR-08, SE-02 \\
+SEC-05 & AI template creation security & Automated AI-driven security review of templates created via the Template Maker; detected vulnerabilities are automatically filed as GitHub issues. & FR-28, NFR-08, SE-03 \\
 SEC-03 & Denial of service and metric abuse & IP-prefix sliding-window rate limiting on public conversion endpoints and edge counter increments without persisting client IP addresses. & FR-48--FR-51, NFR-07, DIR-05 \\
 SEC-04 & Cross-site scripting (XSS) and input poisoning & Strict HTML escaping of author-supplied Markdown metadata and enforcement of HTTPS URL protocol whitelists for template assets. & FR-24, FR-26, NFR-06, PR-01 \\
 \end{xltabular}
