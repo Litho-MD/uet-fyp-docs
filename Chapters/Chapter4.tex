@@ -56,7 +56,7 @@ Show external actors, system use cases, the system boundary, and justified
 \texttt{include}, \texttt{extend}, or generalization relationships. Use cases
 should represent user goals rather than interface screens.
 \end{guidance}
-\diagramplaceholder{Use-case diagram}{Show external actors, system use cases, the system boundary, and justified relationships.}
+\diagram[lg]{use-case}{Use-case diagram}
 
 \begin{xltabular}{\textwidth}{@{}p{0.24\textwidth}X@{}}
 \caption{Use-case specification (example)}\label{tab:use-case-specification}\\
@@ -90,7 +90,7 @@ Model an important workflow using actions, control flows, decisions with guards,
 parallel paths where required, and clear initial and final nodes. Use swimlanes when
 responsibility changes are important.
 \end{guidance}
-\diagramplaceholder{Activity diagram}{Example workflow: parse Markdown, bind the template, generate LaTeX, compile via Tectonic, and embed metadata.}
+\diagram[fl]{activity}{Activity diagram}
 
 \subsection{State-Machine Model \applicability{State-dependent systems and games}}
 \begin{guidance}
@@ -105,7 +105,7 @@ Show how an important scenario is realized through time-ordered messages among
 actors, system components, and external services. Use activation bars and combined
 fragments such as \texttt{alt}, \texttt{opt}, or \texttt{loop} where appropriate.
 \end{guidance}
-\diagramplaceholder{Sequence diagram}{Example scenario: an author builds a document and receives a PDF with the original source embedded.}
+\diagram[fl]{sequence}{Sequence diagram}
 
 The diagram shows parsing, template loading/binding, LaTeX generation, Tectonic compilation, and metadata embedding for round-trip fidelity.
 
@@ -136,14 +136,14 @@ Use a package diagram when the organization and dependencies of modules or layer
 need clarification. Omit it when the component or class model already communicates
 the structure adequately.
 \end{guidance}
-\diagramplaceholder{Package diagram}{Show the organization and dependencies of the system modules or layers.}
+\diagram[lg]{package}{Package diagram}
 
 \subsection{Deployment Model \applicability{Deployed, distributed, networked, or multi-device systems}}
 \begin{guidance}
 Show execution nodes, devices, environments, deployed artifacts, and communication
 paths. Distinguish physical or virtual nodes from software components.
 \end{guidance}
-\diagramplaceholder{Deployment diagram}{Show execution nodes, deployed artifacts, environments, and communication paths.}
+\diagram[fl]{deployment}{Deployment diagram}
 
 \section{Data Design and Management}
 \label{sec:data-design}
