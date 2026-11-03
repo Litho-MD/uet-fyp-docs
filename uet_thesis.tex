@@ -4,7 +4,7 @@
 %% ----------------------------------------------------------------
 
 \documentclass[a4paper,12pt,oneside]{uet_thesis}
-\graphicspath{{Figures/}}
+\graphicspath{{Figures/}{Figures/wireframes/}}
 
 % Packages required by the design-document template.
 \usepackage[T1]{fontenc}
@@ -75,7 +75,8 @@
   \end{figure}
 }
 
-% Diagram sizing presets: sm, md (default half A4), lg, fl (full page)
+% Diagram sizing presets: sm, md (default half A4), lg, fl (full page),
+% fp (full page with minimal margins)
 \newcommand{\diagram}[3][md]{%
   \begin{figure}[H]
     \centering
@@ -85,9 +86,11 @@
       \includegraphics[width=0.95\textwidth,height=0.7\textheight,keepaspectratio]{#2}
     \else\ifx#1fl
       \includegraphics[width=\textwidth,height=0.9\textheight,keepaspectratio]{#2}
+    \else\ifx#1fp
+      \includegraphics[width=0.98\textwidth,height=0.96\textheight,keepaspectratio]{#2}
     \else
       \includegraphics[width=0.85\textwidth,height=0.5\textheight,keepaspectratio]{#2}
-    \fi\fi\fi
+    \fi\fi\fi\fi
     \caption{#3}
     \label{fig:#2}
   \end{figure}

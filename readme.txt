@@ -25,6 +25,12 @@ STUDENT INSTRUCTIONS
 - Keep detailed test cases and results in the separate testing document.
 - Compile uet_thesis.tex after every major update and resolve all errors.
 
+BUILD SCRIPT
+Run ./compile.sh from the repository root to render diagrams/mmd/*.mmd into
+Figures/*.png and compile the thesis. PlantUML is needed only when
+diagrams/puml/ exists. Mermaid diagrams use mmdc when it is installed, or
+automatically use npx with Node.js/npm as a fallback.
+
 ADDING CONTENT
 - Add a chapter file to Chapters/ and include it from uet_thesis.tex.
 - Add an image with, for example:

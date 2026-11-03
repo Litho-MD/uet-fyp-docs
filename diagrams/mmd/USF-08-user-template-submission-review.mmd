@@ -1,0 +1,25 @@
+---
+config:
+  theme: redux
+  look: classic
+---
+flowchart TD
+    A([Start]) --> B[Select validated template]
+    B --> C[Review metadata and repository link]
+    C --> D[Submit GitHub issue]
+    D --> E[Maintainer receives submission]
+    E --> F[Inspect manifest and assets]
+    F --> G[Validate template]
+    G --> H[Review generated preview]
+    H --> I{Template acceptable?}
+
+    I -- No, changes needed --> J[Request changes]
+    J --> K[Publisher modifies template]
+    K --> G
+
+    I -- No, reject --> L[Reject submission with feedback]
+    L --> M([End])
+
+    I -- Yes --> N[Approve and label template]
+    N --> O[Publish template in marketplace]
+    O --> P([End])

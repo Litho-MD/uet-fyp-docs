@@ -1,0 +1,22 @@
+---
+config:
+  theme: redux
+  look: classic
+---
+flowchart TD
+    A([Start]) --> B[Open template marketplace]
+    B --> C[Search or filter templates]
+    C --> D{Matching templates found?}
+
+    D -- No --> E[Adjust search or filters]
+    E --> C
+
+    D -- Yes --> F[Open template details]
+    F --> G[Review description, preview, and requirements]
+    G --> H{Use this template?}
+
+    H -- No --> C
+    H -- Yes --> I[Select Use This Template]
+    I --> J[Open conversion workspace]
+    J --> K[Template is selected]
+    K --> L([End])

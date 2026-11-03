@@ -1,0 +1,26 @@
+---
+config:
+  theme: redux
+  look: classic
+  layout: elk
+---
+flowchart TD
+    A([Start]) --> B[Open AI Template Maker]
+    B --> C[Describe desired template]
+    C --> D[Provide fields, styling, and branding]
+    D --> E[AI generates template and manifest]
+    E --> F[Review generated template]
+    F --> G{Changes required?}
+
+    G -- Yes --> H[Describe requested changes]
+    H --> E
+
+    G -- No --> I[Preview sample document]
+    I --> J[Run validation]
+    J --> K{Validation successful?}
+
+    K -- No --> L[Display validation errors]
+    L --> H
+
+    K -- Yes --> M[Save or submit template]
+    M --> N([End])

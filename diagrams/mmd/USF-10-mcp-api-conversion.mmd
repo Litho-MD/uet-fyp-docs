@@ -1,0 +1,29 @@
+---
+config:
+  theme: redux
+  look: classic
+---
+flowchart TD
+    A([Start]) --> B[User requests document conversion]
+    B --> C[AI assistant or external website prepares request]
+    C --> D[Send request through MCP or conversion API]
+    D --> E[Retrieve template]
+    E --> F{Template available?}
+
+    F -- No --> G[Return template error]
+    G --> H([End])
+
+    F -- Yes --> I[Validate Markdown]
+    I --> J{Document valid?}
+
+    J -- No --> K[Return validation errors]
+    K --> H
+
+    J -- Yes --> L[Generate and compile PDF]
+    L --> M{Compilation successful?}
+
+    M -- No --> N[Return compilation error]
+    N --> H
+
+    M -- Yes --> O[Return PDF to requester]
+    O --> P([End])

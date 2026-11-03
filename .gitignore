@@ -40,6 +40,7 @@
 ehthumbs.db
 Thumbs.db
 [Dd]esktop.ini
+*:Zone.Identifier
 
 # Editor, IDE, and tool configuration files
 .vscode/

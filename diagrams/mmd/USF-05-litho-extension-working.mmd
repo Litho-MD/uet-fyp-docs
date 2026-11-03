@@ -1,0 +1,20 @@
+---
+config:
+  theme: redux
+  layout: elk
+  look: classic
+---
+flowchart TD
+    A([Start]) --> B[Install extension]
+    B --> C[Open Litho Markdown file]
+    C --> D[Configure template]
+    D --> E[Write Markdown]
+    E --> F[Use syntax highlighting]
+    F --> G[Use snippets and IntelliSense]
+    G --> H{Syntax valid?}
+
+    H -- No --> I[Show diagnostics]
+    I --> E
+
+    H -- Yes --> J[Save Markdown source]
+    J --> K([End])

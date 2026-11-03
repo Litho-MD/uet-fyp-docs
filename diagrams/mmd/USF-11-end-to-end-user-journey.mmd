@@ -1,0 +1,33 @@
+---
+config:
+  theme: redux
+  look: classic
+---
+flowchart TD
+    A([Start]) --> B[Discover Litho]
+    B --> C[Read documentation]
+    C --> D[Browse template marketplace]
+    D --> E[Select and download template]
+    E --> F[Initialize Litho project]
+    F --> G[Write Markdown document]
+    G --> H[Validate document]
+    H --> I{Document valid?}
+
+    I -- No --> J[Correct Markdown errors]
+    J --> H
+
+    I -- Yes --> K[Generate PDF]
+    K --> L{PDF generated successfully?}
+
+    L -- No --> M[Review compilation errors]
+    M --> G
+
+    L -- Yes --> N[Review and download PDF]
+    N --> O{Restore source later?}
+
+    O -- Yes --> P[Upload PDF]
+    P --> Q[Extract embedded Markdown]
+    Q --> R[Edit or download restored source]
+    R --> S([End])
+
+    O -- No --> S

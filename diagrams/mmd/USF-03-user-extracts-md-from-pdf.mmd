@@ -1,0 +1,24 @@
+---
+config:
+  theme: redux
+  look: classic
+  layout: elk
+---
+flowchart TD
+    A([Start]) --> B[Open source restoration tool]
+    B --> C[Upload PDF]
+    C --> D[Inspect PDF metadata]
+    D --> E{Embedded Markdown found?}
+
+    E -- No --> F[Display source unavailable message]
+    F --> G([End])
+
+    E -- Yes --> H[Extract embedded Markdown]
+    H --> I[Display restored source]
+    I --> J{What does the user want to do?}
+
+    J -- Edit --> K[Edit Markdown]
+    J -- Download --> L[Download Markdown file]
+
+    K --> M([End])
+    L --> M

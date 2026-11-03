@@ -1,0 +1,21 @@
+---
+config:
+  theme: redux
+  look: classic
+  layout: elk
+---
+flowchart TB
+    A(["Start"]) --> B["Open conversion workspace"]
+    B --> C["Enter or upload Markdown"]
+    C --> D["Select template"]
+    D --> E["Click Generate PDF"]
+    E --> F{"Is the document valid?"}
+    F -- No --> G["Display validation errors"]
+    G --> C
+    F -- Yes --> H["Compile document"]
+    H --> I{"Compilation successful?"}
+    I -- No --> J["Display compilation errors"]
+    J --> C
+    I -- Yes --> K["Preview generated PDF"]
+    K --> L["Download PDF"]
+    L --> M(["End"])

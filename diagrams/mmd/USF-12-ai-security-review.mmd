@@ -1,0 +1,16 @@
+---
+config:
+  theme: redux
+  look: classic
+---
+flowchart TD
+    A([Start]) --> B[Submit template]
+    B --> C[Run security analysis]
+    C --> D{Issues found?}
+
+    D -- Yes --> E[Create GitHub issues]
+    E --> F[Maintainer reviews issues]
+    F --> G([End])
+
+    D -- No --> H[Mark template safe]
+    H --> G

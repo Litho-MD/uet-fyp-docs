@@ -1,0 +1,21 @@
+---
+config:
+  theme: redux
+  look: classic
+---
+flowchart TD
+    A([Start]) --> B[Open Template Maker]
+    B --> C[Describe template requirements]
+    C --> D[Define branding and required fields]
+    D --> E[Generate template package]
+    E --> F[Review manifest and template files]
+    F --> G[Preview sample document]
+    G --> H[Run template validation]
+    H --> I{Validation successful?}
+
+    I -- No --> J[Display validation errors]
+    J --> K[Modify template]
+    K --> H
+
+    I -- Yes --> L[Prepare submission]
+    L --> M([End])

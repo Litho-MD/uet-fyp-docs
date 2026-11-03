@@ -1,0 +1,25 @@
+---
+config:
+  theme: redux
+  look: classic
+---
+flowchart TD
+    A([Start]) --> B[Enter Markdown]
+    B --> C[Select template]
+    C --> D[Click Generate PDF]
+    D --> E{What type of error occurred?}
+
+    E -- Syntax error --> F[Show syntax error and line number]
+    E -- Missing field --> G[Show missing required field]
+    E -- Compilation error --> H[Show compilation diagnostic]
+
+    F --> I[Correct document]
+    G --> I
+    H --> I
+
+    I --> J[Validate document again]
+    J --> K{Is the document valid?}
+
+    K -- No --> E
+    K -- Yes --> L[Generate PDF]
+    L --> M([End])
