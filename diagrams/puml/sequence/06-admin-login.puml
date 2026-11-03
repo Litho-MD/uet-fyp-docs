@@ -1,0 +1,34 @@
+@startuml
+title Admin login
+autonumber
+skinparam monochrome true
+skinparam backgroundColor white
+skinparam shadowing false
+skinparam defaultTextAlignment center
+skinparam roundCorner 0
+skinparam ArrowColor black
+skinparam defaultFontColor black
+skinparam sequence {
+    ArrowColor black
+    LifeLineBorderColor black
+    ParticipantBorderColor black
+    ParticipantBackgroundColor white
+    ParticipantFontColor black
+}
+
+participant "Admin" as U
+participant "Admin Console" as C
+participant "Express API" as A
+participant "Supabase" as S
+participant "Activity Log" as L
+
+U -> C: Enter username + password
+C -> A: POST /api/admin/login
+A -> S: authenticateAdmin(username, password)
+S --> A: admin user
+A -> A: createSessionToken(secret, ttl)
+A -> L: record admin.login
+A --> C: 200 + Set-Cookie session
+C --> U: Redirect to dashboard
+note over A: Invalid credentials return 403 and set no cookie.
+@enduml

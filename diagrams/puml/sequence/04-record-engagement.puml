@@ -1,0 +1,36 @@
+@startuml
+title Record a view or download event
+autonumber
+skinparam monochrome true
+skinparam backgroundColor white
+skinparam shadowing false
+skinparam defaultTextAlignment center
+skinparam roundCorner 0
+skinparam ArrowColor black
+skinparam defaultFontColor black
+skinparam sequence {
+    ArrowColor black
+    LifeLineBorderColor black
+    ParticipantBorderColor black
+    ParticipantBackgroundColor white
+    ParticipantFontColor black
+}
+
+participant "Visitor" as V
+participant "Web App" as W
+participant "Express API" as A
+participant "Rate Limiter" as R
+participant "Supabase" as S
+
+V -> W: View detail or click Download
+W -> A: POST /api/templates/:identifier/{view|download}
+A -> R: check(clientKey, identifier)
+R --> A: allowed
+A -> S: findIdentity(identifier)
+S --> A: published template
+A -> S: recordStatEvent(templateId, type)
+S --> A: event + updated counter
+A --> W: 202 event accepted
+W --> V: Counter reflects the new total
+note over R: Limit is 60 events/minute per client, exceeded requests return 429.
+@enduml

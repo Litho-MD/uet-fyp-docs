@@ -1,0 +1,35 @@
+@startuml
+title Route a new plugin issue
+autonumber
+skinparam monochrome true
+skinparam backgroundColor white
+skinparam shadowing false
+skinparam defaultTextAlignment center
+skinparam roundCorner 0
+skinparam ArrowColor black
+skinparam defaultFontColor black
+skinparam sequence {
+    ArrowColor black
+    LifeLineBorderColor black
+    ParticipantBorderColor black
+    ParticipantBackgroundColor white
+    ParticipantFontColor black
+}
+
+participant "Author" as U
+participant "GitHub Issue Form" as I
+participant "GitHub Actions" as H
+participant "Router Workflow" as R
+participant "Reusable Workflows" as W
+
+U -> I: Submit plugin issue
+I -> H: issues.opened / issues.edited
+H -> R: route-issue-automation.yml
+R -> R: classify issue (submission / update / verification)
+R -> W: validate-submission.yml
+R -> W: validate-plugin-update.yml
+R -> W: verify-plugin.yml
+R -> W: approve-submission.yml
+W --> U: Status comment + labels
+note over R: The router only dispatches, each reusable workflow owns its checks.
+@enduml

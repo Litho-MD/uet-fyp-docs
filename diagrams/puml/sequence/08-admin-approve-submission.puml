@@ -1,0 +1,40 @@
+@startuml
+title Admin approves a pending submission
+autonumber
+skinparam monochrome true
+skinparam backgroundColor white
+skinparam shadowing false
+skinparam defaultTextAlignment center
+skinparam roundCorner 0
+skinparam ArrowColor black
+skinparam defaultFontColor black
+skinparam sequence {
+    ArrowColor black
+    LifeLineBorderColor black
+    ParticipantBorderColor black
+    ParticipantBackgroundColor white
+    ParticipantFontColor black
+}
+
+participant "Admin" as U
+participant "Admin Console" as C
+participant "Express API" as A
+participant "Supabase" as S
+participant "Activity Log" as L
+
+U -> C: Click Approve
+C -> A: POST /api/admin/submissions/:id/approve
+A -> S: submissions.findById(id)
+S --> A: pending submission
+A -> A: validateTemplate + resolvePublisher
+A -> S: assertSlugAvailable(slug)
+S --> A: slug free
+A -> S: templates.insert(payload)
+S --> A: created template
+A -> S: syncTags(templateId, tags)
+A -> S: submissions.markApproved(id, templateId)
+A -> L: record submission.approved
+A --> C: 200 { submission, template }
+C --> U: Submission moves to approved
+note over S: Only submissions in pending state can be approved.
+@enduml

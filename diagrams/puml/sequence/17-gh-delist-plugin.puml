@@ -1,0 +1,34 @@
+@startuml
+title Delist a plugin
+autonumber
+skinparam monochrome true
+skinparam backgroundColor white
+skinparam shadowing false
+skinparam defaultTextAlignment center
+skinparam roundCorner 0
+skinparam ArrowColor black
+skinparam defaultFontColor black
+skinparam sequence {
+    ArrowColor black
+    LifeLineBorderColor black
+    ParticipantBorderColor black
+    ParticipantBackgroundColor white
+    ParticipantFontColor black
+}
+
+participant "Maintainer" as U
+participant "GitHub Actions" as H
+participant "Delist Script" as S
+participant "Registry" as R
+participant "GitHub Pages" as P
+
+U -> H: Trigger delist-plugins with plugin IDs
+H -> S: node scripts/delist-plugins.mjs
+S -> R: planPluginDelisting(registry, catalog, ids)
+R --> S: delisting plan
+S -> R: applyPluginDelisting (update registry + catalog)
+H -> H: npm run build:explorer + npm test
+H -> P: upload + deploy
+P --> U: Plugin removed from catalog
+note over R: The plugin record is retained, only its public listing is removed.
+@enduml

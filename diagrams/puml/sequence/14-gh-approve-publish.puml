@@ -1,0 +1,37 @@
+@startuml
+title Approve and publish a submission
+autonumber
+skinparam monochrome true
+skinparam backgroundColor white
+skinparam shadowing false
+skinparam defaultTextAlignment center
+skinparam roundCorner 0
+skinparam ArrowColor black
+skinparam defaultFontColor black
+skinparam sequence {
+    ArrowColor black
+    LifeLineBorderColor black
+    ParticipantBorderColor black
+    ParticipantBackgroundColor white
+    ParticipantFontColor black
+}
+
+participant "Maintainer" as U
+participant "GitHub Actions" as H
+participant "Approve Script" as S
+participant "Build / Test" as B
+participant "GitHub Pages" as P
+participant "Issue" as I
+
+U -> H: Trigger approve-submission
+H -> S: node scripts/approve-submission.mjs
+S -> S: recheck approval + security baseline
+S --> H: updated registry source
+H -> B: npm run build + npm test
+B --> H: pass
+H -> P: upload publication + Pages artifact
+H -> P: deploy
+H -> I: label listed + close
+P --> U: Published catalog
+note over H: Deployment only runs after build and tests pass.
+@enduml

@@ -1,0 +1,34 @@
+@startuml
+title Validate a plugin submission
+autonumber
+skinparam monochrome true
+skinparam backgroundColor white
+skinparam shadowing false
+skinparam defaultTextAlignment center
+skinparam roundCorner 0
+skinparam ArrowColor black
+skinparam defaultFontColor black
+skinparam sequence {
+    ArrowColor black
+    LifeLineBorderColor black
+    ParticipantBorderColor black
+    ParticipantBackgroundColor white
+    ParticipantFontColor black
+}
+
+participant "GitHub Actions" as H
+participant "Repository" as P
+participant "Node Scripts" as N
+participant "Artifact Store" as T
+participant "Issue" as I
+
+H -> P: checkout
+H -> H: setup-node + npm ci
+H -> N: node scripts/intake-submission.mjs
+N --> H: parsed submission
+H -> N: validate-submission.mjs + catalog-verification.mjs
+N --> H: validation reports
+H -> T: upload validation-reports artifact
+H -> I: comment pass/fail
+note over H: A failed validation blocks the approval workflow.
+@enduml

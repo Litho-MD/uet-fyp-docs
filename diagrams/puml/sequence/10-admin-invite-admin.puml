@@ -1,0 +1,33 @@
+@startuml
+title Admin invites another administrator
+autonumber
+skinparam monochrome true
+skinparam backgroundColor white
+skinparam shadowing false
+skinparam defaultTextAlignment center
+skinparam roundCorner 0
+skinparam ArrowColor black
+skinparam defaultFontColor black
+skinparam sequence {
+    ArrowColor black
+    LifeLineBorderColor black
+    ParticipantBorderColor black
+    ParticipantBackgroundColor white
+    ParticipantFontColor black
+}
+
+participant "Admin" as U
+participant "Admin Console" as C
+participant "Express API" as A
+participant "Supabase" as S
+participant "Activity Log" as L
+
+U -> C: Enter username, password and role
+C -> A: POST /api/admin/admins
+A -> S: adminUsers.createAdminUser(...)
+S --> A: created user
+A -> L: record admin_user.created
+A --> C: 201 user
+C --> U: Show in admin list
+note over S: Passwords are hashed before insert, duplicate usernames return 409.
+@enduml

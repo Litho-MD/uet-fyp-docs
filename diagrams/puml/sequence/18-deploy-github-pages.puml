@@ -1,0 +1,31 @@
+@startuml
+title Deploy the static site to GitHub Pages
+autonumber
+skinparam monochrome true
+skinparam backgroundColor white
+skinparam shadowing false
+skinparam defaultTextAlignment center
+skinparam roundCorner 0
+skinparam ArrowColor black
+skinparam defaultFontColor black
+skinparam sequence {
+    ArrowColor black
+    LifeLineBorderColor black
+    ParticipantBorderColor black
+    ParticipantBackgroundColor white
+    ParticipantFontColor black
+}
+
+participant "Developer" as D
+participant "GitHub" as G
+participant "GitHub Actions" as H
+participant "GitHub Pages" as P
+
+D -> G: Push to main
+G -> H: deploy-pages workflow
+H -> H: checkout + configure-pages
+H -> P: upload-pages-artifact
+H -> P: deploy-pages
+P --> D: Live site URL
+note over P: Publishes the static export produced from site/.
+@enduml

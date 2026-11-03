@@ -1,0 +1,36 @@
+@startuml
+title Verify a listed plugin
+autonumber
+skinparam monochrome true
+skinparam backgroundColor white
+skinparam shadowing false
+skinparam defaultTextAlignment center
+skinparam roundCorner 0
+skinparam ArrowColor black
+skinparam defaultFontColor black
+skinparam sequence {
+    ArrowColor black
+    LifeLineBorderColor black
+    ParticipantBorderColor black
+    ParticipantBackgroundColor white
+    ParticipantFontColor black
+}
+
+participant "Maintainer" as U
+participant "GitHub Actions" as H
+participant "Security Baseline" as C
+participant "Verify Script" as S
+participant "GitHub Pages" as P
+participant "Issue" as I
+
+U -> H: Trigger verify-plugin
+H -> C: run security baseline scan
+C --> H: baseline report
+H -> S: node scripts/verify-listed-plugin.mjs
+S -> S: plugin-verification checks
+S --> H: verification report
+H -> H: npm run build:explorer + npm test
+H -> P: upload + deploy
+H -> I: post verification report
+note over S: Verification is read-only against the plugin source.
+@enduml

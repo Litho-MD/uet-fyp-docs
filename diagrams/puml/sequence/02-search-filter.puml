@@ -1,0 +1,35 @@
+@startuml
+title Search and filter the catalog
+autonumber
+skinparam monochrome true
+skinparam backgroundColor white
+skinparam shadowing false
+skinparam defaultTextAlignment center
+skinparam roundCorner 0
+skinparam ArrowColor black
+skinparam defaultFontColor black
+skinparam sequence {
+    ArrowColor black
+    LifeLineBorderColor black
+    ParticipantBorderColor black
+    ParticipantBackgroundColor white
+    ParticipantFontColor black
+}
+
+participant "Visitor" as V
+participant "Web App" as W
+participant "Express API" as A
+participant "Supabase" as S
+
+V -> W: Enter query + filters (q, category, tag, publisher, sort)
+W -> A: GET /api/templates?q=...&category=...&tag=...&publisher=...
+A -> S: fetchTaxonomy()
+S --> A: taxonomy
+A -> S: select template_id from template_tags where tag_id = ?
+S --> A: tagged template IDs
+A -> S: listPublished({ q, categoryId, publisherId, templateIds, sort })
+S --> A: matching rows + total
+A --> W: 200 paged results
+W --> V: Render filtered results
+note over A: An unknown taxonomy slug resolves to an empty page, not an error.
+@enduml

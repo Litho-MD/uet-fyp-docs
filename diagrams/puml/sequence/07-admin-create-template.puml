@@ -1,0 +1,37 @@
+@startuml
+title Admin creates a template
+autonumber
+skinparam monochrome true
+skinparam backgroundColor white
+skinparam shadowing false
+skinparam defaultTextAlignment center
+skinparam roundCorner 0
+skinparam ArrowColor black
+skinparam defaultFontColor black
+skinparam sequence {
+    ArrowColor black
+    LifeLineBorderColor black
+    ParticipantBorderColor black
+    ParticipantBackgroundColor white
+    ParticipantFontColor black
+}
+
+participant "Admin" as U
+participant "Admin Console" as C
+participant "Express API" as A
+participant "Supabase" as S
+participant "Activity Log" as L
+
+U -> C: Fill template form + uploads
+C -> A: POST /api/admin/templates (multipart)
+A -> A: validateTemplate + withUploads
+A -> S: assertSlugAvailable(slug)
+S --> A: slug free
+A -> S: templates.insert(payload)
+S --> A: created row
+A -> S: syncTags(templateId, tags)
+A -> L: record template.created
+A --> C: 201 template
+C --> U: Show in template list
+note over S: A duplicate slug is rejected with 409 before insert.
+@enduml

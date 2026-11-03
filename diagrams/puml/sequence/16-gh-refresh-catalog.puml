@@ -1,0 +1,34 @@
+@startuml
+title Refresh the public catalog
+autonumber
+skinparam monochrome true
+skinparam backgroundColor white
+skinparam shadowing false
+skinparam defaultTextAlignment center
+skinparam roundCorner 0
+skinparam ArrowColor black
+skinparam defaultFontColor black
+skinparam sequence {
+    ArrowColor black
+    LifeLineBorderColor black
+    ParticipantBorderColor black
+    ParticipantBackgroundColor white
+    ParticipantFontColor black
+}
+
+participant "Scheduler" as T
+participant "GitHub Actions" as H
+participant "Catalog Builder" as B
+participant "GitHub API" as G
+participant "GitHub Pages" as P
+
+T -> H: Trigger refresh-catalog
+H -> B: npm run build (build-catalog.mjs)
+B -> G: fetch manifests + releases
+G --> B: manifest + release data
+B --> H: registry.json + catalog
+H -> H: npm test
+H -> P: upload + deploy
+P --> T: Updated catalog
+note over T: Runs on a schedule and on demand.
+@enduml

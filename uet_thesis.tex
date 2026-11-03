@@ -22,6 +22,7 @@
 \usepackage{enumitem}
 \usepackage{xcolor}
 \usepackage{float}
+\usepackage{adjustbox}
 \usepackage[compact]{titlesec}
 
 % Match the compact heading treatment used by the supplied UET template.
@@ -75,21 +76,29 @@
   \end{figure}
 }
 
-% Diagram sizing presets: sm, md (default half A4), lg, fl (full page)
+% Diagram sizing presets: sm, md (default half A4), lg, fl (full page), dy (dynamic)
+\def\diagramsizeSM{sm}
+\def\diagramsizeMD{md}
+\def\diagramsizeLG{lg}
+\def\diagramsizeFL{fl}
+\def\diagramsizeDY{dy}
 \newcommand{\diagram}[3][md]{%
   \begin{figure}[H]
     \centering
-    \ifx#1sm
-      \includegraphics[width=0.6\textwidth,height=0.25\textheight,keepaspectratio]{#2}
-    \else\ifx#1lg
-      \includegraphics[width=0.95\textwidth,height=0.7\textheight,keepaspectratio]{#2}
-    \else\ifx#1fl
-      \includegraphics[width=\textwidth,height=0.9\textheight,keepaspectratio]{#2}
+    \def\diagramsize{#1}%
+    \ifx\diagramsize\diagramsizeDY
+      \adjustbox{max width=\textwidth,max height=0.85\textheight}{\includegraphics{\detokenize{#2}}}%
+    \else\ifx\diagramsize\diagramsizeSM
+      \includegraphics[width=\textwidth,height=0.25\textheight,keepaspectratio]{\detokenize{#2}}
+    \else\ifx\diagramsize\diagramsizeLG
+      \includegraphics[width=\textwidth,height=0.7\textheight,keepaspectratio]{\detokenize{#2}}
+    \else\ifx\diagramsize\diagramsizeFL
+      \includegraphics[width=\textwidth,height=0.9\textheight,keepaspectratio]{\detokenize{#2}}
     \else
-      \includegraphics[width=0.85\textwidth,height=0.5\textheight,keepaspectratio]{#2}
-    \fi\fi\fi
+      \includegraphics[width=\textwidth,height=0.5\textheight,keepaspectratio]{\detokenize{#2}}
+    \fi\fi\fi\fi
     \caption{#3}
-    \label{fig:#2}
+    \label{fig:\detokenize{#2}}
   \end{figure}
 }
 

@@ -1,0 +1,36 @@
+@startuml
+title Admin manages taxonomy
+autonumber
+skinparam monochrome true
+skinparam backgroundColor white
+skinparam shadowing false
+skinparam defaultTextAlignment center
+skinparam roundCorner 0
+skinparam ArrowColor black
+skinparam defaultFontColor black
+skinparam sequence {
+    ArrowColor black
+    LifeLineBorderColor black
+    ParticipantBorderColor black
+    ParticipantBackgroundColor white
+    ParticipantFontColor black
+}
+
+participant "Admin" as U
+participant "Admin Console" as C
+participant "Express API" as A
+participant "Supabase" as S
+participant "Activity Log" as L
+
+U -> C: Create, update or delete a taxonomy item
+C -> A: POST/PUT/DELETE /api/admin/{categories|tags|publishers}
+A -> A: validateCategory / validateTag / validatePublisher
+A -> S: assertSlugAvailable(slug)
+S --> A: slug free
+A -> S: insert / update / delete row
+S --> A: saved row
+A -> L: record taxonomy.<action>
+A --> C: 200/201 row
+C --> U: Refresh taxonomy list
+note over A: Deleting a publisher that still owns templates returns 409.
+@enduml

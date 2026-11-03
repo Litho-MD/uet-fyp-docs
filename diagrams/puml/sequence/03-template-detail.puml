@@ -1,0 +1,33 @@
+@startuml
+title Open a template detail page
+autonumber
+skinparam monochrome true
+skinparam backgroundColor white
+skinparam shadowing false
+skinparam defaultTextAlignment center
+skinparam roundCorner 0
+skinparam ArrowColor black
+skinparam defaultFontColor black
+skinparam sequence {
+    ArrowColor black
+    LifeLineBorderColor black
+    ParticipantBorderColor black
+    ParticipantBackgroundColor white
+    ParticipantFontColor black
+}
+
+participant "Visitor" as V
+participant "Web App" as W
+participant "Express API" as A
+participant "Supabase" as S
+
+V -> W: Open /template/:slug
+W -> A: GET /api/templates/:slug
+A -> S: findPublished(slug)
+S --> A: template row
+A -> S: fetchTaxonomy()
+S --> A: taxonomy
+A --> W: 200 hydrated template
+W --> V: Render preview, metadata and download action
+note over A: A missing or unpublished slug returns 404.
+@enduml
