@@ -1,5 +1,4 @@
 @startuml
-title Submit a template from the public web form
 autonumber
 skinparam monochrome true
 skinparam backgroundColor white

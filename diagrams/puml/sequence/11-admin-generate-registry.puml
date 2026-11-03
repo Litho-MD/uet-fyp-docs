@@ -1,5 +1,4 @@
 @startuml
-title Admin regenerates the registry snapshot
 autonumber
 skinparam monochrome true
 skinparam backgroundColor white

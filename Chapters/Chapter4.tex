@@ -5,13 +5,7 @@
 \label{chap:design}
 % =============================================================================
 
-\section{System Context, Architecture, and Interfaces \applicability{Development, Hybrid, Game; Research Software Prototype}}
-\begin{guidance}
-Define the system boundary, external actors or systems, major components, their
-responsibilities, and principal interfaces. State the selected architectural style
-only when it helps explain the design. Label every component and connector.
-\end{guidance}
-
+\section{System Context, Architecture, and Interfaces}
 \diagram[dy]{system-context}{System context diagram}
 \diagram[dy]{high-level-architecture}{High-level architecture diagram}
 
@@ -43,19 +37,8 @@ INT-10 & Marketplace $\leftrightarrow$ Counters Database & Read and increment pe
 \end{xltabular}
 
 
-\section{Behavioural and Interaction Design \applicability{Development, Hybrid, Game; Research if applicable}}
-\begin{guidance}
-Include only the models needed to explain the project's behaviour and interaction.
-Each UML diagram must use standard UML notation~\citep{omguml251}, remain readable, and be followed by a
-brief explanation of important flows, alternatives, or design decisions.
-\end{guidance}
-
+\section{Behavioural and Interaction Design}
 \subsection{Use-Case Model}
-\begin{guidance}
-Show external actors, system use cases, the system boundary, and justified
-\texttt{include}, \texttt{extend}, or generalization relationships. Use cases
-should represent user goals rather than interface screens.
-\end{guidance}
 \diagram[dy]{use-case}{Use-case diagram}
 
 \begin{xltabular}{\textwidth}{@{}p{0.24\textwidth}X@{}}
@@ -73,7 +56,7 @@ should represent user goals rather than interface screens.
 \endfoot
 \bottomrule
 \endlastfoot
-Use-case ID and name & UC-01: Build PDF Locally \\
+Use-case ID and name & Build PDF Locally \\
 Primary actor & Author/Student \\
 Preconditions & Markdown file and selected template available; Litho CLI/editor configured. \\
 Trigger & User runs \texttt{litho build} or triggers build from editor. \\
@@ -85,51 +68,35 @@ Related requirements & FR-01--FR-08, FR-10 \\
 
 
 \subsection{Activity Model}
-\begin{guidance}
-Model an important workflow using actions, control flows, decisions with guards,
-parallel paths where required, and clear initial and final nodes. Use swimlanes when
-responsibility changes are important.
-\end{guidance}
-
 The activity models below cover the authoring, publishing, marketplace, conversion, AI, MCP, and documentation workflows.
 
-\diagram[dy]{Figures/activity/01-initialize-project}{ACT-01: Initialize a Litho project}
-\diagram[dy]{Figures/activity/02-vscode-authoring}{ACT-02: Author a document using VS Code}
-\diagram[dy]{Figures/activity/03-parse-validate}{ACT-03: Tokenize, parse, and validate Litho Markdown}
-\diagram[dy]{Figures/activity/04-build-pdf}{ACT-04: Build a Markdown document into a PDF}
-\diagram[dy]{Figures/activity/05-watch-rebuild}{ACT-05: Watch and rebuild a document}
-\diagram[dy]{Figures/activity/06-extract-source}{ACT-06: Extract Markdown source from a PDF}
-\diagram[dy]{Figures/activity/07-template-package}{ACT-07: Create and validate a template package}
-\diagram[dy]{Figures/activity/08-publish-template}{ACT-08: Submit and publish a template through GitHub}
-\diagram[dy]{Figures/activity/09-marketplace-template}{ACT-09: Browse, inspect, download, and use a marketplace template}
-\diagram[dy]{Figures/activity/10-web-conversion}{ACT-10: Convert Markdown in the web application}
-\diagram[dy]{Figures/activity/11-ai-authoring}{ACT-11: Use AI-assisted authoring}
-\diagram[dy]{Figures/activity/12-security-review}{ACT-12: Perform AI-assisted template security review}
-\diagram[dy]{Figures/activity/13-mcp-operation}{ACT-13: Invoke Litho through the MCP server}
-\diagram[dy]{Figures/activity/14-documentation}{ACT-14: Build and publish documentation}
+\diagram[dy]{Figures/activity/01-initialize-project}{Initialize a Litho project}
+\diagram[dy]{Figures/activity/02-vscode-authoring}{Author a document using VS Code}
+\diagram[dy]{Figures/activity/03-parse-validate}{Tokenize, parse, and validate Litho Markdown}
+\diagram[dy]{Figures/activity/04-build-pdf}{Build a Markdown document into a PDF}
+\diagram[dy]{Figures/activity/05-watch-rebuild}{Watch and rebuild a document}
+\diagram[dy]{Figures/activity/06-extract-source}{Extract Markdown source from a PDF}
+\diagram[dy]{Figures/activity/07-template-package}{Create and validate a template package}
+\diagram[dy]{Figures/activity/08-publish-template}{Submit and publish a template through GitHub}
+\diagram[dy]{Figures/activity/09-marketplace-template}{Browse, inspect, download, and use a marketplace template}
+\diagram[dy]{Figures/activity/10-web-conversion}{Convert Markdown in the web application}
+\diagram[dy]{Figures/activity/11-ai-authoring}{Use AI-assisted authoring}
+\diagram[dy]{Figures/activity/12-security-review}{Perform AI-assisted template security review}
+\diagram[dy]{Figures/activity/13-mcp-operation}{Invoke Litho through the MCP server}
+\diagram[dy]{Figures/activity/14-documentation}{Build and publish documentation}
 
-\subsection{State-Machine Model \applicability{State-dependent systems and games}}
-\begin{guidance}
-Model the lifecycle of one important stateful entity. Show states, triggering
-events, guards where needed, actions, and initial and final states.
-\end{guidance}
-\diagram[dy]{Figures/state-machine/STATE-01-template-lifecycle}{STATE-01: Template package lifecycle}
-\diagram[dy]{Figures/state-machine/STATE-02-compilation-job}{STATE-02: Document compilation job lifecycle}
-\diagram[dy]{Figures/state-machine/STATE-03-web-conversion-session}{STATE-03: Web conversion workspace session}
-\diagram[dy]{Figures/state-machine/STATE-04-submission-issue}{STATE-04: Template marketplace submission issue lifecycle}
-\diagram[dy]{Figures/state-machine/STATE-05-author-workspace}{STATE-05: Author local workspace lifecycle}
-\diagram[dy]{Figures/state-machine/STATE-06-mcp-session}{STATE-06: MCP server session lifecycle}
-\diagram[dy]{Figures/state-machine/state-user-author}{Author user state model}
-\diagram[dy]{Figures/state-machine/state-user-admin}{Administrator user state model}
-\diagram[dy]{Figures/state-machine/state-user-publisher}{Publisher user state model}
+\subsection{State-Machine Model}
+\diagram[dy]{Figures/state-machine/01-template-lifecycle}{Template package lifecycle}
+\diagram[dy]{Figures/state-machine/02-compilation-job}{Document compilation job lifecycle}
+\diagram[dy]{Figures/state-machine/03-web-conversion-session}{Web conversion workspace session}
+\diagram[dy]{Figures/state-machine/04-submission-issue}{Template marketplace submission issue lifecycle}
+\diagram[dy]{Figures/state-machine/05-author-workspace}{Author local workspace lifecycle}
+\diagram[dy]{Figures/state-machine/06-mcp-session}{MCP server session lifecycle}
+\diagram[dy]{Figures/state-machine/user-author}{Author user state model}
+\diagram[dy]{Figures/state-machine/user-admin}{Administrator user state model}
+\diagram[dy]{Figures/state-machine/user-publisher}{Publisher user state model}
 
 \subsection{Sequence Model}
-\begin{guidance}
-Show how an important scenario is realized through time-ordered messages among
-actors, system components, and external services. Use activation bars and combined
-fragments such as \texttt{alt}, \texttt{opt}, or \texttt{loop} where appropriate.
-\end{guidance}
-
 The sequence models below show how parsing, template loading/binding, LaTeX generation, Tectonic compilation, and metadata embedding are realized, followed by catalog browsing, engagement recording, submissions, administration, and GitHub-based automation.
 
 \diagram[dy]{Figures/sequence/01-browse-catalog}{Browse the public template catalog}
@@ -151,62 +118,33 @@ The sequence models below show how parsing, template loading/binding, LaTeX gene
 \diagram[dy]{Figures/sequence/17-gh-delist-plugin}{Delist a plugin}
 \diagram[dy]{Figures/sequence/18-deploy-github-pages}{Deploy the static site to GitHub Pages}
 
-\section{Structural Design \applicability{Development, Hybrid, Game; Research if applicable}}
-\begin{guidance}
-Describe the static structure needed to realize the requirements. Keep models at a
-level appropriate to the project and avoid including generated framework classes
-that do not communicate a design decision.
-\end{guidance}
-
+\section{Structural Design}
 \subsection{Class or Domain Model}
-\begin{guidance}
-Show important domain concepts or software classes, relevant attributes and
-operations, relationships, multiplicities, and inheritance where justified.
-\end{guidance}
 \diagram[dy]{class-domain}{Class or domain diagram}
 
 \subsection{Component Model}
-\begin{guidance}
-Show deployable or replaceable software components, their provided and required
-interfaces, and dependencies.
-\end{guidance}
-\diagramplaceholder{Component diagram}{Show deployable or replaceable software components, their interfaces, and dependencies.}
+The component view separates the delivery channels from the shared conversion core so that a new channel can reuse the parser, template binder, code generator, and metadata handling without duplicating them. Figure~\ref{fig:component-diagram} shows the resulting components, their provided and required interfaces, and their dependencies.
 
-\subsection{Package Model \applicability{If required}}
-\begin{guidance}
-Use a package diagram when the organization and dependencies of modules or layers
-need clarification. Omit it when the component or class model already communicates
-the structure adequately.
-\end{guidance}
+\input{\detokenize{diagrams/tikz/component-diagram}}
+
+Each of the five delivery channels is a thin adapter over the same conversion core. The CLI, VS Code extension, conversion web app, MCP server, and hosted conversion API therefore depend on the pipeline through one conversion interface (INT-01) instead of reimplementing parsing or code generation. Inside the pipeline, the Tokenizer and Parser, Template Binder, LaTeX Codegen, and Metadata I/O components realize the parse--bind--generate--embed sequence, while the Template Loader and Package Validator isolate manifest, schema, and asset handling. The pipeline requires the sandboxed Tectonic engine for compilation (INT-02) and exposes metadata embedding and extraction so that the original Markdown source can be recovered from a generated PDF.
+
+The marketplace is deliberately kept outside the conversion path: it depends on GitHub for the curated issue registry (INT-04) and on the counters database for hearts and downloads (INT-10), so a registry or counter outage does not block local builds. AI authoring and review consumes the LLM provider and also invokes the shared pipeline, which keeps generated templates subject to the same validation and compilation rules as hand-written ones. The documentation website remains a static Next.js site built from the documentation repository and therefore has no runtime dependency on the conversion core.
+
+\subsection{Package Model}
 \diagram[dy]{package}{Package diagram}
 
-\subsection{Deployment Model \applicability{Deployed, distributed, networked, or multi-device systems}}
-\begin{guidance}
-Show execution nodes, devices, environments, deployed artifacts, and communication
-paths. Distinguish physical or virtual nodes from software components.
-\end{guidance}
+\subsection{Deployment Model}
 \diagram[dy]{deployment}{Deployment diagram}
 
 \section{Data Design and Management}
 \label{sec:data-design}
 
-\subsection{Registry and Persistence Design \applicability{If applicable}}
-\begin{guidance}
-Describe persistent entities, identifiers, relationships, integrity constraints,
-and important indexing or retention decisions. Use an ER diagram, schema, or other
-notation appropriate to the selected database model.
-\end{guidance}
+\subsection{Registry and Persistence Design}
 Litho does not use an application database for the template registry. The published registry is derived from GitHub issues that maintainers review and label as listed, while each template's linked repository and releases hold its manifest, assets, and version history. A small application database stores only the per-template heart and download counters, keyed by template identifier. The diagram below models the resulting registry and counter records.
 \diagramplaceholder{Data model or schema}{Show persistent entities, identifiers, relationships, integrity constraints, and important indexing or retention decisions.}
 
 \section{Algorithm or Model Design}
-\begin{guidance}
-Describe only algorithms or models central to the project's contribution. Specify
-inputs, outputs, principal processing steps, assumptions, training or configuration,
-and computational or fairness considerations where relevant. Cite established
-algorithms rather than presenting them as original work.
-\end{guidance}
-
 \begin{xltabular}{\textwidth}{@{}p{0.18\textwidth}X@{}}
 \caption{Core algorithm or model}\label{tab:algorithm-model}\\
 \toprule
@@ -230,7 +168,7 @@ Related requirements & FR-01--FR-08, NFR-04, NFR-05, NFR-06 \\
 \end{xltabular}
 
 
-\section{User Interface and Accessibility Design \applicability{User-facing Development, Hybrid, and Game projects; Research prototypes if applicable}}
+\section{User Interface and Accessibility Design}
 
 \diagram[dy]{Figures/userflow/11-end-to-end-user-journey}{End-to-end user journey}
 \diagram[dy]{Figures/userflow/01-user-md-to-pdf}{Markdown-to-PDF conversion flow}
@@ -257,14 +195,7 @@ Related requirements & FR-01--FR-08, NFR-04, NFR-05, NFR-06 \\
 
 Litho exposes three separate web applications: the template marketplace for browsing and discovering listed templates, the documentation website for installation and configuration guidance, and the conversion web app where authors write or paste Markdown, optionally use AI-assisted template generation, specification-to-documentation conversion, or template modification, select a template, and convert in either direction. Agents can also leverage the MCP server with the \texttt{skills.md} playbook to perform the same workflows programmatically. The same conversion capability is also available through the VS Code extension, CLI, MCP server, and hosted API.
 
-\section{Security, Privacy, and Safety Design \applicability{If applicable}}
-\begin{guidance}
-Explain the design controls used to satisfy the corresponding requirements in
-Chapter~\ref{chap:requirements}. Address relevant threats, authentication,
-authorization, data protection, logging, secure failure, privacy, and safety. Do
-not make general claims such as ``the system is secure'' without specific controls.
-\end{guidance}
-
+\section{Security, Privacy, and Safety Design}
 \begin{xltabular}{\textwidth}{@{}p{0.16\textwidth}X X p{0.19\textwidth}@{}}
 \caption{Security, privacy, and safety controls}\label{tab:security-controls}\\
 \toprule
@@ -289,12 +220,6 @@ SEC-04 & Cross-site scripting (XSS) and input poisoning & Strict HTML escaping o
 
 
 \section{Design Decisions and Rationale}
-\begin{guidance}
-Record significant choices, alternatives considered, and reasons for selection.
-Focus on decisions that materially affect quality, cost, risk, maintainability, or
-project feasibility. Do not repeat the tools list from Section~\ref{sec:tools}.
-\end{guidance}
-
 \begin{xltabular}{\textwidth}{@{}p{0.14\textwidth}X X X@{}}
 \caption{Design decisions}\label{tab:design-decisions}\\
 \toprule

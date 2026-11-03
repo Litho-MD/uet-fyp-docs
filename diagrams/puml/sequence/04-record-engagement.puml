@@ -1,5 +1,4 @@
 @startuml
-title Record a view or download event
 autonumber
 skinparam monochrome true
 skinparam backgroundColor white

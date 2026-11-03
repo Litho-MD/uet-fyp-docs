@@ -1,6 +1,4 @@
-@startuml STATE-04-submission-issue
-title STATE-04 - Template Marketplace Submission Issue Lifecycle
-
+@startuml
 hide empty description
 
 skinparam monochrome true

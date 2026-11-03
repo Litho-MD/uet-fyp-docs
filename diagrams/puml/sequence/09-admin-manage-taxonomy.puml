@@ -1,5 +1,4 @@
 @startuml
-title Admin manages taxonomy
 autonumber
 skinparam monochrome true
 skinparam backgroundColor white

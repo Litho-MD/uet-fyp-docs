@@ -1,6 +1,4 @@
-@startuml state-user-admin
-title User: Admin
-
+@startuml
 hide empty description
 
 skinparam monochrome true

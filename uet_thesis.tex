@@ -25,6 +25,12 @@
 \usepackage{adjustbox}
 \usepackage[compact]{titlesec}
 
+% TikZ/UML component diagrams. tikz-uml is vendored in the project root because
+% it is not part of the installed TeX distribution used to build this document.
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta}
+\usepackage{tikz-uml}
+
 % Match the compact heading treatment used by the supplied UET template.
 \titlespacing{\section}{0pt}{*0}{*0}
 \titlespacing{\subsection}{0pt}{*0}{*0}
@@ -42,7 +48,6 @@
 \renewcommand{\arraystretch}{1.2}
 
 \newcommand{\placeholder}[1]{\textcolor{PlaceholderBlue}{\textit{<#1>}}}
-\newcommand{\applicability}[1]{\texorpdfstring{\normalfont\small\textit{(#1)}}{(#1)}}
 \newcommand{\inputwithbreakabletext}[1]{%
   \begingroup
     \catcode`\/=\active
@@ -53,10 +58,6 @@
     \input{#1}%
   \endgroup
 }
-
-\newenvironment{guidance}
-  {\begin{quote}\small\color{GuidanceGray}\textbf{Guidance.} }
-  {\end{quote}}
 
 \newenvironment{examplebox}
   {\begin{quote}\small\color{GuidanceGray}\textbf{Example (replace or remove).} }
@@ -87,7 +88,7 @@
     \centering
     \def\diagramsize{#1}%
     \ifx\diagramsize\diagramsizeDY
-      \adjustbox{max width=\textwidth,max height=0.85\textheight}{\includegraphics{\detokenize{#2}}}%
+      \adjustbox{max width=\textwidth,max height=\dimexpr\textheight-2\baselineskip\relax}{\includegraphics{\detokenize{#2}}}%
     \else\ifx\diagramsize\diagramsizeSM
       \includegraphics[width=\textwidth,height=0.25\textheight,keepaspectratio]{\detokenize{#2}}
     \else\ifx\diagramsize\diagramsizeLG
@@ -127,12 +128,12 @@ Sohaib Shaukat \quad 2023-CS-740}
 \lhead{}
 \pagestyle{fancy}
 
-\chapter*{Template Instructions}
-\addcontentsline{toc}{chapter}{Template Instructions}
-This template supports development, research, hybrid, and game projects. Complete
-all common sections and retain conditional sections only when they apply to the
-selected project. Keep the document concise and use cross-references instead of
-repeating information.
+% \chapter*{Template Instructions}
+% \addcontentsline{toc}{chapter}{Template Instructions}
+% This template supports development, research, hybrid, and game projects. Complete
+% all common sections and retain conditional sections only when they apply to the
+% selected project. Keep the document concise and use cross-references instead of
+% repeating information.
 
 % \begin{itemize}
 %   \item Replace every \placeholder{placeholder} and remove all example text before submission.
@@ -143,7 +144,7 @@ repeating information.
 %   \item Cite every external idea, dataset, standard, figure, and factual claim.
 %   \item Keep detailed test cases and results in the separate software testing document; reference them through the traceability matrix.
 % \end{itemize}
-\clearpage
+% \clearpage
 
 \lhead{\emph{Design Document}}
 \tableofcontents

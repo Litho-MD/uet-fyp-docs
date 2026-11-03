@@ -1,5 +1,4 @@
 @startuml
-title Deploy the static site to GitHub Pages
 autonumber
 skinparam monochrome true
 skinparam backgroundColor white

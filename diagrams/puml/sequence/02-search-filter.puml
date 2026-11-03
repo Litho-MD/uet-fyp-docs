@@ -1,5 +1,4 @@
 @startuml
-title Search and filter the catalog
 autonumber
 skinparam monochrome true
 skinparam backgroundColor white
