@@ -1,0 +1,20 @@
+%%{init: {'theme':'base','themeVariables':{'background':'#FFFFFF'}}}%%
+sequenceDiagram
+  autonumber
+  title Record a view or download event
+  participant V as Visitor
+  participant W as Web App
+  participant A as Express API
+  participant R as Rate Limiter
+  participant S as Supabase
+  V->>W: View detail or click Download
+  W->>A: POST /api/templates/:identifier/{view|download}
+  A->>R: check(clientKey, identifier)
+  R-->>A: allowed
+  A->>S: findIdentity(identifier)
+  S-->>A: published template
+  A->>S: recordStatEvent(templateId, type)
+  S-->>A: event + updated counter
+  A-->>W: 202 event accepted
+  W-->>V: Counter reflects the new total
+  Note over R: Limit is 60 events/minute per client, exceeded requests return 429.

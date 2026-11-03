@@ -1,0 +1,18 @@
+%%{init: {'theme':'base','themeVariables':{'background':'#FFFFFF'}}}%%
+sequenceDiagram
+  autonumber
+  title Validate a plugin submission
+  participant H as GitHub Actions
+  participant P as Repository
+  participant N as Node Scripts
+  participant T as Artifact Store
+  participant I as Issue
+  H->>P: checkout
+  H->>H: setup-node + npm ci
+  H->>N: node scripts/intake-submission.mjs
+  N-->>H: parsed submission
+  H->>N: validate-submission.mjs + catalog-verification.mjs
+  N-->>H: validation reports
+  H->>T: upload validation-reports artifact
+  H->>I: comment pass/fail
+  Note over H: A failed validation blocks the approval workflow.

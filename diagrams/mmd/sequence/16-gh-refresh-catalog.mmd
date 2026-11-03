@@ -1,0 +1,18 @@
+%%{init: {'theme':'base','themeVariables':{'background':'#FFFFFF'}}}%%
+sequenceDiagram
+  autonumber
+  title Refresh the public catalog
+  participant T as Scheduler
+  participant H as GitHub Actions
+  participant B as Catalog Builder
+  participant G as GitHub API
+  participant P as GitHub Pages
+  T->>H: Trigger refresh-catalog
+  H->>B: npm run build (build-catalog.mjs)
+  B->>G: fetch manifests + releases
+  G-->>B: manifest + release data
+  B-->>H: registry.json + catalog
+  H->>H: npm test
+  H->>P: upload + deploy
+  P-->>T: Updated catalog
+  Note over T: Runs on a schedule and on demand.

@@ -1,0 +1,21 @@
+%%{init: {'theme':'base','themeVariables':{'background':'#FFFFFF'}}}%%
+sequenceDiagram
+  autonumber
+  title Admin creates a template
+  participant U as Admin
+  participant C as Admin Console
+  participant A as Express API
+  participant S as Supabase
+  participant L as Activity Log
+  U->>C: Fill template form + uploads
+  C->>A: POST /api/admin/templates (multipart)
+  A->>A: validateTemplate + withUploads
+  A->>S: assertSlugAvailable(slug)
+  S-->>A: slug free
+  A->>S: templates.insert(payload)
+  S-->>A: created row
+  A->>S: syncTags(templateId, tags)
+  A->>L: record template.created
+  A-->>C: 201 template
+  C-->>U: Show in template list
+  Note over S: A duplicate slug is rejected with 409 before insert.

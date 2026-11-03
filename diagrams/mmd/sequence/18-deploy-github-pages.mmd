@@ -1,0 +1,15 @@
+%%{init: {'theme':'base','themeVariables':{'background':'#FFFFFF'}}}%%
+sequenceDiagram
+  autonumber
+  title Deploy the static site to GitHub Pages
+  participant D as Developer
+  participant G as GitHub
+  participant H as GitHub Actions
+  participant P as GitHub Pages
+  D->>G: Push to main
+  G->>H: deploy-pages workflow
+  H->>H: checkout + configure-pages
+  H->>P: upload-pages-artifact
+  H->>P: deploy-pages
+  P-->>D: Live site URL
+  Note over P: Publishes the static export produced from site/.

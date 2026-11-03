@@ -1,0 +1,18 @@
+%%{init: {'theme':'base','themeVariables':{'background':'#FFFFFF'}}}%%
+sequenceDiagram
+  autonumber
+  title Admin login
+  participant U as Admin
+  participant C as Admin Console
+  participant A as Express API
+  participant S as Supabase
+  participant L as Activity Log
+  U->>C: Enter username + password
+  C->>A: POST /api/admin/login
+  A->>S: authenticateAdmin(username, password)
+  S-->>A: admin user
+  A->>A: createSessionToken(secret, ttl)
+  A->>L: record admin.login
+  A-->>C: 200 + Set-Cookie session
+  C-->>U: Redirect to dashboard
+  Note over A: Invalid credentials return 403 and set no cookie.

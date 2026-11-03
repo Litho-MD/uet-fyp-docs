@@ -1,0 +1,20 @@
+%%{init: {'theme':'base','themeVariables':{'background':'#FFFFFF'}}}%%
+sequenceDiagram
+  autonumber
+  title Admin manages taxonomy
+  participant U as Admin
+  participant C as Admin Console
+  participant A as Express API
+  participant S as Supabase
+  participant L as Activity Log
+  U->>C: Create, update or delete a taxonomy item
+  C->>A: POST/PUT/DELETE /api/admin/{categories|tags|publishers}
+  A->>A: validateCategory / validateTag / validatePublisher
+  A->>S: assertSlugAvailable(slug)
+  S-->>A: slug free
+  A->>S: insert / update / delete row
+  S-->>A: saved row
+  A->>L: record taxonomy.<action>
+  A-->>C: 200/201 row
+  C-->>U: Refresh taxonomy list
+  Note over A: Deleting a publisher that still owns templates returns 409.

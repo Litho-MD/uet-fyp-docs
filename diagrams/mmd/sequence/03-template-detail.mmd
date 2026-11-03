@@ -1,0 +1,17 @@
+%%{init: {'theme':'base','themeVariables':{'background':'#FFFFFF'}}}%%
+sequenceDiagram
+  autonumber
+  title Open a template detail page
+  participant V as Visitor
+  participant W as Web App
+  participant A as Express API
+  participant S as Supabase
+  V->>W: Open /template/:slug
+  W->>A: GET /api/templates/:slug
+  A->>S: findPublished(slug)
+  S-->>A: template row
+  A->>S: fetchTaxonomy()
+  S-->>A: taxonomy
+  A-->>W: 200 hydrated template
+  W-->>V: Render preview, metadata and download action
+  Note over A: A missing or unpublished slug returns 404.

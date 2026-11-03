@@ -1,0 +1,23 @@
+%%{init: {'theme':'base','themeVariables':{'background':'#FFFFFF'}}}%%
+sequenceDiagram
+  autonumber
+  title Admin regenerates the registry snapshot
+  participant U as Admin
+  participant C as Admin Console
+  participant A as Express API
+  participant S as Supabase
+  participant G as Registry Service
+  participant F as Filesystem
+  participant L as Activity Log
+  U->>C: Click Generate registry
+  C->>A: POST /api/admin/registry/generate
+  A->>S: read published templates + taxonomy
+  S-->>A: rows
+  A->>G: generateRegistry(rows, targetPath)
+  G->>F: write site/registry.json
+  F-->>G: written
+  G-->>A: counts + generatedAt
+  A->>L: record registry.generated
+  A-->>C: 200 summary
+  C-->>U: Show success
+  Note over G: The snapshot is consumed by the static site build.
