@@ -1,0 +1,85 @@
+@startuml
+title ACT-10 — Convert Markdown in the Web Application
+
+skinparam monochrome true
+skinparam backgroundColor white
+skinparam shadowing false
+skinparam activity {
+    BackgroundColor white
+    BorderColor black
+    FontColor black
+    DiamondBackgroundColor white
+    DiamondBorderColor black
+}
+skinparam ArrowColor black
+skinparam defaultFontColor black
+
+|Author|
+start
+:Open in-browser conversion workspace;
+:Enter or upload Markdown;
+:Select template;
+
+|Web Application|
+:Validate conversion request;
+if (Input empty?) then (yes)
+    :Return empty input error;
+    stop
+else (no)
+    :Check request rate limit;
+endif
+
+if (Rate limit exceeded?) then (yes)
+    :Return rate limit error;
+    stop
+else (no)
+    :Check template availability;
+endif
+
+if (Template available?) then (yes)
+    :Invoke shared interpreter pipeline;
+else (no)
+    :Return missing template error;
+    stop
+endif
+
+|Litho Conversion Pipeline|
+:Parse and validate Markdown;
+if (Markdown valid?) then (yes)
+    :Bind AST to template;
+else (no)
+    :Return structured Markdown diagnostics;
+    stop
+endif
+
+:Generate LaTeX;
+:Invoke sandboxed Tectonic compilation;
+if (Compilation successful?) then (yes)
+    :Produce PDF;
+else (no)
+    :Return structured compilation error;
+    stop
+endif
+
+|Web Application|
+:Display generated PDF;
+
+|Author|
+:Download PDF;
+if (Restore source requested?) then (yes)
+    :Provide generated PDF for extraction;
+else (no)
+    :Finish conversion;
+    stop
+endif
+
+|Source Extraction Service|
+:Extract embedded Markdown source;
+if (Source available?) then (yes)
+    :Return restored Markdown;
+else (no)
+    :Report source restoration error;
+endif
+
+stop
+@enduml

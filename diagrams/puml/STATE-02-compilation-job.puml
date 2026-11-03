@@ -1,0 +1,40 @@
+@startuml STATE-02-compilation-job
+title STATE-02 - Document Compilation Job Lifecycle
+
+hide empty description
+
+skinparam monochrome true
+skinparam backgroundColor white
+skinparam shadowing false
+skinparam defaultTextAlignment center
+skinparam roundCorner 0
+skinparam ArrowColor black
+skinparam defaultFontColor black
+skinparam stateBorderThickness 1
+skinparam state {
+    BackgroundColor white
+    BorderColor black
+    FontColor black
+}
+
+[*] --> Queued : New Job
+
+Queued --> Parsing : Scan Source
+Parsing --> Validating : AST Ready
+Parsing --> Failed : Syntax Error
+
+Validating --> Binding : AST Valid
+Validating --> Failed : Schema Error
+
+Binding --> Generating : Bind Template
+Generating --> Compiling : LaTeX Ready
+
+Compiling --> Embedding : XeTeX Success
+Compiling --> Failed : Build Error
+
+Embedding --> Completed : Metadata Injected
+
+Completed --> [*] : Deliver PDF
+Failed --> [*] : Display Diagnostics
+
+@enduml

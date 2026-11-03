@@ -1,0 +1,63 @@
+@startuml
+title ACT-01 — Initialize a Litho Project
+
+skinparam monochrome true
+skinparam backgroundColor white
+skinparam shadowing false
+skinparam activity {
+    BackgroundColor white
+    BorderColor black
+    FontColor black
+    DiamondBackgroundColor white
+    DiamondBorderColor black
+}
+skinparam ArrowColor black
+skinparam defaultFontColor black
+
+|Author|
+start
+:Run litho init;
+:Confirm project directory;
+
+|Litho CLI|
+:Detect project directory;
+if (Directory valid?) then (yes)
+    if (Directory already exists?) then (yes)
+        :Report existing project directory;
+        stop
+    else (no)
+        :Request template selection;
+    endif
+else (no)
+    :Report invalid project directory;
+    stop
+endif
+
+|Author|
+:Select or confirm template;
+
+|Litho CLI|
+:Resolve selected template;
+if (Template found?) then (yes)
+else (no)
+    :Report template not found;
+    stop
+endif
+
+|Template Validator|
+:Validate template package;
+
+if (Template valid?) then (yes)
+    |Litho CLI|
+    :Create project configuration;
+    :Create starter Markdown file;
+    :Create required directories;
+    :Display initialization success;
+else (no)
+    |Litho CLI|
+    :Report template validation errors;
+    stop
+endif
+
+stop
+@enduml

@@ -1,0 +1,67 @@
+@startuml
+title ACT-02 — Author a Document Using VS Code
+
+skinparam monochrome true
+skinparam backgroundColor white
+skinparam shadowing false
+skinparam activity {
+    BackgroundColor white
+    BorderColor black
+    FontColor black
+    DiamondBackgroundColor white
+    DiamondBorderColor black
+}
+skinparam ArrowColor black
+skinparam defaultFontColor black
+
+|Author|
+start
+:Open Markdown file in VS Code;
+
+|VS Code Extension|
+:Detect document type;
+if (Litho document?) then (yes)
+    :Load core Litho grammar;
+else (no)
+    :Treat as unsupported file;
+    stop
+endif
+
+:Load selected template manifest;
+if (Manifest available?) then (yes)
+    :Load template schema;
+else (no)
+    :Report missing template manifest;
+    :Provide core authoring features only;
+endif
+
+:Enable syntax highlighting;
+:Load authoring snippets;
+:Provide core IntelliSense;
+
+if (Template schema available?) then (yes)
+    :Enable shortcode IntelliSense;
+else (no)
+    :Disable template-specific IntelliSense;
+endif
+
+|Author|
+:Edit Litho Markdown document;
+
+|VS Code Extension|
+:Analyze document syntax;
+if (Syntax valid?) then (yes)
+    :Validate template-defined constructs;
+else (no)
+    :Display syntax diagnostics;
+endif
+
+if (Unsupported shortcode?) then (yes)
+    :Display unsupported shortcode diagnostic;
+else (no)
+    :Update document diagnostics;
+endif
+
+:Refresh editor assistance;
+stop
+@enduml

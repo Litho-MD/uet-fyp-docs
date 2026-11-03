@@ -1,0 +1,71 @@
+@startuml
+title ACT-12 — Perform AI-Assisted Template Security Review
+
+skinparam monochrome true
+skinparam backgroundColor white
+skinparam shadowing false
+skinparam activity {
+    BackgroundColor white
+    BorderColor black
+    FontColor black
+    DiamondBackgroundColor white
+    DiamondBorderColor black
+}
+skinparam ArrowColor black
+skinparam defaultFontColor black
+
+|Template Publisher|
+start
+:Generate or modify template;
+:Request security review;
+
+repeat
+    |Validation Engine|
+    :Validate manifest and schema;
+    if (Validation passed?) then (yes)
+        :Inspect package dependencies;
+        :Inspect assets and references;
+        :Check macro restrictions;
+        :Check shell-escape restrictions;
+    else (no)
+        :Report validation failure;
+        :Block security approval;
+        stop
+    endif
+
+    |AI Security Review System|
+    :Analyze template for vulnerabilities;
+    :Identify suspicious constructs;
+    if (Potential findings exist?) then (yes)
+        :Classify security findings;
+        :Generate vulnerability details;
+    else (no)
+        :Mark security review as passed;
+        stop
+    endif
+
+    if (Critical vulnerability found?) then (yes)
+        :Block template publication;
+        :Mark critical findings unresolved;
+    else (no)
+        :Record non-critical findings;
+    endif
+
+    |GitHub|
+    :Create detailed issue for each finding;
+    if (Issue creation successful?) then (yes)
+        :Record vulnerability issues;
+    else (no)
+        :Report GitHub issue creation failure;
+        stop
+    endif
+
+    |Template Publisher|
+    :Review security findings;
+    :Fix vulnerable package elements;
+    :Submit package for re-review;
+
+repeat while (Remediation submitted?) is (yes)
+
+stop
+@enduml

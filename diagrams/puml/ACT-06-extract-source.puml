@@ -1,0 +1,60 @@
+@startuml
+title ACT-06 — Extract Markdown Source from a PDF
+
+skinparam monochrome true
+skinparam backgroundColor white
+skinparam shadowing false
+skinparam activity {
+    BackgroundColor white
+    BorderColor black
+    FontColor black
+    DiamondBackgroundColor white
+    DiamondBorderColor black
+}
+skinparam ArrowColor black
+skinparam defaultFontColor black
+
+|Author / AI Assistant / External Tool|
+start
+:Provide PDF file;
+
+|Source Extraction Service|
+:Inspect PDF format;
+if (PDF supported?) then (yes)
+    :Read PDF metadata;
+else (no)
+    :Report unsupported PDF;
+    stop
+endif
+
+if (Litho metadata present?) then (yes)
+    :Locate embedded source metadata;
+else (no)
+    :Report missing Litho metadata;
+    stop
+endif
+
+if (Metadata readable?) then (yes)
+    :Extract original Markdown source;
+    :Extract template identifier;
+    :Extract template version;
+else (no)
+    :Report corrupted metadata;
+    stop
+endif
+
+if (Source extraction successful?) then (yes)
+    :Restore Markdown source;
+    :Restore provenance information;
+else (no)
+    :Report source extraction failure;
+    stop
+endif
+
+:Package extracted files;
+:Return Markdown and provenance;
+
+|Caller|
+:Receive extracted files;
+stop
+@enduml

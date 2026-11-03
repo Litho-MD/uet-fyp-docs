@@ -1,0 +1,100 @@
+@startuml
+title ACT-13 — Invoke Litho Through the MCP Server
+
+skinparam monochrome true
+skinparam backgroundColor white
+skinparam shadowing false
+skinparam activity {
+    BackgroundColor white
+    BorderColor black
+    FontColor black
+    DiamondBackgroundColor white
+    DiamondBorderColor black
+}
+skinparam ArrowColor black
+skinparam defaultFontColor black
+
+|AI Assistant|
+start
+:Send MCP request;
+
+|MCP Server|
+:Receive operation and arguments;
+:Validate operation name;
+if (Operation supported?) then (yes)
+    :Validate arguments;
+else (no)
+    :Return unknown operation error;
+    stop
+endif
+
+if (Arguments valid?) then (yes)
+    :Determine required context;
+else (no)
+    :Return invalid arguments error;
+    stop
+endif
+
+:Load required context;
+
+|Litho Context Loader|
+:Load template or manifest when required;
+:Load curated dataset when required;
+:Load skills.md when required;
+if (Required template found?) then (yes)
+    :Prepare service context;
+else (no)
+    :Return template not found;
+    stop
+endif
+
+|MCP Server|
+:Dispatch requested operation;
+
+|Litho Services|
+if (Operation is build?) then (yes)
+    :Execute build pipeline;
+else (no)
+    if (Operation is validate?) then (yes)
+        :Execute Markdown validation;
+    else (no)
+        if (Operation is template retrieval?) then (yes)
+            :Retrieve template package;
+        else (no)
+            if (Operation is template generation?) then (yes)
+                :Generate template package;
+            else (no)
+                if (Operation is template modification?) then (yes)
+                    :Modify existing template;
+                else (no)
+                    if (Operation is extract-source?) then (yes)
+                        :Extract PDF source;
+                    else (no)
+                        :Convert specification to Markdown;
+                    endif
+                endif
+            endif
+        endif
+    endif
+endif
+
+if (Service completed successfully?) then (yes)
+    :Produce operation result;
+else (no)
+    :Produce structured service error;
+endif
+
+|MCP Server|
+:Format structured MCP response;
+if (Response well-formed?) then (yes)
+    :Return MCP result;
+else (no)
+    :Return malformed response error;
+    stop
+endif
+
+|AI Assistant|
+:Receive MCP result;
+:Process operation response;
+stop
+@enduml

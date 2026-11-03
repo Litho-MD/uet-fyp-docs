@@ -1,0 +1,67 @@
+@startuml
+title ACT-14 — Build and Publish Documentation
+
+skinparam monochrome true
+skinparam backgroundColor white
+skinparam shadowing false
+skinparam activity {
+    BackgroundColor white
+    BorderColor black
+    FontColor black
+    DiamondBackgroundColor white
+    DiamondBorderColor black
+}
+skinparam ArrowColor black
+skinparam defaultFontColor black
+
+|Documentation Maintainer|
+start
+:Update documentation;
+note right
+    Documentation categories:
+    Installation, configuration,
+    usage, CLI, template publishing,
+    API and MCP guidance
+end note
+:Push changes to repository;
+
+|CI/CD System|
+:Detect documentation changes;
+:Start documentation build;
+:Build documentation website;
+if (Build successful?) then (yes)
+    :Run link checks;
+    :Validate configuration examples;
+else (no)
+    :Report documentation build failure;
+    stop
+endif
+
+if (Broken links found?) then (yes)
+    :Report broken links;
+    stop
+else (no)
+    :Continue quality checks;
+endif
+
+if (Invalid examples found?) then (yes)
+    :Report invalid examples;
+    stop
+else (no)
+    :Approve documentation build;
+endif
+
+:Publish versioned documentation website;
+if (Deployment successful?) then (yes)
+    :Mark documentation release successful;
+else (no)
+    :Report deployment failure;
+    stop
+endif
+
+|Documentation User|
+:Visit documentation website;
+:Select documentation category;
+:Read relevant guidance;
+stop
+@enduml

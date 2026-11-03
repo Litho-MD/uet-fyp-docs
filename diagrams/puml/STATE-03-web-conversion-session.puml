@@ -1,0 +1,41 @@
+@startuml STATE-03-web-conversion-session
+title STATE-03 - Web Conversion Workspace Session
+
+hide empty description
+
+skinparam monochrome true
+skinparam backgroundColor white
+skinparam shadowing false
+skinparam defaultTextAlignment center
+skinparam roundCorner 0
+skinparam ArrowColor black
+skinparam defaultFontColor black
+skinparam stateBorderThickness 1
+skinparam state {
+    BackgroundColor white
+    BorderColor black
+    FontColor black
+}
+
+[*] --> Ready : Open Web Workspace
+
+Ready --> Editing : Enter Markdown
+Ready --> Restoring : Upload PDF
+
+Restoring --> Editing : Source Extracted
+Restoring --> Ready : Extraction Error
+
+Editing --> Compiling : Convert to PDF
+Compiling --> Editing : Compilation Error
+Compiling --> Preview : Build Success
+
+Preview --> Downloading : Click Download
+Downloading --> Preview : File Saved
+
+Preview --> Editing : Edit Content
+Preview --> Ready : Reset Session
+
+Ready --> [*] : Close Session
+Editing --> [*] : Close Session
+
+@enduml

@@ -1,0 +1,88 @@
+@startuml state-user-admin
+title User: Admin
+
+hide empty description
+
+skinparam monochrome true
+skinparam backgroundColor white
+skinparam shadowing false
+skinparam defaultTextAlignment center
+skinparam roundCorner 0
+skinparam ArrowColor black
+skinparam defaultFontColor black
+skinparam stateBorderThickness 1
+skinparam state {
+    BackgroundColor white
+    BorderColor black
+    FontColor black
+}
+
+state c_start <<choice>>
+state "Login" as login
+state c_auth <<choice>>
+state c_menu <<choice>>
+state "Logout" as logout
+
+[*] --> c_start
+c_start --> login
+login --> c_auth
+c_auth --> c_menu : Success
+c_auth --> c_start : Retry
+
+c_menu --> logout : Logout
+logout --> [*]
+
+' Section 1: Review Submissions
+state "Review Submissions" as feat1
+state c_f1 <<choice>>
+state "Inspect Baseline Scan" as f1_1
+state "Inspect Code Previews" as f1_2
+state "Sign Review Attestation" as f1_3
+state c_f1_m <<choice>>
+
+c_menu --> feat1
+feat1 --> c_f1
+c_f1 --> f1_1
+c_f1 --> f1_2
+c_f1 --> f1_3
+f1_1 --> c_f1_m
+f1_2 --> c_f1_m
+f1_3 --> c_f1_m
+
+' Section 2: Catalog Publishing
+state "Catalog Publishing" as feat2
+state c_f2 <<choice>>
+state "Update Registry" as f2_1
+state "Rebuild Catalog Data" as f2_2
+state "Deploy Pages Site" as f2_3
+state c_f2_m <<choice>>
+
+c_f1_m --> feat2
+feat2 --> c_f2
+c_f2 --> f2_1
+c_f2 --> f2_2
+c_f2 --> f2_3
+f2_1 --> c_f2_m
+f2_2 --> c_f2_m
+f2_3 --> c_f2_m
+
+' Section 3: Security & Delisting
+state "Security Delisting" as feat3
+state c_f3 <<choice>>
+state "Review Advisory" as f3_1
+state "Retire Template ID" as f3_2
+state "Deploy Delist Update" as f3_3
+state c_f3_m <<choice>>
+
+c_f2_m --> feat3
+feat3 --> c_f3
+c_f3 --> f3_1
+c_f3 --> f3_2
+c_f3 --> f3_3
+f3_1 --> c_f3_m
+f3_2 --> c_f3_m
+f3_3 --> c_f3_m
+
+c_f3_m --> c_menu : Loop to Workspace
+
+@enduml

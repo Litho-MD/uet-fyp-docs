@@ -1,0 +1,55 @@
+@startuml STATE-05-author-workspace
+title STATE-05 - Author Local Workspace Lifecycle
+
+hide empty description
+
+skinparam monochrome true
+skinparam backgroundColor white
+skinparam shadowing false
+skinparam defaultTextAlignment center
+skinparam roundCorner 0
+skinparam ArrowColor black
+skinparam defaultFontColor black
+skinparam stateBorderThickness 1
+skinparam state {
+    BackgroundColor white
+    BorderColor black
+    FontColor black
+}
+
+state c_start <<choice>>
+state "Uninitialized" as s_init
+state "Scaffolded" as s_scaff
+state "Editing" as s_edit
+state c_menu <<choice>>
+state c_branch <<choice>>
+state c_merge <<choice>>
+state "Exit" as s_exit
+
+[*] --> c_start
+c_start --> s_init : Open Directory
+s_init --> s_scaff : litho init
+s_scaff --> s_edit : Open in VS Code
+
+s_edit --> c_menu
+
+c_menu --> s_exit : Close Workspace
+s_exit --> [*]
+
+c_menu --> c_branch : Select Action
+
+state "Build PDF" as act_build
+state "Watch & Rebuild" as act_watch
+state "Extract Source" as act_extract
+
+c_branch --> act_build : litho build
+c_branch --> act_watch : litho watch
+c_branch --> act_extract : litho extract-source
+
+act_build --> c_merge : PDF Ready
+act_watch --> c_merge : Stop (Ctrl+C)
+act_extract --> c_merge : Source Restored
+
+c_merge --> s_edit : Return to Editor
+
+@enduml

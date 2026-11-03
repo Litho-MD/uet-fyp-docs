@@ -1,0 +1,70 @@
+@startuml
+title ACT-03 — Tokenize, Parse, and Validate Litho Markdown
+
+skinparam monochrome true
+skinparam backgroundColor white
+skinparam shadowing false
+skinparam activity {
+    BackgroundColor white
+    BorderColor black
+    FontColor black
+    DiamondBackgroundColor white
+    DiamondBorderColor black
+}
+skinparam ArrowColor black
+skinparam defaultFontColor black
+
+|Author / Calling Tool|
+start
+:Provide Litho Markdown source;
+
+|Tokenizer|
+:Scan Markdown source;
+:Generate lexical tokens;
+if (Lexical errors found?) then (yes)
+    :Collect lexical diagnostics;
+    :Return tokenization errors;
+    stop
+else (no)
+    :Return token stream;
+endif
+
+|Parser|
+:Parse token stream;
+:Construct abstract syntax tree (AST);
+if (Syntax errors found?) then (yes)
+    :Collect syntax diagnostics;
+    :Return parsing errors;
+    stop
+else (no)
+    :Produce AST;
+endif
+
+|Validation Engine|
+:Validate frontmatter;
+if (Frontmatter valid?) then (yes)
+else (no)
+    :Report invalid frontmatter;
+    stop
+endif
+
+:Validate fields and types;
+if (Required fields present?) then (yes)
+else (no)
+    :Report missing required fields;
+    stop
+endif
+
+:Validate template-defined constructs;
+if (Unknown shortcode found?) then (yes)
+    :Report unknown shortcode;
+    stop
+else (no)
+    :Validate remaining AST constraints;
+endif
+
+|Litho System|
+:Return validated AST;
+:Return validation diagnostics;
+stop
+@enduml

@@ -1,0 +1,42 @@
+@startuml STATE-01-template-lifecycle
+title STATE-01 - Template Package Lifecycle
+
+hide empty description
+
+skinparam monochrome true
+skinparam backgroundColor white
+skinparam shadowing false
+skinparam defaultTextAlignment center
+skinparam roundCorner 0
+skinparam ArrowColor black
+skinparam defaultFontColor black
+skinparam stateBorderThickness 1
+skinparam state {
+    BackgroundColor white
+    BorderColor black
+    FontColor black
+}
+
+[*] --> Draft
+
+Draft --> Validating : Validate
+Validating --> Draft : Validation Error
+Validating --> Packaged : Manifest Valid
+
+Packaged --> Submitted : Submit Issue
+Submitted --> Scanning : Trigger Webhook
+
+Scanning --> Draft : Scan Failed
+Scanning --> UnderReview : Scan Passed
+
+UnderReview --> Draft : Changes Requested
+UnderReview --> Listed : Maintainer Approved
+
+Listed --> Deprecated : Deprecate
+Listed --> Withdrawn : Delist
+
+Deprecated --> Withdrawn : Retire
+Withdrawn --> [*]
+Draft --> [*] : Delete
+
+@enduml

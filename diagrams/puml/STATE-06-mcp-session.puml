@@ -1,0 +1,35 @@
+@startuml STATE-06-mcp-session
+title STATE-06 - MCP Server Session Lifecycle
+
+hide empty description
+
+skinparam monochrome true
+skinparam backgroundColor white
+skinparam shadowing false
+skinparam defaultTextAlignment center
+skinparam roundCorner 0
+skinparam ArrowColor black
+skinparam defaultFontColor black
+skinparam stateBorderThickness 1
+skinparam state {
+    BackgroundColor white
+    BorderColor black
+    FontColor black
+}
+
+[*] --> Idle : Start MCP Server
+
+Idle --> Initializing : Client Connects
+Initializing --> Ready : Register Tools
+
+Ready --> ContextLoading : Tool Invoked
+ContextLoading --> Ready : Context Error
+ContextLoading --> Executing : Context Ready
+
+Executing --> Formatting : Process Tool Call
+Formatting --> Ready : Return Result
+
+Ready --> Shutdown : Disconnect
+Shutdown --> [*]
+
+@enduml

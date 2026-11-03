@@ -1,0 +1,87 @@
+@startuml
+title ACT-04 — Build a Markdown Document into a PDF
+
+skinparam monochrome true
+skinparam backgroundColor white
+skinparam shadowing false
+skinparam activity {
+    BackgroundColor white
+    BorderColor black
+    FontColor black
+    DiamondBackgroundColor white
+    DiamondBorderColor black
+}
+skinparam ArrowColor black
+skinparam defaultFontColor black
+
+|Author / Client|
+start
+:Invoke build operation;
+note right
+    Entry points:
+    CLI, VS Code, Web App,
+    MCP Server, Hosted API
+end note
+
+|Build Service|
+:Receive Markdown and template ID;
+:Parse and validate Markdown;
+if (Markdown valid?) then (yes)
+else (no)
+    :Return Markdown diagnostics;
+    stop
+endif
+
+:Load template manifest and schema;
+if (Template found?) then (yes)
+else (no)
+    :Return template not found;
+    stop
+endif
+
+:Check template compatibility;
+if (Template compatible?) then (yes)
+else (no)
+    :Report template-schema mismatch;
+    stop
+endif
+
+:Bind AST to template;
+
+|LaTeX Generator|
+:Generate LaTeX source;
+if (Generation successful?) then (yes)
+else (no)
+    :Return LaTeX generation error;
+    stop
+endif
+
+|Isolated Build Environment|
+:Start sandboxed Tectonic compilation;
+if (Sandbox limits satisfied?) then (yes)
+    :Compile LaTeX using Tectonic;
+else (no)
+    :Report sandbox or resource-limit failure;
+    stop
+endif
+
+if (Compilation successful?) then (yes)
+else (no)
+    :Return Tectonic diagnostics;
+    stop
+endif
+
+|PDF Metadata Processor|
+:Embed original Markdown source;
+:Embed template identifier;
+:Embed template version;
+
+|Build Service|
+:Collect generated PDF;
+:Collect build diagnostics;
+:Return PDF and diagnostics;
+
+|Author / Client|
+:Receive generated PDF;
+stop
+@enduml

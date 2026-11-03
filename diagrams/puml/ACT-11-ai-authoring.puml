@@ -1,0 +1,112 @@
+@startuml
+title ACT-11 — Use AI-Assisted Authoring
+
+skinparam monochrome true
+skinparam backgroundColor white
+skinparam shadowing false
+skinparam activity {
+    BackgroundColor white
+    BorderColor black
+    FontColor black
+    DiamondBackgroundColor white
+    DiamondBorderColor black
+}
+skinparam ArrowColor black
+skinparam defaultFontColor black
+
+|Author|
+start
+:Open AI authoring feature;
+:Select AI operation;
+
+|AI Authoring Service|
+if (Operation supported?) then (yes)
+    :Load product-level skills.md;
+    :Load curated template dataset;
+else (no)
+    :Report unsupported operation;
+    stop
+endif
+
+if (Template context required?) then (yes)
+    :Load selected template manifest;
+else (no)
+    :Continue without template context;
+endif
+
+|Author|
+:Provide prompt or source material;
+note right
+    Supported inputs:
+    Specification, Markdown document,
+    template modification request,
+    or template generation prompt
+end note
+
+|AI Authoring Service|
+if (Prompt sufficient?) then (yes)
+    :Prepare AI generation context;
+else (no)
+    :Request additional information;
+    stop
+endif
+
+if (Required template context available?) then (yes)
+    :Generate proposed result;
+else (no)
+    :Report missing template context;
+    stop
+endif
+
+if (AI generation successful?) then (yes)
+    :Produce proposed output;
+else (no)
+    :Report AI generation failure;
+    stop
+endif
+
+:Validate generated result;
+if (Operation is Markdown generation?) then (yes)
+    if (Generated Markdown valid?) then (yes)
+        :Prepare Markdown preview;
+    else (no)
+        :Report invalid generated Markdown;
+        stop
+    endif
+else (no)
+    if (Operation involves template?) then (yes)
+        :Validate template fields and constraints;
+        if (Template valid?) then (yes)
+            :Prepare template preview;
+        else (no)
+            :Report invalid generated template;
+            stop
+        endif
+    else (no)
+        :Validate template usage or modification;
+    endif
+endif
+
+|Author|
+:Review proposed result;
+if (Author accepts result?) then (yes)
+    :Accept generated result;
+else (edit)
+    if (Author edits result?) then (yes)
+        :Edit proposed result;
+    else (reject)
+        :Reject proposed result;
+        stop
+    endif
+endif
+
+|AI Authoring Service|
+if (Accepted result is a template package?) then (yes)
+    :Send package to normal template validation;
+    :Prepare for publication workflow;
+else (no)
+    :Return accepted Markdown or document;
+endif
+
+stop
+@enduml

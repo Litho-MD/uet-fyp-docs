@@ -1,0 +1,83 @@
+@startuml
+title ACT-08 — Submit and Publish a Template through GitHub
+
+skinparam monochrome true
+skinparam backgroundColor white
+skinparam shadowing false
+skinparam activity {
+    BackgroundColor white
+    BorderColor black
+    FontColor black
+    DiamondBackgroundColor white
+    DiamondBorderColor black
+}
+skinparam ArrowColor black
+skinparam defaultFontColor black
+
+|Template Publisher|
+start
+:Validate template package;
+if (Package validation passed?) then (yes)
+else (no)
+    :Correct package errors;
+    stop
+endif
+
+repeat
+    |Template Publisher|
+    :Submit package through GitHub Issue;
+
+    |GitHub|
+    if (GitHub available?) then (yes)
+        :Record issue and repository information;
+    else (no)
+        :Report GitHub unavailable;
+        stop
+    endif
+
+    |Marketplace / Maintainer|
+    if (Repository and manifest available?) then (yes)
+        :Receive template submission;
+        :Inspect package metadata;
+        :Review source and assets;
+        :Review documentation and license;
+        :Evaluate submission;
+    else (no)
+        :Report repository or manifest unavailable;
+        stop
+    endif
+
+    |Maintainer|
+    if (Submission approved?) then (approved)
+        :Apply marketplace listing label;
+    else (changes requested)
+        if (Submission rejected?) then (rejected)
+            :Record rejection reason;
+            stop
+        else (changes requested)
+            :Request package changes;
+        endif
+    endif
+
+    if (Changes requested?) then (yes)
+        |Template Publisher|
+        :Update template package;
+        :Resubmit package;
+    endif
+
+repeat while (Changes requested?) is (yes) not (no)
+
+|Marketplace|
+:Detect approved listing label;
+:Resolve template manifest;
+:Resolve documentation and previews;
+:Resolve release version;
+if (Listing resources available?) then (yes)
+    :Publish marketplace listing;
+else (no)
+    :Report listing resource failure;
+    stop
+endif
+
+stop
+@enduml

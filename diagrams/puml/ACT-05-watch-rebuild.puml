@@ -1,0 +1,62 @@
+@startuml
+title ACT-05 — Watch and Rebuild a Document
+
+skinparam monochrome true
+skinparam backgroundColor white
+skinparam shadowing false
+skinparam activity {
+    BackgroundColor white
+    BorderColor black
+    FontColor black
+    DiamondBackgroundColor white
+    DiamondBorderColor black
+}
+skinparam ArrowColor black
+skinparam defaultFontColor black
+
+|Author|
+start
+:Run litho watch;
+
+|Litho Watch Service|
+:Perform initial build;
+if (Initial build successful?) then (yes)
+    :Display initial build success;
+else (no)
+    :Display initial build diagnostics;
+endif
+:Start file monitoring;
+
+|File Watcher|
+repeat
+    :Monitor Markdown source;
+    :Monitor template resources;
+    :Monitor relevant assets;
+    if (File change detected?) then (yes)
+        :Identify changed files;
+
+        |Litho Watch Service|
+        :Validate changed files;
+        if (Changed files valid?) then (yes)
+            :Trigger document rebuild;
+            if (Compilation successful?) then (yes)
+                :Update generated PDF;
+                :Display build success;
+            else (no)
+                :Display compilation diagnostics;
+            endif
+        else (no)
+            :Display validation diagnostics;
+        endif
+
+        |File Watcher|
+    else (no)
+        :Continue monitoring;
+    endif
+repeat while (Author continues watching?) is (yes)
+
+|Litho Watch Service|
+:Stop file monitoring;
+:Terminate watcher process;
+stop
+@enduml

@@ -1,0 +1,39 @@
+@startuml STATE-04-submission-issue
+title STATE-04 - Template Marketplace Submission Issue Lifecycle
+
+hide empty description
+
+skinparam monochrome true
+skinparam backgroundColor white
+skinparam shadowing false
+skinparam defaultTextAlignment center
+skinparam roundCorner 0
+skinparam ArrowColor black
+skinparam defaultFontColor black
+skinparam stateBorderThickness 1
+skinparam state {
+    BackgroundColor white
+    BorderColor black
+    FontColor black
+}
+
+[*] --> Submitted : Open Issue
+
+Submitted --> Scanning : Trigger Webhook
+
+Scanning --> NeedsFixes : Findings Detected
+NeedsFixes --> Scanning : Push Fix Commits
+NeedsFixes --> [*] : Abandon Issue
+
+Scanning --> UnderReview : Scan Passed
+
+UnderReview --> ChangesRequested : Request Changes
+ChangesRequested --> Scanning : Push Revisions
+
+UnderReview --> Approved : Attestation Signed
+Approved --> Publishing : Dispatch Workflow
+Publishing --> Closed : Catalog Published
+
+Closed --> [*]
+
+@enduml
