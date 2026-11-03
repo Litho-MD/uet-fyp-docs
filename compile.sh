@@ -18,6 +18,13 @@ find diagrams/mmd -type f -name '*.mmd' -print | while IFS= read -r source; do
   echo "Generating $output from $source"
   mmdc -i "$source" -o "$output" -b white
 done
+find diagrams/svg -type f -name '*.svg' -print | while IFS= read -r source; do
+  relative=${source#diagrams/svg/}
+  output="Figures/${relative%.svg}.png"
+  mkdir -p "$(dirname "$output")"
+  echo "Generating $output from $source"
+  rsvg-convert "$source" -o "$output"
+done
 
 pdflatex -interaction=nonstopmode uet_thesis.tex
 bibtex uet_thesis
