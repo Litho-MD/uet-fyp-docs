@@ -9,18 +9,20 @@ flowchart TD
     C --> D[Browse template marketplace]
     D --> E[Select and download template]
     E --> F[Initialize Litho project]
-    F --> G[Write Markdown document]
-    G --> H[Validate document]
+    F --> M_doc{" "}
+    M_doc --> G[Write Markdown document]
+    G --> M_val{" "}
+    M_val --> H[Validate document]
     H --> I{Document valid?}
 
     I -- No --> J[Correct Markdown errors]
-    J --> H
+    J --> M_val
 
     I -- Yes --> K[Generate PDF]
     K --> L{PDF generated successfully?}
 
     L -- No --> M[Review compilation errors]
-    M --> G
+    M --> M_doc
 
     L -- Yes --> N[Review and download PDF]
     N --> O{Restore source later?}

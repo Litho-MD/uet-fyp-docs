@@ -6,24 +6,26 @@ config:
 flowchart TD
     A([Start]) --> B[Install Litho CLI]
     B --> C[Run litho init]
-    C --> D[Create or edit Markdown file]
+    C --> M_edit{" "}
+    M_edit --> D[Create or edit Markdown file]
     D --> E[Choose template]
-    E --> F[Run litho build]
+    E --> M_build{" "}
+    M_build --> F[Run litho build]
     F --> G{Command valid?}
 
     G -- No --> H[Display command error]
-    H --> F
+    H --> M_build
 
     G -- Yes --> I{Markdown valid?}
     I -- No --> J[Display validation errors]
-    J --> D
+    J --> M_edit
 
     I -- Yes --> K[Generate LaTeX]
     K --> L[Compile PDF]
     L --> M{Compilation successful?}
 
     M -- No --> N[Display compilation errors]
-    N --> D
+    N --> M_edit
 
     M -- Yes --> O[Save PDF]
     O --> P([End])

@@ -1,9 +1,12 @@
 @startuml
-title ACT-05 — Watch and Rebuild a Document
+title ACT-05 - Watch and Rebuild a Document
 
 skinparam monochrome true
 skinparam backgroundColor white
 skinparam shadowing false
+skinparam roundCorner 0
+skinparam defaultTextAlignment center
+skinparam activityBorderThickness 1
 skinparam activity {
     BackgroundColor white
     BorderColor black

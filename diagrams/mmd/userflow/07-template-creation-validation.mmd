@@ -10,12 +10,13 @@ flowchart TD
     D --> E[Generate template package]
     E --> F[Review manifest and template files]
     F --> G[Preview sample document]
-    G --> H[Run template validation]
+    G --> M_val{" "}
+    M_val --> H[Run template validation]
     H --> I{Validation successful?}
 
     I -- No --> J[Display validation errors]
     J --> K[Modify template]
-    K --> H
+    K --> M_val
 
     I -- Yes --> L[Prepare submission]
     L --> M([End])

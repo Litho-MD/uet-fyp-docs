@@ -5,17 +5,18 @@ config:
 ---
 flowchart TD
     A([Start]) --> B[Open template marketplace]
-    B --> C[Search or filter templates]
+    B --> M_search{" "}
+    M_search --> C[Search or filter templates]
     C --> D{Matching templates found?}
 
     D -- No --> E[Adjust search or filters]
-    E --> C
+    E --> M_search
 
     D -- Yes --> F[Open template details]
     F --> G[Review description, preview, and requirements]
     G --> H{Use this template?}
 
-    H -- No --> C
+    H -- No --> M_search
     H -- Yes --> I[Select Use This Template]
     I --> J[Open conversion workspace]
     J --> K[Template is selected]

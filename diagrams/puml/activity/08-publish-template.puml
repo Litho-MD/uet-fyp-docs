@@ -1,9 +1,12 @@
 @startuml
-title ACT-08 — Submit and Publish a Template through GitHub
+title ACT-08 - Submit and Publish a Template through GitHub
 
 skinparam monochrome true
 skinparam backgroundColor white
 skinparam shadowing false
+skinparam roundCorner 0
+skinparam defaultTextAlignment center
+skinparam activityBorderThickness 1
 skinparam activity {
     BackgroundColor white
     BorderColor black
@@ -49,7 +52,7 @@ repeat
 
     |Maintainer|
     if (Submission approved?) then (approved)
-        :Apply marketplace listing label;
+        :Apply approved-and-verified label;
     else (changes requested)
         if (Submission rejected?) then (rejected)
             :Record rejection reason;
@@ -68,7 +71,7 @@ repeat
 repeat while (Changes requested?) is (yes) not (no)
 
 |Marketplace|
-:Detect approved listing label;
+:Detect approved-and-verified label;
 :Resolve template manifest;
 :Resolve documentation and previews;
 :Resolve release version;

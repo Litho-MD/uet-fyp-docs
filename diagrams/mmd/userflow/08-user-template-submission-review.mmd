@@ -9,17 +9,18 @@ flowchart TD
     C --> D[Submit GitHub issue]
     D --> E[Maintainer receives submission]
     E --> F[Inspect manifest and assets]
-    F --> G[Validate template]
+    F --> M_val{" "}
+    M_val --> G[Validate template]
     G --> H[Review generated preview]
     H --> I{Template acceptable?}
 
     I -- No, changes needed --> J[Request changes]
     J --> K[Publisher modifies template]
-    K --> G
+    K --> M_val
 
     I -- No, reject --> L[Reject submission with feedback]
     L --> M([End])
 
-    I -- Yes --> N[Approve and label template]
+    I -- Yes --> N[Apply approved-and-verified label]
     N --> O[Publish template in marketplace]
     O --> P([End])

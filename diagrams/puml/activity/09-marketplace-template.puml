@@ -1,9 +1,12 @@
 @startuml
-title ACT-09 — Browse, Inspect, Download, and Use a Marketplace Template
+title ACT-09 - Browse, Inspect, Download, and Use a Marketplace Template
 
 skinparam monochrome true
 skinparam backgroundColor white
 skinparam shadowing false
+skinparam roundCorner 0
+skinparam defaultTextAlignment center
+skinparam activityBorderThickness 1
 skinparam activity {
     BackgroundColor white
     BorderColor black

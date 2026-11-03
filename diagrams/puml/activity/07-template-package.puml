@@ -1,9 +1,12 @@
 @startuml
-title ACT-07 — Create and Validate a Template Package
+title ACT-07 - Create and Validate a Template Package
 
 skinparam monochrome true
 skinparam backgroundColor white
 skinparam shadowing false
+skinparam roundCorner 0
+skinparam defaultTextAlignment center
+skinparam activityBorderThickness 1
 skinparam activity {
     BackgroundColor white
     BorderColor black

@@ -95,7 +95,7 @@ Typst~\cite{ref5} & No (Typst markup) & Yes (templates/packages) & Growing ecosy
 Quarto/R Markdown~\cite{ref4} & Yes & Partial (formats/themes) & Oriented to notebooks; no general template marketplace described. \\
 MyST~\cite{myst2024} & Yes (extended CommonMark) & Partial (directives and roles) & Technical-document tooling; no general marketplace or MCP integration. \\
 Overleaf~\cite{overleaf2024} & No (raw \LaTeX\ source) & Partial (institutional templates) & Web collaboration and editor support; no Markdown-native workflow. \\
-\textbf{Proposed project (Litho)} & Yes (three-tier Markdown dialect) & Yes (first-class, publishable, versioned templates with schema) & Yes (VS Code + other editors, three web applications, AI template generation/spec-to-doc, automated security review with GitHub issue creation, agent playbook via \texttt{skills.md}, MCP/API, round-trip). \\
+\textbf{Proposed project (Litho)} & Yes (three-tier Markdown dialect) & Yes (first-class, publishable, versioned templates with schema) & Yes (VS Code + other editors, three web applications, AI template generation/spec-to-doc, automated security review with diagnostic GitHub issue reporting and automated validation labeling, agent playbook via \texttt{skills.md}, MCP/API, round-trip). \\
 \end{xltabular}
 
 
@@ -122,7 +122,7 @@ Litho addresses these gaps by delivering an integrated, five-channel publishing 
   \item \textbf{Git-Native Marketplace and Edge Architecture:} A community template registry curated via reviewed GitHub issues, guarded by static security baseline scanning and privacy-preserving engagement counters.
   \item \textbf{Lossless Round-Trip Reproducibility:} Automated injection and extraction of serialized Markdown source within document metadata streams.
   \item \textbf{Agent-Ready Interfaces:} A Model Context Protocol (MCP) server~\cite{anthropic2024mcp} and hosted REST API enabling AI assistants and web platforms to generate templates, convert specifications to Markdown, modify templates, validate, build, and extract documents programmatically, guided by a product-level \texttt{skills.md} agent playbook.
-  \item \textbf{AI-Assisted Authoring and Security Review:} Built-in AI capabilities for template generation from prompts/specifications and specification-to-documentation conversion, coupled with automated AI-driven security review that analyzes templates and creates corresponding GitHub issues for detected vulnerabilities.
+  \item \textbf{AI-Assisted Authoring and Security Review:} Built-in AI capabilities for template generation from prompts/specifications and specification-to-documentation conversion, coupled with automated AI-driven security review that analyzes templates and posts diagnostic findings on submission issues with automated validation label enforcement.
 \end{enumerate}
 
 % =============================================================================
