@@ -1,66 +1,193 @@
 % Component diagram for the Litho ecosystem.
 % Included by Chapters/Chapter4.tex via \input{\detokenize{...}}.
+% Interface IDs (INT-xx) refer to Table "Major interfaces" in Chapter 4.
+%
+% Helpers are defined here (outside the figure) so that macro parameters are
+% not read as an argument of \resizebox. They only need TikZ + arrows.meta.
+
+\tikzset{
+  lc/.style={draw, line width=0.6pt, rectangle, align=center, font=\footnotesize,
+             minimum height=1.3cm, inner sep=3pt},
+  lcdep/.style={dashed, semithick, -{Triangle[open, length=2.4mm, width=2.2mm]}},
+  lcflow/.style={line width=0.5pt, black!65, -{Stealth[length=1.8mm]}},
+}
+
+% Small UML component icon in the top-right corner of node #1.
+\providecommand{\lcIcon}[1]{%
+  \begin{scope}[shift={(#1.north east)}, xshift=-0.30cm, yshift=-0.11cm]
+    \filldraw[fill=white, line width=0.4pt] (0,-0.26) rectangle (0.17,0);
+    \filldraw[fill=white, line width=0.4pt] (-0.055,-0.06) rectangle (0.055,-0.10);
+    \filldraw[fill=white, line width=0.4pt] (-0.055,-0.16) rectangle (0.055,-0.20);
+  \end{scope}%
+}
+
+% Component: [style], name, position, text.
+\providecommand{\lcComp}[4][]{%
+  \node[lc, #1] (#2) at (#3) {#4};%
+  \lcIcon{#2}%
+}
+
+% Secondary text line (technology / note) inside a component.
+\providecommand{\lcSub}[1]{{\scriptsize\itshape\color{black!65}#1}}
+
+% Small UML port: a square centred on a component edge at (#1,#2).
+\providecommand{\lcPort}[2]{%
+  \draw[fill=white, line width=0.4pt]
+    (#1-0.11,#2-0.11) rectangle ++(0.22,0.22);%
+}
+
+% Ball-and-socket assembly connector on a vertical line at x = #1.
+% #2 = y of the provider's edge (below), #3 = y of the consumer's edge (above),
+% #4 = y of the ball centre.  The connector starts at the small port squares on
+% both components, as in the tikz-uml "with port" assembly connector.
+\providecommand{\lcIface}[4]{%
+  \lcPort{#1}{#2}%
+  \lcPort{#1}{#3}%
+  \draw[semithick] (#1,#2+0.11) -- (#1,#4-0.16);
+  \draw[semithick, fill=white] (#1,#4) circle (0.16);
+  \draw[semithick] (#1-0.3,#4) arc[start angle=180, end angle=0, radius=0.3];
+  \draw[semithick] (#1,#4+0.3) -- (#1,#3-0.11);%
+}
+
+% Interface label: anchor, x, y, id, text.
+\providecommand{\lcLbl}[5]{%
+  \node[font=\scriptsize, anchor=#1, align=left, inner sep=1pt] at (#2,#3)
+       {\textbf{#4}\\#5};%
+}
+
 \begin{figure}[H]
 \centering
 \resizebox{\textwidth}{!}{%
-\begin{tikzpicture}
-\tikzumlset{fill component=white, draw=black, font=\footnotesize}
+\begin{tikzpicture}[x=1cm, y=1cm]
 
+% ------------------------------------------------------------------
+% External consumers of the machine-facing channels (INT-05, INT-06).
+% ------------------------------------------------------------------
+\lcComp[fill=orange!12, minimum width=3.0cm, minimum height=1.0cm]{AIA}{3.4,18.0}{AI Assistants}
+\lcComp[fill=orange!12, minimum width=3.0cm, minimum height=1.0cm]{CMS}{6.8,18.0}{CMS / Markdown\\Websites}
+
+% ------------------------------------------------------------------
 % Delivery channels.
-\umlbasiccomponent[x=-6.8,y=18.3,width=2.0cm,fill=blue!8,name=CLI]{\shortstack{Litho\\CLI}}
-\umlbasiccomponent[x=-3.4,y=18.3,width=2.0cm,fill=blue!8,name=VSCODE]{\shortstack{VS Code\\Extension}}
-\umlbasiccomponent[x=0,y=18.3,width=2.0cm,fill=blue!8,name=WEBAPP]{\shortstack{Conversion\\Web App}}
-\umlbasiccomponent[x=3.4,y=18.3,width=2.0cm,fill=blue!8,name=MCP]{\shortstack{MCP\\Server}}
-\umlbasiccomponent[x=6.8,y=18.3,width=2.0cm,fill=blue!8,name=API]{\shortstack{Hosted\\Conversion API}}
+% ------------------------------------------------------------------
+\lcComp[fill=blue!10, minimum width=3.0cm, minimum height=1.4cm]{CLI}{-6.8,15.0}%
+  {Litho CLI\\\lcSub{Python}}
+\lcComp[fill=blue!10, minimum width=3.0cm, minimum height=1.4cm]{VSCODE}{-3.4,15.0}%
+  {VS Code\\Extension\\\lcSub{TypeScript}}
+\lcComp[fill=blue!10, minimum width=3.0cm, minimum height=1.4cm]{WEBAPP}{0,15.0}%
+  {Conversion\\Web App\\\lcSub{Next.js}}
+\lcComp[fill=blue!10, minimum width=3.0cm, minimum height=1.4cm]{MCP}{3.4,15.0}%
+  {MCP Server\\\lcSub{Python, JSON-RPC}}
+\lcComp[fill=blue!10, minimum width=3.0cm, minimum height=1.4cm]{API}{6.8,15.0}%
+  {Hosted\\Conversion API\\\lcSub{FastAPI}}
 
-% Shared interpreter pipeline.
-\begin{umlcomponent}[x=0,y=12.3,fill=blue!4,name=PIPE]{Shared Interpreter Pipeline}
-  \umlbasiccomponent[x=-6.2,y=1.5,width=2.4cm,fill=white]{Tokenizer and Parser}
-  \umlbasiccomponent[x=-2.1,y=1.5,width=2.4cm,fill=white]{Template Binder}
-  \umlbasiccomponent[x=2.1,y=1.5,width=2.4cm,fill=white]{LaTeX Codegen}
-  \umlbasiccomponent[x=6.2,y=1.5,width=2.4cm,fill=white]{Metadata I\detokenize{/}O}
-  \umlbasiccomponent[x=-6.2,y=-1.9,width=2.4cm,fill=white]{Template Loader}
-  \umlbasiccomponent[x=-2.1,y=-1.9,width=2.4cm,fill=white]{Package Validator}
-\end{umlcomponent}
+% ------------------------------------------------------------------
+% Shared interpreter pipeline (conversion core).
+% ------------------------------------------------------------------
+\node[draw, line width=0.6pt, fill=blue!4, minimum width=17.6cm, minimum height=5.6cm]
+  (PIPE) at (0,9.4) {};
+\node[font=\footnotesize\bfseries, anchor=north] at (0,12.1)
+  {Shared Interpreter Pipeline \lcSub{(Python)}};
+\lcIcon{PIPE}
 
+\lcComp[fill=white, minimum width=3.6cm, minimum height=1.3cm]{PARSER}{-6.3,10.4}%
+  {Tokenizer and Parser\\\lcSub{three-tier dialect, AST}}
+\lcComp[fill=white, minimum width=3.6cm, minimum height=1.3cm]{BINDER}{-2.1,10.4}%
+  {Template Binder\\\lcSub{schema validation}}
+\lcComp[fill=white, minimum width=3.6cm, minimum height=1.3cm]{CODEGEN}{2.1,10.4}%
+  {LaTeX Codegen\\\lcSub{\texttt{.tex} output}}
+\lcComp[fill=white, minimum width=3.6cm, minimum height=1.3cm]{META}{6.3,10.4}%
+  {Metadata I\detokenize{/}O\\\lcSub{XMP embed / extract (INT-07)}}
+
+\lcComp[fill=white, minimum width=3.6cm, minimum height=1.2cm]{VALID}{-6.3,7.65}%
+  {Package Validator\\\lcSub{manifest and security scan}}
+\lcComp[fill=white, minimum width=3.6cm, minimum height=1.2cm]{LOADER}{-2.1,7.65}%
+  {Template Loader\\\lcSub{schema, manifest, assets}}
+
+% Data flow inside the pipeline.
+\draw[lcflow] (PARSER.east) -- (BINDER.west);
+\draw[lcflow] (BINDER.east) -- (CODEGEN.west);
+\draw[lcflow] (VALID.east)  -- (LOADER.west);
+\draw[lcflow] (LOADER.north) -- (BINDER.south);
+
+% ------------------------------------------------------------------
 % Ecosystem services.
-\umlbasiccomponent[x=-6.5,y=5.6,width=2.2cm,fill=blue!8,name=MARKET]{\shortstack{Template\\Marketplace}}
-\umlbasiccomponent[x=-3.0,y=5.6,width=2.2cm,fill=blue!8,name=DOCS]{\shortstack{Documentation\\Website}}
-\umlbasiccomponent[x=5.2,y=5.6,width=2.4cm,fill=violet!8,name=AISERV]{\shortstack{AI Authoring\\and Review}}
+% ------------------------------------------------------------------
+\lcComp[fill=green!12, minimum width=4.4cm, minimum height=1.3cm]{MARKET}{-6.2,3.9}%
+  {Template Marketplace\\\lcSub{Next.js}}
+\lcComp[fill=green!12, minimum width=3.2cm, minimum height=1.3cm]{DOCS}{-1.6,3.9}%
+  {Documentation\\Website\\\lcSub{Next.js, static}}
+\lcComp[fill=violet!12, minimum width=3.2cm, minimum height=1.3cm]{AISERV}{6.9,3.9}%
+  {AI Authoring\\and Review}
 
+% ------------------------------------------------------------------
 % External systems.
-\umlbasiccomponent[x=-6.5,y=0.8,width=2.2cm,fill=orange!10,name=COUNTERS]{\shortstack{Counters\\Database}}
-\umlbasiccomponent[x=-3.0,y=0.8,width=2.2cm,fill=orange!10,name=GITHUB]{GitHub}
-\umlbasiccomponent[x=-0.3,y=0.8,width=2.4cm,fill=violet!8,name=TECTONIC]{\shortstack{Tectonic\\Sandbox}}
-\umlbasiccomponent[x=5.2,y=0.8,width=2.2cm,fill=orange!10,name=LLM]{\shortstack{LLM\\Provider}}
+% ------------------------------------------------------------------
+\lcComp[fill=orange!12, minimum width=2.4cm, minimum height=1.5cm]{COUNTERS}{-7.4,0.6}%
+  {Counters\\Database\\\lcSub{Cloudflare D1}}
+\lcComp[fill=orange!12, minimum width=5.6cm, minimum height=1.5cm]{GITHUB}{-2.9,0.6}%
+  {GitHub\\\lcSub{issue registry, template repositories,}\\\lcSub{documentation repository}}
+\lcComp[fill=orange!12, minimum width=3.0cm, minimum height=1.5cm]{TECT}{3.0,0.6}%
+  {Tectonic Engine\\\lcSub{sandboxed,}\\\lcSub{shell escape off}}
+\lcComp[fill=orange!12, minimum width=3.2cm, minimum height=1.5cm]{LLM}{6.9,0.6}%
+  {LLM Provider}
 
-% Every delivery channel depends on the shared pipeline (INT-01).
-\foreach \n in {CLI,VSCODE,WEBAPP,MCP,API}{
-  \draw[-{Triangle[open]}, dashed, semithick] (\n.south) -- (\n.south |- PIPE.north);
+% ------------------------------------------------------------------
+% Dependencies: channels -> pipeline (INT-01), AI -> pipeline.
+% ------------------------------------------------------------------
+\foreach \x in {-6.8,-3.4,0,3.4,6.8}{
+  \draw[lcdep] (\x,14.3) -- (\x,12.2);
 }
-\node[font=\scriptsize, anchor=west] at (0.12,16.55) {INT-01};
+\lcLbl{east}{-1.75}{13.25}{INT-01}{}
+\lcLbl{west}{0.12}{13.25}{INT-08}{}
+\draw[lcdep] (6.9,4.55) -- (6.9,6.6);
 
-% Pipeline dependencies on templates and AI services.
-\draw[-{Triangle[open]}, dashed, semithick] (PIPE.south -| MARKET.north) -- (MARKET.north);
-\node[font=\scriptsize, anchor=west] at (-6.27,8.3) {\textit{ITemplateCatalog}};
-\draw[-{Triangle[open]}, dashed, semithick] (AISERV.north) -- (AISERV.north |- PIPE.south);
+% ------------------------------------------------------------------
+% Provided / required interfaces (ball and socket).
+% ------------------------------------------------------------------
+% INT-05, INT-06: MCP server and hosted API are consumed by external parties.
+\lcIface{3.4}{15.7}{17.5}{16.6}
+\lcLbl{east}{3.0}{16.6}{INT-05}{MCP (JSON-RPC)}
+\lcIface{6.8}{15.7}{17.5}{16.6}
+\lcLbl{east}{6.4}{16.6}{INT-06}{HTTP/REST (JSON)}
 
-% Assembly connectors for provided and required interfaces.
-\umlassemblyconnector[interface=~, with port, anchor1=south, anchor2=north]{PIPE}{TECTONIC}
-\node[font=\scriptsize, anchor=west] at (-0.05,5.9) {\textit{ICompile}};
-\umlassemblyconnector[interface=~, with port, anchor1=south, anchor2=north]{MARKET}{COUNTERS}
-\node[font=\scriptsize, anchor=west] at (-6.25,3.2) {\textit{SQL\detokenize{/}ORM}};
-\umlassemblyconnector[interface=~, with port, anchor1=south, anchor2=north]{AISERV}{LLM}
-\node[font=\scriptsize, anchor=east] at (4.95,3.2) {\textit{Model API}};
+% INT-02: the pipeline requires the Tectonic compile interface.
+\lcIface{3.0}{1.35}{6.6}{5.6}
+\lcLbl{west}{3.35}{5.6}{INT-02}{Process / filesystem}
 
-% Registry and documentation sources.
-\draw[-{Triangle[open]}, dashed, semithick] (DOCS.south) -- (DOCS.south |- GITHUB.north);
-\draw[dashed, -{Triangle[open]}, semithick]
-  (MARKET.south) -- (MARKET.south |- 0,3.9) -- (GITHUB.north west |- 0,3.9) -- (GITHUB.north west);
-\node[font=\scriptsize, above] at (-5.5,3.95) {INT-04};
+% INT-10, INT-04: marketplace requires counters database and GitHub.
+\lcIface{-7.4}{1.35}{3.25}{2.3}
+\lcLbl{west}{-7.05}{2.3}{INT-10}{SQL/ORM}
+\lcIface{-4.8}{1.35}{3.25}{2.3}
+\lcLbl{west}{-4.45}{2.3}{INT-04}{GitHub REST API}
+
+% INT-09: documentation website is built from the documentation repository.
+\lcIface{-1.6}{1.35}{3.25}{2.3}
+\lcLbl{west}{-1.25}{2.3}{INT-09}{Static build / Git}
+
+% AI authoring requires the LLM provider.
+\lcIface{6.9}{1.35}{3.25}{2.3}
+\lcLbl{east}{6.55}{2.3}{Model API}{}
+
+% ------------------------------------------------------------------
+% Legend.
+% ------------------------------------------------------------------
+\begin{scope}[font=\scriptsize, yshift=-1.6cm]
+  \draw[fill=blue!10]   (-8.8,-0.12) rectangle ++(0.5,0.3);
+  \node[anchor=west] at (-8.2,0.03) {Delivery channel};
+  \draw[fill=blue!4]    (-5.6,-0.12) rectangle ++(0.5,0.3);
+  \node[anchor=west] at (-5.0,0.03) {Conversion core};
+  \draw[fill=green!12]  (-2.4,-0.12) rectangle ++(0.5,0.3);
+  \node[anchor=west] at (-1.8,0.03) {Ecosystem service};
+  \draw[fill=violet!12] (1.2,-0.12) rectangle ++(0.5,0.3);
+  \node[anchor=west] at (1.8,0.03) {AI service};
+  \draw[fill=orange!12] (4.0,-0.12) rectangle ++(0.5,0.3);
+  \node[anchor=west] at (4.6,0.03) {External system};
+  \draw[lcdep] (7.3,0.03) -- ++(0.8,0);
+  \node[anchor=west] at (8.2,0.03) {Dependency};
+\end{scope}
 
 \end{tikzpicture}%
 }
-\caption{Component diagram of the Litho ecosystem. The five delivery channels depend on the shared interpreter pipeline; the pipeline uses the sandboxed Tectonic engine, template packages, and AI services, while the marketplace is backed by GitHub and the counters database. Dashed arrows are dependencies; ball-and-socket connectors are assembly connectors for provided and required interfaces.}
+\caption{Component Diagram}
 \label{fig:component-diagram}
 \end{figure}
