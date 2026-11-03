@@ -17,26 +17,41 @@ skinparam state {
     FontColor black
 }
 
-[*] --> Draft
+state c_draft_in <<choice>>
 
-Draft --> Validating : Validate
-Validating --> Draft : Validation Error
-Validating --> Packaged : Manifest Valid
+[*] -down-> c_draft_in
+c_draft_in -down-> Draft
 
-Packaged --> Submitted : Submit Issue
-Submitted --> Scanning : Trigger Webhook
+Draft -down-> Validating : Validate
 
-Scanning --> Draft : Scan Failed
-Scanning --> UnderReview : Scan Passed
+state c_val <<choice>>
+Validating -down-> c_val
+c_val -left-> c_draft_in : Validation Error
+c_val -down-> Packaged : Manifest Valid
 
-UnderReview --> Draft : Changes Requested
-UnderReview --> Listed : Maintainer Approved
+Packaged -down-> Submitted : Submit Issue
+Submitted -down-> Scanning : Trigger Webhook
 
-Listed --> Deprecated : Deprecate
-Listed --> Withdrawn : Delist
+state c_scan <<choice>>
+Scanning -down-> c_scan
+c_scan -left-> c_draft_in : Scan Failed
+c_scan -down-> UnderReview : Scan Passed
 
-Deprecated --> Withdrawn : Retire
-Withdrawn --> [*]
-Draft --> [*] : Delete
+state c_rev <<choice>>
+UnderReview -down-> c_rev
+c_rev -left-> c_draft_in : Changes Requested
+c_rev -down-> Listed : Approved
+
+state c_list <<choice>>
+state c_withdrawn_in <<choice>>
+
+Listed -down-> c_list
+c_list -down-> Deprecated : Deprecate
+c_list -right-> c_withdrawn_in : Delist
+
+Deprecated -down-> c_withdrawn_in : Retire
+c_withdrawn_in -down-> Withdrawn
+Withdrawn -down-> [*]
+Draft -right-> [*] : Delete
 
 @enduml

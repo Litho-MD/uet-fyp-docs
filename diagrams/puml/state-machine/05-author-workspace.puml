@@ -18,6 +18,7 @@ skinparam state {
 }
 
 state c_start <<choice>>
+state c_edit_in <<choice>>
 state "Uninitialized" as s_init
 state "Scaffolded" as s_scaff
 state "Editing" as s_edit
@@ -29,7 +30,8 @@ state "Exit" as s_exit
 [*] --> c_start
 c_start --> s_init : Open Directory
 s_init --> s_scaff : litho init
-s_scaff --> s_edit : Open in VS Code
+s_scaff --> c_edit_in : Open in VS Code
+c_edit_in --> s_edit
 
 s_edit --> c_menu
 
@@ -50,6 +52,6 @@ act_build --> c_merge : PDF Ready
 act_watch --> c_merge : Stop (Ctrl+C)
 act_extract --> c_merge : Source Restored
 
-c_merge --> s_edit : Return to Editor
+c_merge --> c_edit_in : Return to Editor
 
 @enduml

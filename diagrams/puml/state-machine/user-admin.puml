@@ -27,7 +27,7 @@ state "Logout" as logout
 c_start --> login
 login --> c_auth
 c_auth --> c_menu : Success
-c_auth --> c_start : Retry
+c_auth --> c_start : Fail
 
 c_menu --> logout : Logout
 logout --> [*]
@@ -83,6 +83,6 @@ f3_1 --> c_f3_m
 f3_2 --> c_f3_m
 f3_3 --> c_f3_m
 
-c_f3_m --> c_menu : Loop to Workspace
+c_f3_m --> c_menu : Return to Menu
 
 @enduml

@@ -17,24 +17,35 @@ skinparam state {
     FontColor black
 }
 
-[*] --> Queued : New Job
+[*] -down-> Queued : New Job
 
-Queued --> Parsing : Scan Source
-Parsing --> Validating : AST Ready
-Parsing --> Failed : Syntax Error
+Queued -down-> Parsing : Scan Source
 
-Validating --> Binding : AST Valid
-Validating --> Failed : Schema Error
+state c_parse <<choice>>
+state c_failed_in <<choice>>
 
-Binding --> Generating : Bind Template
-Generating --> Compiling : LaTeX Ready
+Parsing -down-> c_parse
+c_parse -right-> c_failed_in : Syntax Error
+c_parse -down-> Validating : AST Ready
 
-Compiling --> Embedding : XeTeX Success
-Compiling --> Failed : Build Error
+state c_val <<choice>>
+Validating -down-> c_val
+c_val -right-> c_failed_in : Schema Error
+c_val -down-> Binding : AST Valid
 
-Embedding --> Completed : Metadata Injected
+Binding -down-> Generating : Bind Template
+Generating -down-> Compiling : LaTeX Ready
 
-Completed --> [*] : Deliver PDF
-Failed --> [*] : Display Diagnostics
+state c_comp <<choice>>
+Compiling -down-> c_comp
+c_comp -right-> c_failed_in : Build Error
+c_comp -down-> Embedding : XeTeX Success
+
+c_failed_in -down-> Failed
+
+Embedding -down-> Completed : Metadata Injected
+
+Completed -down-> [*] : Deliver PDF
+Failed -down-> [*] : Diagnostics
 
 @enduml

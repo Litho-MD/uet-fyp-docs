@@ -17,23 +17,32 @@ skinparam state {
     FontColor black
 }
 
-[*] --> Submitted : Open Issue
+state c_scan_in <<choice>>
 
-Submitted --> Scanning : Trigger Webhook
+[*] -down-> Submitted : Open Issue
 
-Scanning --> NeedsFixes : Findings Detected
-NeedsFixes --> Scanning : Push Fix Commits
-NeedsFixes --> [*] : Abandon Issue
+Submitted -down-> c_scan_in : Trigger Webhook
+c_scan_in -down-> Scanning
 
-Scanning --> UnderReview : Scan Passed
+state c_scan <<choice>>
+Scanning -down-> c_scan
 
-UnderReview --> ChangesRequested : Request Changes
-ChangesRequested --> Scanning : Push Revisions
+c_scan -left-> NeedsFixes : Findings Detected
+c_scan -down-> UnderReview : Scan Passed
 
-UnderReview --> Approved : Attestation Signed
-Approved --> Publishing : Dispatch Workflow
-Publishing --> Closed : Catalog Published
+NeedsFixes -up-> c_scan_in : Push Fix Commits
+NeedsFixes -down-> Closed : Abandon Issue
 
-Closed --> [*]
+state c_rev <<choice>>
+UnderReview -down-> c_rev
+
+c_rev -right-> ChangesRequested : Request Changes
+ChangesRequested -up-> c_scan_in : Push Revisions
+
+c_rev -down-> Approved : Attestation Signed
+Approved -down-> Publishing : Dispatch Workflow
+Publishing -down-> Closed : Catalog Published
+
+Closed -down-> [*]
 
 @enduml

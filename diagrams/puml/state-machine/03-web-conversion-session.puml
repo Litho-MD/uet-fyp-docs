@@ -17,25 +17,38 @@ skinparam state {
     FontColor black
 }
 
-[*] --> Ready : Open Web Workspace
+state c_ready_in <<choice>>
+state c_edit_in <<choice>>
 
-Ready --> Editing : Enter Markdown
-Ready --> Restoring : Upload PDF
+[*] -down-> c_ready_in : Open Web Workspace
+c_ready_in -down-> Ready
 
-Restoring --> Editing : Source Extracted
-Restoring --> Ready : Extraction Error
+state c_action <<choice>>
+Ready -down-> c_action
 
-Editing --> Compiling : Convert to PDF
-Compiling --> Editing : Compilation Error
-Compiling --> Preview : Build Success
+c_action -down-> c_edit_in : Enter Markdown
+c_action -right-> Restoring : Upload PDF
 
-Preview --> Downloading : Click Download
-Downloading --> Preview : File Saved
+state c_restore <<choice>>
+Restoring -down-> c_restore
+c_restore -left-> c_edit_in : Source Extracted
+c_restore -up-> c_ready_in : Extraction Error
 
-Preview --> Editing : Edit Content
-Preview --> Ready : Reset Session
+c_edit_in -down-> Editing
+Editing -down-> Compiling : Convert to PDF
 
-Ready --> [*] : Close Session
-Editing --> [*] : Close Session
+state c_compile <<choice>>
+Compiling -down-> c_compile
+c_compile -left-> c_edit_in : Compilation Error
+c_compile -down-> Preview : Build Success
+
+state c_preview <<choice>>
+Preview -down-> c_preview
+c_preview -left-> Downloading : Click Download
+Downloading -up-> Preview : File Saved
+c_preview -up-> c_edit_in : Edit Content
+c_preview -up-> c_ready_in : Reset Session
+
+Ready -left-> [*] : Close Session
 
 @enduml

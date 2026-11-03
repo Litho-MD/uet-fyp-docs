@@ -17,19 +17,28 @@ skinparam state {
     FontColor black
 }
 
-[*] --> Idle : Start MCP Server
+state c_ready_in <<choice>>
 
-Idle --> Initializing : Client Connects
-Initializing --> Ready : Register Tools
+[*] -down-> Idle : Start MCP Server
 
-Ready --> ContextLoading : Tool Invoked
-ContextLoading --> Ready : Context Error
-ContextLoading --> Executing : Context Ready
+Idle -down-> Initializing : Client Connects
+Initializing -down-> c_ready_in : Register Tools
+c_ready_in -down-> Ready
 
-Executing --> Formatting : Process Tool Call
-Formatting --> Ready : Return Result
+state c_ready <<choice>>
+Ready -down-> c_ready
 
-Ready --> Shutdown : Disconnect
-Shutdown --> [*]
+c_ready -right-> ContextLoading : Tool Invoked
+c_ready -left-> Shutdown : Disconnect
+
+state c_ctx <<choice>>
+ContextLoading -down-> c_ctx
+c_ctx -left-> c_ready_in : Context Error
+c_ctx -down-> Executing : Context Ready
+
+Executing -down-> Formatting : Process Tool Call
+Formatting -left-> c_ready_in : Return Result
+
+Shutdown -down-> [*]
 
 @enduml
