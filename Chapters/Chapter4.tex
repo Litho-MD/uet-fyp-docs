@@ -56,31 +56,408 @@ Show external actors, system use cases, the system boundary, and justified
 \texttt{include}, \texttt{extend}, or generalization relationships. Use cases
 should represent user goals rather than interface screens.
 \end{guidance}
-\diagram[dy]{use-case}{Use-case diagram}
+\diagram[dy]{use-case}{System-wide use-case diagram}
 
-\begin{xltabular}{\textwidth}{@{}p{0.24\textwidth}X@{}}
-\caption{Use-case specification (example)}\label{tab:use-case-specification}\\
+The Litho publishing ecosystem encompasses seventeen formal use cases organized across five core functional subsystems, supporting five distinct external actors:
+\begin{enumerate}
+    \item \textbf{Author / Student:} Technical writers and researchers creating documents, compiling PDFs, inspecting marketplace templates, and extracting source from compiled artifacts.
+    \item \textbf{Template Publisher:} Institutional formatting leads and designers authoring, validating, and submitting reproducible template packages.
+    \item \textbf{Marketplace Maintainer:} Curators who review automated security baselines, attest capabilities, and publish approved listings.
+    \item \textbf{AI Assistant:} Autonomous agents interacting with Litho tools over the Model Context Protocol (MCP).
+    \item \textbf{CMS Site / External Client:} Third-party content platforms and integration pipelines invoking automated conversion over REST APIs and webhooks.
+\end{enumerate}
+
+Each use-case specification below is structured according to its key architectural components: Actor, System, Goal (Objective), Preconditions, Trigger, Basic Flow (Main Scenario), and Alternate / Exception Flows, as presented in Tables~\ref{tab:uc-01} through~\ref{tab:uc-17}.
+
+\begin{xltabular}{\textwidth}{@{}p{0.26\textwidth}X@{}}
+\caption{Use-case specification: UC-01 Build PDF Document Locally}\label{tab:uc01}\\
 \toprule
-\textbf{Field} & \textbf{Description} \\
+\textbf{Component} & \textbf{Description} \\
 \midrule
 \endfirsthead
 \multicolumn{2}{l}{\small\textit{(Continued from previous page)}}\\
 \toprule
-\textbf{Field} & \textbf{Description} \\
+\textbf{Component} & \textbf{Description} \\
 \midrule
 \endhead
-\multicolumn{2}{r}{\small\textit{(Continued on next page)}}\\
-\endfoot
 \bottomrule
 \endlastfoot
-Use-case ID and name & UC-01: Build PDF Locally \\
-Primary actor & Author/Student \\
-Preconditions & Markdown file and selected template available; Litho CLI/editor configured. \\
-Trigger & User runs \texttt{litho build} or triggers build from editor. \\
-Main flow & 1) Load \texttt{.md}; 2) Parse to AST; 3) Bind to template; 4) Generate \texttt{.tex}; 5) Compile via Tectonic; 6) Embed metadata; 7) Return PDF. \\
-Alternative or exception flows & Invalid syntax -> report parse errors; missing template -> report error; compilation failure -> report LaTeX errors. \\
-Postconditions & PDF generated with embedded source/metadata or errors reported. \\
-Related requirements & FR-01--FR-08, FR-10 \\
+\textbf{Actor} & Author / Student (Secondary: Tectonic Typesetting Engine) \\
+\textbf{System} & Litho CLI and Typesetting Pipeline \\
+\textbf{Goal (Objective)} & Compile a Litho Markdown document and its bound template into a publication-quality PDF containing embedded source and provenance metadata. \\
+\textbf{Preconditions} & Markdown source file and referenced template exist locally; Litho CLI or editor extension is installed and configured. \\
+\textbf{Trigger} & Author executes \texttt{litho build} command or triggers compilation from editor. \\
+\textbf{Basic Flow (Main Scenario)} & 1.~Author executes \texttt{litho build} command targeting document file; 2.~Tokenizer and lexer read source file and construct the three-tier Abstract Syntax Tree (AST); 3.~Schema validator inspects document frontmatter and AST structure against template constraints; 4.~Template compiler binds AST content to target \LaTeX{} macros, producing \texttt{.tex} source; 5.~Tectonic engine compiles generated \texttt{.tex} into PDF binary; 6.~Metadata engine embeds raw Markdown source, template ID, and version into PDF XMP stream; 7.~System writes compiled PDF to disk and displays build summary with page count and execution time. \\
+\textbf{Alternate / Exception Flows} & \textbf{2a.~Syntax Error:} Lexer encounters invalid Markdown dialect or malformed blocks; halts build and reports line/column diagnostics. \textbf{3a.~Schema Failure:} Frontmatter violates required template fields; halts execution and displays constraint violations. \textbf{5a.~\LaTeX{} Error:} Tectonic encounters typesetting error; parses error log and returns structured diagnostics without overwriting previous PDF. \\
+\textbf{Related Requirements} & FR-01--FR-08, FR-10, FR-51, FR-52 \\
+\end{xltabular}
+
+\begin{xltabular}{\textwidth}{@{}p{0.26\textwidth}X@{}}
+\caption{Use-case specification: UC-02 Edit Markdown with Real-Time Diagnostics}\label{tab:uc02}\\
+\toprule
+\textbf{Component} & \textbf{Description} \\
+\midrule
+\endfirsthead
+\multicolumn{2}{l}{\small\textit{(Continued from previous page)}}\\
+\toprule
+\textbf{Component} & \textbf{Description} \\
+\midrule
+\endhead
+\bottomrule
+\endlastfoot
+\textbf{Actor} & Author / Student (Secondary: VS Code Extension Language Service) \\
+\textbf{System} & Litho VS Code Extension \& Language Service \\
+\textbf{Goal (Objective)} & Author Litho Markdown documents with syntax highlighting, template shortcode completion, and live inline error diagnostics. \\
+\textbf{Preconditions} & VS Code is installed with the Litho extension enabled; a Litho Markdown document is open in the workspace. \\
+\textbf{Trigger} & Author opens, types, or edits content in a \texttt{.md} file. \\
+\textbf{Basic Flow (Main Scenario)} & 1.~Author opens or edits document in VS Code; 2.~Extension recognizes Litho grammar and applies contextual syntax highlighting; 3.~Language service resolves referenced template manifest from document frontmatter; 4.~Language service provides snippet insertion and IntelliSense auto-completion for template-defined shortcodes and parameters; 5.~Incremental background parser continuously validates AST syntax and frontmatter schemas; 6.~Language service publishes inline warning and error squiggles to the editor Problems panel. \\
+\textbf{Alternate / Exception Flows} & \textbf{3a.~Missing Manifest:} Extension displays warning notification, falls back to core Litho syntax highlighting, and disables template-specific shortcode completion. \textbf{5a.~Schema Violation:} Problem marker highlights invalid frontmatter field with expected type and allowed values. \\
+\textbf{Related Requirements} & FR-16, FR-17, FR-18, FR-19 \\
+\end{xltabular}
+
+\begin{xltabular}{\textwidth}{@{}p{0.26\textwidth}X@{}}
+\caption{Use-case specification: UC-03 Watch and Hot-Rebuild Document}\label{tab:uc03}\\
+\toprule
+\textbf{Component} & \textbf{Description} \\
+\midrule
+\endfirsthead
+\multicolumn{2}{l}{\small\textit{(Continued from previous page)}}\\
+\toprule
+\textbf{Component} & \textbf{Description} \\
+\midrule
+\endhead
+\bottomrule
+\endlastfoot
+\textbf{Actor} & Author / Student (Secondary: OS File Watcher Daemon) \\
+\textbf{System} & Litho CLI Watch Daemon \& Fast Rebuild Engine \\
+\textbf{Goal (Objective)} & Automatically recompile and refresh output PDF upon saving changes to source Markdown, assets, or template files. \\
+\textbf{Preconditions} & Initialized Litho project directory containing document source and template files. \\
+\textbf{Trigger} & Author executes \texttt{litho watch} command in the project directory. \\
+\textbf{Basic Flow (Main Scenario)} & 1.~Author executes \texttt{litho watch}; 2.~System performs initial compilation and registers OS-level file system change watchers on \texttt{.md}, asset, and template files; 3.~Author edits and saves a project file; 4.~Watch daemon receives file modification event and triggers incremental re-compilation; 5.~System re-validates modified AST, regenerates \LaTeX{}, and recompiles PDF via Tectonic; 6.~System updates PDF binary on disk and prints rebuild timestamp and duration to console. \\
+\textbf{Alternate / Exception Flows} & \textbf{4a.~Incremental Build Error:} Compiler detects syntax or \LaTeX{} compilation failure; logs diagnostics to console, keeps prior valid PDF on disk, and remains active watching for file fixes. \\
+\textbf{Related Requirements} & FR-11 \\
+\end{xltabular}
+
+\begin{xltabular}{\textwidth}{@{}p{0.26\textwidth}X@{}}
+\caption{Use-case specification: UC-04 Restore Markdown Source from PDF}\label{tab:uc04}\\
+\toprule
+\textbf{Component} & \textbf{Description} \\
+\midrule
+\endfirsthead
+\multicolumn{2}{l}{\small\textit{(Continued from previous page)}}\\
+\toprule
+\textbf{Component} & \textbf{Description} \\
+\midrule
+\endhead
+\bottomrule
+\endlastfoot
+\textbf{Actor} & Author / Student (Secondary: PDF Metadata Stream Extractor) \\
+\textbf{System} & Litho CLI \& Extract-Source Utility \\
+\textbf{Goal (Objective)} & Extract and restore the exact original, byte-for-byte Markdown source code and template provenance from a compiled Litho PDF. \\
+\textbf{Preconditions} & A Litho-generated PDF file exists and is accessible to the system. \\
+\textbf{Trigger} & Author executes \texttt{litho extract <filename.pdf>} command. \\
+\textbf{Basic Flow (Main Scenario)} & 1.~Author invokes extract command providing path to a compiled PDF; 2.~System parses the PDF document catalog and inspects embedded XMP metadata and attachment streams; 3.~System verifies Litho provenance signature, template identifier, and template version; 4.~System extracts embedded Markdown stream, verifies payload integrity hash, and decompresses content; 5.~System writes recovered \texttt{.md} file to disk and reports provenance metadata (template name, version, and original build timestamp). \\
+\textbf{Alternate / Exception Flows} & \textbf{2a.~Missing Provenance Signature:} PDF lacks Litho metadata streams; system halts and displays error indicating file was not built with Litho or metadata was stripped. \textbf{4a.~Integrity Hash Mismatch:} Extracted source payload fails checksum verification; system alerts user of potential tampering or file corruption. \\
+\textbf{Related Requirements} & FR-06, FR-07, FR-08, FR-12, FR-27, NFR-05 \\
+\end{xltabular}
+
+\begin{xltabular}{\textwidth}{@{}p{0.26\textwidth}X@{}}
+\caption{Use-case specification: UC-05 Browse and Inspect Marketplace Templates}\label{tab:uc05}\\
+\toprule
+\textbf{Component} & \textbf{Description} \\
+\midrule
+\endfirsthead
+\multicolumn{2}{l}{\small\textit{(Continued from previous page)}}\\
+\toprule
+\textbf{Component} & \textbf{Description} \\
+\midrule
+\endhead
+\bottomrule
+\endlastfoot
+\textbf{Actor} & Author / Student (Secondary: Marketplace Static Catalog) \\
+\textbf{System} & Litho Template Marketplace Web Client \\
+\textbf{Goal (Objective)} & Discover, search, filter, and inspect curated, verified Litho document templates, viewing visual previews, metadata, and install instructions. \\
+\textbf{Preconditions} & User has network access to the Litho Template Marketplace web application. \\
+\textbf{Trigger} & User navigates to the marketplace homepage or catalog explorer. \\
+\textbf{Basic Flow (Main Scenario)} & 1.~User navigates to marketplace catalog interface; 2.~Web client fetches static \texttt{catalog.json} and renders indexed template cards with titles, tags, and thumbnails; 3.~User enters search keywords or filters templates by category (e.g., Thesis, IEEE Paper, Book); 4.~Client applies client-side search filtering across template titles, descriptions, and tags; 5.~User clicks a template card to view detailed inspection page; 6.~System renders template details: author provenance, semantic version, license, verified badge, sample PDF preview, and CLI install command. \\
+\textbf{Alternate / Exception Flows} & \textbf{4a.~No Search Matches:} Client displays empty search state with clear-filter suggestion. \textbf{6a.~Preview Asset Failure:} Client displays fallback placeholder and technical metadata summary. \\
+\textbf{Related Requirements} & FR-20, FR-21, FR-23, NFR-10 \\
+\end{xltabular}
+
+\begin{xltabular}{\textwidth}{@{}p{0.26\textwidth}X@{}}
+\caption{Use-case specification: UC-06 React and Download Template}\label{tab:uc06}\\
+\toprule
+\textbf{Component} & \textbf{Description} \\
+\midrule
+\endfirsthead
+\multicolumn{2}{l}{\small\textit{(Continued from previous page)}}\\
+\toprule
+\textbf{Component} & \textbf{Description} \\
+\midrule
+\endhead
+\bottomrule
+\endlastfoot
+\textbf{Actor} & Author / Student (Secondary: Cloudflare Worker \& D1 Engagement Service) \\
+\textbf{System} & Marketplace Engagement Client \& Edge Service \\
+\textbf{Goal (Objective)} & Support a community template with an anonymous heart reaction and copy the standard installation command or download the template archive. \\
+\textbf{Preconditions} & User is viewing a specific template detail page in the marketplace. \\
+\textbf{Trigger} & User clicks the heart reaction button or the copy install command button. \\
+\textbf{Basic Flow (Main Scenario)} & 1.~User clicks the heart button to react to the template; 2.~Browser verifies local storage state to guard against duplicate reactions and updates UI count optimistically; 3.~Client transmits anonymous signed POST request to Cloudflare Worker edge endpoint; 4.~Worker validates sliding-window rate limit and atomically increments template heart counter in D1 database; 5.~User clicks ``Copy Install Command'' button; 6.~Client copies \texttt{litho install <template-id>} to system clipboard, shows confirmation badge, and increments copy telemetry counter. \\
+\textbf{Alternate / Exception Flows} & \textbf{2a.~Duplicate Reaction:} Client detects prior heart in local storage; toggles off reaction and decrements local count. \textbf{4a.~Rate Limit Exceeded:} Worker returns HTTP 429; client reverts optimistic UI update gracefully. \\
+\textbf{Related Requirements} & FR-53, FR-54, FR-55, FR-56 \\
+\end{xltabular}
+
+\begin{xltabular}{\textwidth}{@{}p{0.26\textwidth}X@{}}
+\caption{Use-case specification: UC-07 Convert Markdown in Web Application}\label{tab:uc07}\\
+\toprule
+\textbf{Component} & \textbf{Description} \\
+\midrule
+\endfirsthead
+\multicolumn{2}{l}{\small\textit{(Continued from previous page)}}\\
+\toprule
+\textbf{Component} & \textbf{Description} \\
+\midrule
+\endhead
+\bottomrule
+\endlastfoot
+\textbf{Actor} & Author / Student (Secondary: Hosted Typesetting Sandbox Service) \\
+\textbf{System} & Litho Web Conversion Application \\
+\textbf{Goal (Objective)} & Author or upload Markdown in the browser, choose a template, and generate a downloadable PDF without installing local CLI or \LaTeX{} tools. \\
+\textbf{Preconditions} & Web browser with internet connectivity to the conversion web portal. \\
+\textbf{Trigger} & User pastes Markdown text or uploads a \texttt{.md} file in the web editor and clicks ``Convert to PDF''. \\
+\textbf{Basic Flow (Main Scenario)} & 1.~User inputs Markdown text into the web editor or uploads an existing document; 2.~User selects an official or community template from the dropdown selector; 3.~User clicks ``Convert to PDF'' button; 4.~Web client submits document payload and template selection to the sandboxed conversion backend; 5.~Backend executes three-tier AST parser, binds template, and compiles PDF within an isolated process sandbox; 6.~Backend embeds Markdown source into output PDF metadata; 7.~Backend streams generated PDF binary back to client; web client displays PDF in inline preview pane with download link. \\
+\textbf{Alternate / Exception Flows} & \textbf{4a.~Input Size Exceeded:} Client flags size error before network dispatch. \textbf{5a.~Compilation Fails in Sandbox:} Sandbox captures compiler diagnostic log, maps error to source lines, and displays structured error banner in editor. \\
+\textbf{Related Requirements} & FR-24, FR-25, FR-26, FR-27, NFR-06 \\
+\end{xltabular}
+
+\begin{xltabular}{\textwidth}{@{}p{0.26\textwidth}X@{}}
+\caption{Use-case specification: UC-08 Convert Technical Specification via AI}\label{tab:uc08}\\
+\toprule
+\textbf{Component} & \textbf{Description} \\
+\midrule
+\endfirsthead
+\multicolumn{2}{l}{\small\textit{(Continued from previous page)}}\\
+\toprule
+\textbf{Component} & \textbf{Description} \\
+\midrule
+\endhead
+\bottomrule
+\endlastfoot
+\textbf{Actor} & Author / Student (Secondary: LLM Inference Service) \\
+\textbf{System} & Litho AI Authoring Assistant \\
+\textbf{Goal (Objective)} & Transform unstructured technical notes, SRS specifications, or outlines into a fully formatted Litho Markdown document tailored to a selected template. \\
+\textbf{Preconditions} & User has opened the AI authoring modal in the web app and provided API key or session access. \\
+\textbf{Trigger} & User inputs raw technical specification notes and clicks ``Generate Litho Document''. \\
+\textbf{Basic Flow (Main Scenario)} & 1.~User enters raw specification text and selects target template (e.g., University Thesis or IEEE Paper); 2.~AI subsystem loads the template manifest schema and the domain-specific \texttt{skills.md} agent playbook into context; 3.~Subsystem crafts structured prompt instructing LLM to map technical entities into Litho frontmatter, sectioning, and shortcodes; 4.~LLM infers and generates clean Litho Markdown matching template constraints; 5.~System validates generated Markdown through AST parser; 6.~System populates editor pane with validated Markdown and presents preview to author. \\
+\textbf{Alternate / Exception Flows} & \textbf{5a.~Invalid Shortcode Generated:} AST validator detects unmapped shortcode tags; prompts model to correct syntax using schema rules before displaying to user. \\
+\textbf{Related Requirements} & FR-28, FR-29, FR-30, FR-32, FR-33, FR-34 \\
+\end{xltabular}
+
+\begin{xltabular}{\textwidth}{@{}p{0.26\textwidth}X@{}}
+\caption{Use-case specification: UC-09 Create Template Package}\label{tab:uc09}\\
+\toprule
+\textbf{Component} & \textbf{Description} \\
+\midrule
+\endfirsthead
+\multicolumn{2}{l}{\small\textit{(Continued from previous page)}}\\
+\toprule
+\textbf{Component} & \textbf{Description} \\
+\midrule
+\endhead
+\bottomrule
+\endlastfoot
+\textbf{Actor} & Template Publisher \\
+\textbf{System} & Litho CLI Template Scaffolding Tool \\
+\textbf{Goal (Objective)} & Scaffold a new, compliant Litho template package containing \texttt{manifest.json}, \LaTeX{} macro definitions, declarative schema, and sample document. \\
+\textbf{Preconditions} & Litho CLI installed; publisher is in target development workspace. \\
+\textbf{Trigger} & Publisher runs \texttt{litho template init <template-name>} command. \\
+\textbf{Basic Flow (Main Scenario)} & 1.~Publisher executes template initialization command; 2.~CLI prompts publisher for template title, description, category, license, and author details; 3.~System generates template directory structure: \texttt{manifest.json}, \texttt{template.tex}, \texttt{schema.json}, preview assets, and \texttt{example.md}; 4.~System populates \texttt{manifest.json} with semantic version \texttt{1.0.0} and default configuration; 5.~CLI confirms successful scaffolding and outputs recommended next steps for template customization. \\
+\textbf{Alternate / Exception Flows} & \textbf{2a.~Directory Conflict:} System detects destination directory already exists; prompts publisher to choose a different name or force overwrite. \\
+\textbf{Related Requirements} & FR-13, FR-44--FR-47, NFR-04 \\
+\end{xltabular}
+
+\begin{xltabular}{\textwidth}{@{}p{0.26\textwidth}X@{}}
+\caption{Use-case specification: UC-10 Validate Template Package}\label{tab:uc10}\\
+\toprule
+\textbf{Component} & \textbf{Description} \\
+\midrule
+\endfirsthead
+\multicolumn{2}{l}{\small\textit{(Continued from previous page)}}\\
+\toprule
+\textbf{Component} & \textbf{Description} \\
+\midrule
+\endhead
+\bottomrule
+\endlastfoot
+\textbf{Actor} & Template Publisher \\
+\textbf{System} & Litho Template Linter \& Static Validator \\
+\textbf{Goal (Objective)} & Run automated verification checks on a local template package to ensure manifest completeness, schema validity, and safe \LaTeX{} macro usage. \\
+\textbf{Preconditions} & Template files created and accessible in the publisher workspace. \\
+\textbf{Trigger} & Publisher executes \texttt{litho template validate} command. \\
+\textbf{Basic Flow (Main Scenario)} & 1.~Publisher executes validation command targeting template folder; 2.~Validator verifies \texttt{manifest.json} against canonical JSON schema (ID, version, author, shortcode definitions); 3.~Validator parses \texttt{template.tex} to confirm required placeholder insertion hooks exist; 4.~Validator runs security static analysis to ensure no dangerous \LaTeX{} primitives (e.g., \texttt{\textbackslash write18}, shell escapes, pipe operations) are present; 5.~Validator executes a test compilation with \texttt{example.md} to guarantee compilation success; 6.~CLI displays green validation pass badge and outputs compliance report. \\
+\textbf{Alternate / Exception Flows} & \textbf{2a.~Manifest Schema Violation:} Validator flags missing mandatory fields or invalid semantic versioning format. \textbf{4a.~Forbidden Macro Detected:} Validator flags banned macro command with exact line number; compilation test is blocked until removed. \\
+\textbf{Related Requirements} & FR-14, NFR-08, NFR-09 \\
+\end{xltabular}
+
+\begin{xltabular}{\textwidth}{@{}p{0.26\textwidth}X@{}}
+\caption{Use-case specification: UC-11 Submit Template via GitHub Issue}\label{tab:uc11}\\
+\toprule
+\textbf{Component} & \textbf{Description} \\
+\midrule
+\endfirsthead
+\multicolumn{2}{l}{\small\textit{(Continued from previous page)}}\\
+\toprule
+\textbf{Component} & \textbf{Description} \\
+\midrule
+\endhead
+\bottomrule
+\endlastfoot
+\textbf{Actor} & Template Publisher (Secondary: GitHub REST API \& Actions) \\
+\textbf{System} & Litho Submission Gateway \& GitHub Workflow \\
+\textbf{Goal (Objective)} & Submit a verified, public template Git repository to the Litho Template Marketplace registry for automated scanning and listing review. \\
+\textbf{Preconditions} & Template repository is public on GitHub, passes local validation, and has tagged release. \\
+\textbf{Trigger} & Publisher submits a structured GitHub Issue using the official template submission form. \\
+\textbf{Basic Flow (Main Scenario)} & 1.~Publisher opens new submission Issue on marketplace repository; 2.~Publisher fills in repository URL, commit SHA, release tag, category, and confirmation checklist; 3.~GitHub Actions submission listener webhook triggers upon issue creation; 4.~Automated runner clones upstream repository at exact specified commit SHA; 5.~Runner executes Automated Security Baseline scanner and structural validation suite; 6.~Workflow posts bot report comment on issue indicating outcome (\texttt{passed}, \texttt{review-required}, or \texttt{needs-fixes}). \\
+\textbf{Alternate / Exception Flows} & \textbf{2a.~Malformed Issue Form:} Bot flags missing mandatory fields in issue body and requests publisher update. \textbf{5a.~Security Baseline Finding Detected:} Bot comments detailed diagnostic finding log on issue and marks status as \texttt{needs-fixes} or \texttt{review-required}. \\
+\textbf{Related Requirements} & FR-15, FR-22 \\
+\end{xltabular}
+
+\begin{xltabular}{\textwidth}{@{}p{0.26\textwidth}X@{}}
+\caption{Use-case specification: UC-12 Generate Template via AI Assistance}\label{tab:uc12}\\
+\toprule
+\textbf{Component} & \textbf{Description} \\
+\midrule
+\endfirsthead
+\multicolumn{2}{l}{\small\textit{(Continued from previous page)}}\\
+\toprule
+\textbf{Component} & \textbf{Description} \\
+\midrule
+\endhead
+\bottomrule
+\endlastfoot
+\textbf{Actor} & Template Publisher (Secondary: LLM Synthesis Engine) \\
+\textbf{System} & Litho AI Template Engineering Studio \\
+\textbf{Goal (Objective)} & Rapidly synthesize a new template package from natural language style requirements or target PDF visual samples. \\
+\textbf{Preconditions} & Publisher is authenticated in AI studio with prompt access enabled. \\
+\textbf{Trigger} & Publisher provides layout guidelines (e.g., margins, typography, chapter header styles) and prompts AI to generate a template. \\
+\textbf{Basic Flow (Main Scenario)} & 1.~Publisher inputs style specifications and target publication guidelines; 2.~AI engine retrieves canonical template blueprints and safe \LaTeX{} macro primitives; 3.~Engine synthesizes \texttt{manifest.json}, \texttt{template.tex}, and \texttt{schema.json} compliant with Litho architecture; 4.~System automatically runs validation checks on the generated package; 5.~System compiles sample test document and renders visual preview of output pages; 6.~Publisher inspects rendered layout and exports generated template package to repository. \\
+\textbf{Alternate / Exception Flows} & \textbf{4a.~Synthetic Code Fails Validation:} Engine automatically feeds validation errors back into LLM prompt loop for automated iterative repair up to 3 attempts. \\
+\textbf{Related Requirements} & FR-28, FR-31, FR-33, FR-34 \\
+\end{xltabular}
+
+\begin{xltabular}{\textwidth}{@{}p{0.26\textwidth}X@{}}
+\caption{Use-case specification: UC-13 Perform Automated Security Review}\label{tab:uc13}\\
+\toprule
+\textbf{Component} & \textbf{Description} \\
+\midrule
+\endfirsthead
+\multicolumn{2}{l}{\small\textit{(Continued from previous page)}}\\
+\toprule
+\textbf{Component} & \textbf{Description} \\
+\midrule
+\endhead
+\bottomrule
+\endlastfoot
+\textbf{Actor} & Maintainer / Automated CI Scanner \\
+\textbf{System} & Litho Automated Security Baseline Scanner \\
+\textbf{Goal (Objective)} & Statically scan submitted template source repositories at the exact validated commit without executing arbitrary code, enforcing deterministic security outcomes. \\
+\textbf{Preconditions} & Triggered by submission issue, update request, or manual audit dispatch. \\
+\textbf{Trigger} & New submission issue created or maintainer applies \texttt{/scan} command. \\
+\textbf{Basic Flow (Main Scenario)} & 1.~Scanner resolves submitted GitHub repository URL and binds exact commit SHA; 2.~Scanner inspects directory tree structure and manifest integrity; 3.~Static analyzer parses all \texttt{.tex}, \texttt{.sty}, and configuration scripts against forbidden execution signatures (shell escape, binary payloads, external script fetches); 4.~Scanner computes deterministic evidence hash and checks against capability baseline catalog; 5.~Scanner determines outcome: \texttt{passed} (zero findings/capabilities), \texttt{review-required} (capabilities requiring human attestation), or \texttt{needs-fixes} (blocking findings); 6.~Scanner persists immutable baseline scan record and posts diagnostic comment to issue. \\
+\textbf{Alternate / Exception Flows} & \textbf{1a.~Repository Unreachable:} Scanner records transport error, retries with exponential backoff, and reports diagnostic failure if persistent. \textbf{3a.~High-Risk Finding Detected:} Scanner assigns \texttt{needs-fixes} status and blocks publication labeling. \\
+\textbf{Related Requirements} & FR-22, FR-23, NFR-06, NFR-08 \\
+\end{xltabular}
+
+\begin{xltabular}{\textwidth}{@{}p{0.26\textwidth}X@{}}
+\caption{Use-case specification: UC-14 Review and Publish Template Listing}\label{tab:uc14}\\
+\toprule
+\textbf{Component} & \textbf{Description} \\
+\midrule
+\endfirsthead
+\multicolumn{2}{l}{\small\textit{(Continued from previous page)}}\\
+\toprule
+\textbf{Component} & \textbf{Description} \\
+\midrule
+\endhead
+\bottomrule
+\endlastfoot
+\textbf{Actor} & Marketplace Maintainer (Secondary: GitHub Actions Publish Pipeline) \\
+\textbf{System} & Marketplace Curation Engine \& Registry Pipeline \\
+\textbf{Goal (Objective)} & Audit security baseline reports, attest capability reviews, and publish approved templates to the live public catalog. \\
+\textbf{Preconditions} & Template submission has executed security baseline scan and maintainer has authorized write permissions. \\
+\textbf{Trigger} & Maintainer applies \texttt{approved-and-verified} label to the submission issue. \\
+\textbf{Basic Flow (Main Scenario)} & 1.~Maintainer inspects bot-authored security baseline report, visual previews, and repository provenance; 2.~If capabilities exist, maintainer verifies adherence to safety guidelines and applies approval attestation; 3.~Maintainer applies \texttt{approved-and-verified} label to submission issue; 4.~Publish workflow resolves exact label transition event identity and checks two-second timestamp compatibility window; 5.~Workflow clones repository, generates normalized WebP thumbnails via \texttt{sharp}, and updates \texttt{registry.json} and \texttt{catalog.json}; 6.~Automated test suite runs on updated catalog; upon passing, workflow commits changes to \texttt{main} branch and deploys Pages artifact. \\
+\textbf{Alternate / Exception Flows} & \textbf{4a.~Stale Approval Event:} Event timestamp is ambiguous or multiple transitions detected; workflow fails closed and leaves catalog unchanged. \textbf{6a.~Regression Test Failure:} Catalog build or schema test fails; publication aborts, alert is posted to issue, and no commit is pushed. \\
+\textbf{Related Requirements} & FR-20, FR-23, NFR-09 \\
+\end{xltabular}
+
+\begin{xltabular}{\textwidth}{@{}p{0.26\textwidth}X@{}}
+\caption{Use-case specification: UC-15 Invoke Litho Operations via MCP Server}\label{tab:uc15}\\
+\toprule
+\textbf{Component} & \textbf{Description} \\
+\midrule
+\endfirsthead
+\multicolumn{2}{l}{\small\textit{(Continued from previous page)}}\\
+\toprule
+\textbf{Component} & \textbf{Description} \\
+\midrule
+\endhead
+\bottomrule
+\endlastfoot
+\textbf{Actor} & AI Assistant (Secondary: Litho MCP Daemon) \\
+\textbf{System} & Litho Model Context Protocol (MCP) Server \\
+\textbf{Goal (Objective)} & Allow LLM agents (e.g., Claude, Cursor, Antigravity) to autonomously build documents, validate schemas, retrieve templates, and extract source code over JSON-RPC. \\
+\textbf{Preconditions} & Litho MCP server is running and connected via stdio or stream transport to an MCP-compliant host. \\
+\textbf{Trigger} & AI assistant issues an MCP tool call (e.g., \texttt{build\_document}, \texttt{validate\_template}, \texttt{extract\_source}). \\
+\textbf{Basic Flow (Main Scenario)} & 1.~AI agent discovers available Litho tool definitions and parameter schemas via MCP protocol discovery; 2.~Agent invokes selected tool (e.g., \texttt{build\_document}) passing document path and template identifier; 3.~MCP server validates input arguments against tool schema; 4.~Server dispatches request to underlying Litho CLI/compiler pipeline; 5.~Compilation succeeds and produces PDF artifact; 6.~MCP server serializes execution status, file path, and page metrics into JSON-RPC response delivered back to AI agent. \\
+\textbf{Alternate / Exception Flows} & \textbf{3a.~Invalid Tool Arguments:} Server immediately returns JSON-RPC protocol error indicating missing or invalid parameters. \textbf{4a.~Compilation Failure:} Server catches pipeline error, extracts formatted error log, and returns diagnostic content to agent for conversational correction. \\
+\textbf{Related Requirements} & FR-35--FR-41 \\
+\end{xltabular}
+
+\begin{xltabular}{\textwidth}{@{}p{0.26\textwidth}X@{}}
+\caption{Use-case specification: UC-16 Automated PDF Export via Webhook}\label{tab:uc16}\\
+\toprule
+\textbf{Component} & \textbf{Description} \\
+\midrule
+\endfirsthead
+\multicolumn{2}{l}{\small\textit{(Continued from previous page)}}\\
+\toprule
+\textbf{Component} & \textbf{Description} \\
+\midrule
+\endhead
+\bottomrule
+\endlastfoot
+\textbf{Actor} & CMS Site / External Client (Secondary: Litho Conversion API Worker) \\
+\textbf{System} & Litho Hosted Conversion API \& Webhook Service \\
+\textbf{Goal (Objective)} & Trigger automated, headless document compilation from a content management system or Git commit webhook, receiving compiled PDF upon completion. \\
+\textbf{Preconditions} & Client has valid API credentials and registered target webhook URL. \\
+\textbf{Trigger} & CMS publishes new article or Git repository triggers push webhook. \\
+\textbf{Basic Flow (Main Scenario)} & 1.~CMS delivers HTTP POST webhook request containing Markdown payload, template ID, and callback URL; 2.~Conversion API validates HMAC signature and IP rate limits; 3.~API queues asynchronous compilation job and returns HTTP 202 Accepted; 4.~Worker pulls job, compiles PDF in sandboxed execution container, and embeds source metadata; 5.~Worker uploads PDF to temporary signed storage; 6.~Worker dispatches HTTP POST callback to client's callback URL containing download link and build metadata. \\
+\textbf{Alternate / Exception Flows} & \textbf{2a.~HMAC Signature Failure:} API rejects request immediately with HTTP 401 Unauthorized. \textbf{6a.~Callback Unreachable:} API retries callback with exponential backoff before logging delivery failure. \\
+\textbf{Related Requirements} & FR-42, NFR-06, NFR-07 \\
+\end{xltabular}
+
+\begin{xltabular}{\textwidth}{@{}p{0.26\textwidth}X@{}}
+\caption{Use-case specification: UC-17 Restore Source via Hosted API}\label{tab:uc17}\\
+\toprule
+\textbf{Component} & \textbf{Description} \\
+\midrule
+\endfirsthead
+\multicolumn{2}{l}{\small\textit{(Continued from previous page)}}\\
+\toprule
+\textbf{Component} & \textbf{Description} \\
+\midrule
+\endhead
+\bottomrule
+\endlastfoot
+\textbf{Actor} & CMS Site / External Client \\
+\textbf{System} & Litho Hosted Conversion API \& Metadata Service \\
+\textbf{Goal (Objective)} & Programmatically recover original Markdown source and template version from a Litho-generated PDF via HTTP REST endpoint. \\
+\textbf{Preconditions} & Client has access to target PDF file and network connection to Litho API. \\
+\textbf{Trigger} & Client issues HTTP POST request to \texttt{/api/v1/extract} with binary PDF payload. \\
+\textbf{Basic Flow (Main Scenario)} & 1.~Client submits multi-part form data with PDF file to \texttt{/api/v1/extract}; 2.~API inspects PDF file header and XMP metadata streams; 3.~API locates embedded Litho source payload and verifies integrity hash; 4.~API decompresses raw Markdown content; 5.~API returns HTTP 200 OK with JSON response containing extracted Markdown source string, template ID, and template version. \\
+\textbf{Alternate / Exception Flows} & \textbf{2a.~Non-Litho PDF:} API detects absence of Litho metadata; returns HTTP 422 Unprocessable Entity with error description. \textbf{3a.~Corrupted Stream:} API fails decompression or hash verification; returns HTTP 400 Bad Request. \\
+\textbf{Related Requirements} & FR-43, NFR-05 \\
 \end{xltabular}
 
 
