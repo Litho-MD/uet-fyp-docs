@@ -88,7 +88,8 @@
     \centering
     \def\diagramsize{#1}%
     \ifx\diagramsize\diagramsizeDY
-      \adjustbox{max width=\textwidth,max height=\dimexpr\textheight-2\baselineskip\relax}{\includegraphics{\detokenize{#2}}}%
+      % Use the full text block, reserving room for the caption and float spacing.
+      \adjustbox{max width=\textwidth,max height=\dimexpr\textheight-4\baselineskip\relax}{\includegraphics{\detokenize{#2}}}%
     \else\ifx\diagramsize\diagramsizeSM
       \includegraphics[width=\textwidth,height=0.25\textheight,keepaspectratio]{\detokenize{#2}}
     \else\ifx\diagramsize\diagramsizeLG
