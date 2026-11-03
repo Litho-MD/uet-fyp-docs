@@ -23,16 +23,16 @@
 \endfoot
 \bottomrule
 \endlastfoot
-INT-01 & CLI $\leftrightarrow$ Interpreter & Invoke parse, compile, validate, and extract-source on \texttt{.md} files and templates. & Python API/local calls \\
-INT-02 & Interpreter $\leftrightarrow$ Tectonic & Pass generated \texttt{.tex}, receive compiled PDF; supply template-required packages. & Process invocation / filesystem \\
-INT-03 & Editor Extensions $\leftrightarrow$ Template Schema/Manifest & Load grammar, snippets, and IntelliSense from template schema and manifest. & Local files / extension APIs \\
-INT-04 & Marketplace $\leftrightarrow$ GitHub & Read labeled issues for the published template registry; resolve template manifests and assets from linked repositories. & GitHub REST API \\
-INT-05 & MCP Server $\leftrightarrow$ AI Assistants & Expose build, validate, template retrieval/generation/modification, specification-to-Markdown conversion, and extract-source operations guided by \texttt{skills.md}. & MCP (JSON-RPC) \\
-INT-06 & Conversion API $\leftrightarrow$ CMS/Websites & Accept Markdown + template, return PDF or error; support webhooks. & HTTP/REST (JSON) \\
-INT-07 & PDF $\leftrightarrow$ Extract-Source Tool & Read/write embedded Markdown source in PDF metadata. & PDF metadata (XMP) \\
-INT-08 & Conversion Web App $\leftrightarrow$ Interpreter/API & Submit Markdown with a selected template; return a compiled PDF or restored source. & HTTPS/JSON \\
-INT-09 & Documentation Website $\leftrightarrow$ Repository & Publish versioned installation, configuration, and usage guides from the documentation source. & Static build / Git \\
-INT-10 & Marketplace $\leftrightarrow$ Counters Database & Read and increment per-template heart and download counts. & SQL/ORM \\
+INT-01 & CLI $\leftrightarrow$ Interpreter & Parse, compile, validate, and extract \texttt{.md} files/templates. & Python/local API \\
+INT-02 & Interpreter $\leftrightarrow$ Tectonic & Send \texttt{.tex}; receive PDF and required packages. & Process/filesystem \\
+INT-03 & Editor $\leftrightarrow$ Template Schema & Load grammar, snippets, and IntelliSense from schema/manifest. & Local files/API \\
+INT-04 & Marketplace $\leftrightarrow$ GitHub & Read labeled issues, manifests, and linked assets. & GitHub REST API \\
+INT-05 & MCP $\leftrightarrow$ AI Assistants & Expose build, validation, template, conversion, and extraction tools. & MCP (JSON-RPC) \\
+INT-06 & Conversion API $\leftrightarrow$ CMS/Websites & Accept Markdown/template; return PDF or error; support webhooks. & HTTP/JSON \\
+INT-07 & PDF $\leftrightarrow$ Extractor & Read and write embedded Markdown. & PDF XMP metadata \\
+INT-08 & Web App $\leftrightarrow$ Interpreter/API & Submit Markdown and template; return PDF or source. & HTTPS/JSON \\
+INT-09 & Documentation $\leftrightarrow$ Repository & Publish versioned installation, configuration, and usage guides. & Static build/Git \\
+INT-10 & Marketplace $\leftrightarrow$ Database & Read and increment per-template heart/download counts. & SQL/ORM \\
 \end{xltabular}
 
 
@@ -547,10 +547,10 @@ Registry rows are written by the periodic GitHub sync, which upserts listings an
 \endfoot
 \bottomrule
 \endlastfoot
-Name and purpose & Template-binding Markdown-to-LaTeX compilation (core interpreter pipeline). \\
-Inputs and outputs & Input: Litho Markdown (\texttt{.md}) and template ID/schema; Output: compilable \texttt{.tex} and compiled PDF with embedded metadata. \\
-Processing steps & Tokenize → Parse to AST → Load template schema/manifest/assets → Validate/bind → Generate LaTeX → Compile via Tectonic → Embed source/metadata → Output PDF. \\
-Assumptions and limits & Assumes CommonMark-compatible input with template-declared extensions; limited by Tectonic package coverage and template sandboxing. \\
+Name and purpose & Template-bound Markdown-to-LaTeX compilation. \\
+Inputs and outputs & Input: Markdown and template ID/schema; output: \texttt{.tex} and PDF with embedded metadata. \\
+Processing steps & Tokenize → parse AST → load schema/manifest/assets → validate/bind → generate LaTeX → compile → embed source/metadata. \\
+Assumptions and limits & CommonMark-compatible input; limited by Tectonic package coverage and template sandboxing. \\
 Related requirements & FR-01--FR-08, NFR-04, NFR-05, NFR-06 \\
 \end{xltabular}
 

@@ -24,8 +24,8 @@ The search strategy also considered emerging agentic protocols for automated doc
 \endfoot
 \bottomrule
 \endlastfoot
-Sources searched & IEEE Xplore, ACM Digital Library, Google Scholar, arXiv, official software specifications (CommonMark, Pandoc, Quarto, Typst, Tectonic, Anthropic MCP), and primary project repositories. \\
-Search terms & Markdown to LaTeX, template-driven publishing, reproducible document engineering, CommonMark AST extensions, Tectonic typesetting, Model Context Protocol document generation, PDF embedded source metadata. \\
+Sources searched & IEEE Xplore, ACM Digital Library, Google Scholar, arXiv, official CommonMark/Pandoc/Quarto/Typst/Tectonic/MCP specifications, and project repositories. \\
+Search terms & Markdown-to-LaTeX, template publishing, reproducible document engineering, AST extensions, Tectonic, MCP, and PDF source metadata. \\
 Coverage period & 2014--2026 (incorporating foundational typesetting literature from 1984--1994). \\
 Selection criteria & Peer-reviewed studies, formal language specifications, and production-grade tools supporting plain-text authoring, automated typesetting, declarative templating, or programmatic compilation interfaces. \\
 \end{xltabular}
@@ -62,14 +62,14 @@ Overleaf~\cite{overleaf2024} is a web-based collaborative editor for \LaTeX\ wit
 \endfoot
 \bottomrule
 \endlastfoot
-Pandoc~\cite{ref3} & Universal document converter; template substitution. & Widely used, supports many formats. & Template-agnostic conversion model; limited per-template extensible syntax; no built-in marketplace/editor schema tooling. \\
-Typst~\cite{ref5} & New markup and scripting language for typesetting. & Fast compilation, modern language design. & Requires learning a new language; abandons Markdown; no incremental path for Markdown-literate authors. \\
-Quarto/R Markdown~\cite{ref4} & Publishing for computational documents. & Great for notebooks and reproducible reports. & Oriented to data science; depends on Pandoc; not a general Markdown template marketplace. \\
-MyST Markdown~\cite{myst2024} & Extensible CommonMark with directives and roles. & Structured syntax for technical cross-references and figures. & Requires an additional publishing toolchain; no general template marketplace. \\
-Tectonic~\cite{ref6} & Modern self-contained TeX engine. & Simplifies LaTeX installation and caching. & General engine; no Markdown dialect or template system. \\
-The existing CLI~\cite{ref7} & Markdown-to-PDF conversion prototype. & Demonstrates the core conversion workflow. & Lacks pluggable templates, editor tooling, and MCP/API integration. \\
-Overleaf~\cite{overleaf2024} & Cloud-hosted collaborative LaTeX editing platform. & Institutional templates and real-time collaboration. & Exposes raw LaTeX complexity; disconnected from local Git. \\
-markdown-latex-pdf-builder (existing CLI)~\cite{ref7} & Markdown-to-PDF converter in use. & Proves core conversion works; authored this proposal in Markdown. & Single hard-coded template; missing pluggable templates, marketplace, editor tooling, MCP/API, and full round-trip system. \\
+Pandoc~\cite{ref3} & Universal converter; template substitution. & Widely used; many formats. & Template-agnostic; limited extensions and no marketplace/editor schema tools. \\
+Typst~\cite{ref5} & New markup and scripting language. & Fast compilation; modern design. & Requires a new language; not Markdown-based. \\
+Quarto/R Markdown~\cite{ref4} & Publishing for computational documents. & Strong for notebooks and reports. & Data-science focus; depends on Pandoc; no general template marketplace. \\
+MyST Markdown~\cite{myst2024} & CommonMark with directives and roles. & Strong technical cross-references. & Requires another publishing toolchain; no general marketplace. \\
+Tectonic~\cite{ref6} & Self-contained TeX engine. & Simplifies installation and caching. & No Markdown dialect or template system. \\
+The existing CLI~\cite{ref7} & Markdown-to-PDF prototype. & Demonstrates core conversion. & Lacks templates, editor tooling, and MCP/API. \\
+Overleaf~\cite{overleaf2024} & Cloud LaTeX collaboration platform. & Templates and real-time collaboration. & Exposes LaTeX complexity; separate from local Git. \\
+markdown-latex-pdf-builder~\cite{ref7} & Markdown-to-PDF converter. & Proves the core workflow. & One hard-coded template; lacks marketplace, tooling, MCP/API, and round-trip support. \\
 \end{xltabular}
 
 

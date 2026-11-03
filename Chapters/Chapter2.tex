@@ -20,17 +20,17 @@
 \endfoot
 \bottomrule
 \endlastfoot
-ACD-01 & Assumption & Users have access to a modern web browser. & A separate desktop application is not required. \\
-ACD-02 & Assumption & Authors are familiar with basic Markdown. & Documentation and editor tooling can assume Markdown literacy; no WYSIWYG editor is required. \\
-ACD-03 & Assumption & Template publishers and maintainers have GitHub accounts. & Submission, review, and listing rely on GitHub identity; no separate account system is needed. \\
-ACD-04 & Constraint & LaTeX compilation must work without a full TeX Live installation. & Rely on Tectonic's self-contained engine and bundled packages. \\
-ACD-05 & Constraint & The project must be delivered within the FYP timeline by a small student team. & Scope prioritizes the core pipeline, three web applications, and five conversion channels; lower-priority features are deferred. \\
-ACD-06 & Constraint & Templates must be declarative and sandboxed. & No arbitrary LaTeX macro execution; templates are limited to a schema plus vetted packages. \\
-ACD-07 & Constraint & Marketplace reads must respect GitHub API rate limits. & The registry is cached or statically generated rather than polled continuously. \\
-ACD-08 & Dependency & Tectonic engine and its package ecosystem. & Template coverage is limited by the packages available to Tectonic. \\
-ACD-09 & Dependency & GitHub (issues, labels, repositories, API). & Template submission, review, listing, and asset downloads depend on GitHub availability. \\
-ACD-10 & Dependency & Application database for heart and download counters. & Engagement counts are unavailable if the database is down; registry browsing continues. \\
-ACD-11 & Dependency & Python and Node.js runtimes, plus the VS Code Extension API. & The CLI, API, and MCP server require Python; the web apps require Node hosting; editor features depend on the VS Code API. \\
+ACD-01 & Assumption & Users have a modern web browser. & No separate desktop app is required. \\
+ACD-02 & Assumption & Authors know basic Markdown. & Docs and editor tools can assume Markdown literacy; no WYSIWYG editor is required. \\
+ACD-03 & Assumption & Publishers and maintainers have GitHub accounts. & GitHub provides submission, review, and listing identity. \\
+ACD-04 & Constraint & Compilation works without full TeX Live. & Use Tectonic and bundled packages. \\
+ACD-05 & Constraint & A small team delivers within the FYP timeline. & Prioritize the core pipeline, three web apps, and five channels; defer lower priorities. \\
+ACD-06 & Constraint & Templates are declarative and sandboxed. & Allow only schemas and vetted packages; no arbitrary LaTeX macros. \\
+ACD-07 & Constraint & Marketplace reads respect GitHub rate limits. & Cache or statically generate the registry instead of continuous polling. \\
+ACD-08 & Dependency & Tectonic and its package ecosystem. & Template coverage depends on available packages. \\
+ACD-09 & Dependency & GitHub issues, labels, repositories, and API. & Submission, review, listing, and asset downloads depend on GitHub. \\
+ACD-10 & Dependency & Application database for counters. & Counts may be unavailable; registry browsing continues. \\
+ACD-11 & Dependency & Python, Node.js, and VS Code APIs. & Required by the CLI/API/MCP, web apps, and editor. \\
 \end{xltabular}
 
 
@@ -50,18 +50,18 @@ ACD-11 & Dependency & Python and Node.js runtimes, plus the VS Code Extension AP
 \endfoot
 \bottomrule
 \endlastfoot
-FR-01 & The system shall parse a Litho Markdown document according to the three-tier dialect. & Must & Language specification \\
-FR-02 & The system shall create an abstract syntax tree from a parsed Litho Markdown document. & Must & Interpreter \\
-FR-03 & The system shall bind parsed content to the schema of a selected template. & Must & Compiler \\
-FR-04 & The system shall generate \texttt{.tex} source from bound template content. & Must & Compiler \\
-FR-05 & The system shall compile generated \texttt{.tex} source to PDF through the Tectonic engine. & Must & Build pipeline \\
-FR-06 & The system shall embed the original Markdown source in compiled PDF metadata. & Must & Round-trip fidelity \\
-FR-07 & The system shall embed the template identifier in compiled PDF metadata. & Must & Round-trip fidelity \\
-FR-08 & The system shall embed the template version in compiled PDF metadata. & Must & Round-trip fidelity \\
-FR-09 & The CLI shall initialize a new Litho project. & Must & Author tooling \\
-FR-10 & The CLI shall build a Litho document into a PDF. & Must & Author tooling \\
-FR-11 & The CLI shall watch a Litho document and rebuild its PDF after source changes. & Must & Author tooling \\
-FR-12 & The CLI shall extract embedded Markdown source from a Litho-generated PDF. & Must & Author tooling \\
+FR-01 & Parse Litho Markdown using the three-tier dialect. & Must & Language specification \\
+FR-02 & Create an AST from parsed Litho Markdown. & Must & Interpreter \\
+FR-03 & Bind content to the selected template schema. & Must & Compiler \\
+FR-04 & Generate \texttt{.tex} from bound content. & Must & Compiler \\
+FR-05 & Compile generated \texttt{.tex} to PDF with Tectonic. & Must & Build pipeline \\
+FR-06 & Embed the original Markdown in PDF metadata. & Must & Round-trip fidelity \\
+FR-07 & Embed the template ID in PDF metadata. & Must & Round-trip fidelity \\
+FR-08 & Embed the template version in PDF metadata. & Must & Round-trip fidelity \\
+FR-09 & Initialize a Litho project. & Must & Author tooling \\
+FR-10 & Build a Litho document into PDF. & Must & Author tooling \\
+FR-11 & Watch and rebuild a document after changes. & Must & Author tooling \\
+FR-12 & Extract embedded Markdown from a Litho PDF. & Must & Author tooling \\
 FR-13 & The CLI shall create a template package. & Must & Publisher tooling \\
 FR-14 & The CLI shall validate a template package. & Must & Publisher tooling \\
 FR-15 & The CLI shall submit a template package for publication. & Must & Publisher tooling \\

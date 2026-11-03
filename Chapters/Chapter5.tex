@@ -15,14 +15,14 @@
 \textbf{Objective} & \textbf{Scope} & \textbf{Requirement} & \textbf{Design element} & \textbf{Testing reference} \\
 \midrule
 \endhead
-OBJ-01 & SCP-01 & FR-01, FR-02 & Dialect specification and tokenizer/parser/AST (\texttt{class-domain}, \texttt{flowchart-algorithm}) & TEST-FR-01, TEST-FR-02 \\
-OBJ-02 & SCP-01, SCP-02 & FR-03--FR-05, NFR-01 & Template-binding compiler and Tectonic build pipeline (\texttt{activity-build}, \texttt{sequence-build}) & TEST-FR-03--TEST-FR-05, TEST-NFR-01 \\
-OBJ-03 & SCP-03, SCP-04 & FR-09--FR-19 & CLI and VS Code extension components (\texttt{component}, \texttt{use-case}) & TEST-FR-09--TEST-FR-19 \\
-OBJ-04 & SCP-03, SCP-08 & FR-06--FR-08, FR-12, NFR-05 & PDF metadata embedding and extract-source flow (\texttt{sequence-build}, DIR-02) & TEST-FR-06--TEST-FR-08, TEST-FR-12, TEST-NFR-05 \\
-OBJ-05 & SCP-05 & FR-39--FR-42 & Template package, manifest, and release model (\texttt{class-domain}, \texttt{er-diagram}) & TEST-FR-39--TEST-FR-42 \\
-OBJ-06 & SCP-06, SCP-07 & FR-20--FR-32, FR-48--FR-51, NFR-06, NFR-08 & Marketplace, counters database, conversion web app, and AI authoring (\texttt{navigation-flow}, \texttt{ui-wireframe}, \texttt{er-diagram}) & TEST-FR-20--TEST-FR-32, TEST-FR-48--TEST-FR-51 \\
-OBJ-07 & SCP-08 & FR-33--FR-38, EIR-01, EIR-02 & MCP server, conversion API, and webhook interfaces (\texttt{component}, INT-05, INT-06) & TEST-FR-33--TEST-FR-38 \\
-OBJ-08 & SCP-09 & FR-43--FR-47, NFR-07 & Documentation website, CI pipeline, and test automation (\texttt{package}, \texttt{deployment}) & TEST-FR-43--TEST-FR-47, TEST-NFR-07 \\
+OBJ-01 & SCP-01 & FR-01, FR-02 & Dialect, tokenizer, parser, AST & TEST-FR-01, TEST-FR-02 \\
+OBJ-02 & SCP-01, SCP-02 & FR-03--FR-05, NFR-01 & Template compiler and Tectonic pipeline & TEST-FR-03--TEST-FR-05, TEST-NFR-01 \\
+OBJ-03 & SCP-03, SCP-04 & FR-09--FR-19 & CLI and VS Code extension & TEST-FR-09--TEST-FR-19 \\
+OBJ-04 & SCP-03, SCP-08 & FR-06--FR-08, FR-12, NFR-05 & PDF metadata and source extraction & TEST-FR-06--TEST-FR-08, TEST-FR-12, TEST-NFR-05 \\
+OBJ-05 & SCP-05 & FR-39--FR-42 & Template package and release model & TEST-FR-39--TEST-FR-42 \\
+OBJ-06 & SCP-06, SCP-07 & FR-20--FR-32, FR-48--FR-51, NFR-06, NFR-08 & Marketplace, counters, web app, and AI authoring & TEST-FR-20--TEST-FR-32, TEST-FR-48--TEST-FR-51 \\
+OBJ-07 & SCP-08 & FR-33--FR-38, EIR-01, EIR-02 & MCP, conversion API, and webhooks & TEST-FR-33--TEST-FR-38 \\
+OBJ-08 & SCP-09 & FR-43--FR-47, NFR-07 & Documentation, CI, and test automation & TEST-FR-43--TEST-FR-47, TEST-NFR-07 \\
 \bottomrule
 \end{xltabular}
 
@@ -91,14 +91,14 @@ Responsible team member(s) & Rabia Nadeem (2023-CS-705), Abaidullah Bhatti (2023
 \endfoot
 \bottomrule
 \endlastfoot
-RSK-01 & Tectonic package coverage or engine updates break flagship template compilation. & Medium & High & Pin the engine version, validate templates in CI, and keep a documented package allowlist with fallback constructs. & Language lead \\
-RSK-02 & Untrusted template content escapes the sandbox or executes arbitrary macros. & Low & High & Restrict templates to a declarative schema and vetted package allowlist; compile in isolated containers with resource limits. & Tooling lead \\
-RSK-03 & GitHub API rate limits or outages disrupt registry browsing and submission. & Medium & Medium & Cache or statically generate the registry, add retries, and degrade gracefully while GitHub is unavailable. & Marketplace lead \\
-RSK-04 & Scope creep across three web applications and five conversion channels delays delivery. & High & High & Freeze must-have scope, deliver in phases, and defer Should-priority features to post-release. & Project lead \\
-RSK-05 & PDF metadata limits or very large documents break byte-for-byte source restoration. & Medium & High & Test large and binary-heavy documents, compress or attach source deterministically, and enforce size limits. & Language lead \\
-RSK-06 & Counters database outage or spam inflates or hides engagement metrics. & Medium & Medium & Rate-limit and de-duplicate hearts, keep counters non-critical to browsing, and back up the database daily. & Marketplace lead \\
-RSK-07 & AI-assisted authoring generates invalid syntax or hallucinated template fields. & High & Medium & Ground prompts in the curated dataset and manifest schema, validate output before use, and require human review. & Tooling lead \\
-RSK-08 & Team availability or FYP timeline slippage reduces integration and testing time. & Medium & High & Keep schedule buffers, review progress weekly, and share ownership of critical components. & Project lead \\
+RSK-01 & Tectonic updates break template builds. & Medium & High & Pin versions, test in CI, and keep an allowlist/fallback constructs. & Language lead \\
+RSK-02 & Untrusted templates escape the sandbox. & Low & High & Use declarative schemas, vetted packages, isolated builds, and resource limits. & Tooling lead \\
+RSK-03 & GitHub limits or outages disrupt the registry. & Medium & Medium & Cache the registry, retry, and degrade gracefully. & Marketplace lead \\
+RSK-04 & Scope growth delays delivery. & High & High & Freeze must-haves, phase delivery, and defer Should features. & Project lead \\
+RSK-05 & Large PDFs break source restoration. & Medium & High & Test large/binary-heavy files, compress metadata, and enforce limits. & Language lead \\
+RSK-06 & Counter outages or spam distort metrics. & Medium & Medium & Rate-limit, de-duplicate, keep browsing non-critical, and back up counters. & Marketplace lead \\
+RSK-07 & AI generates invalid syntax or fields. & High & Medium & Ground prompts in the dataset/manifest, validate output, and require review. & Tooling lead \\
+RSK-08 & Team or schedule changes reduce testing time. & Medium & High & Keep buffers, review weekly, and share ownership of critical components. & Project lead \\
 \bottomrule
 \end{xltabular}
 
