@@ -6,8 +6,8 @@
 % =============================================================================
 
 \section{System Context, Architecture, and Interfaces}
-\diagram[dy]{system-context}{System context diagram}
-\diagram[dy]{high-level-architecture}{High-level architecture diagram}
+\diagram[dy]{system-context}{System Context}
+\diagram[dy]{high-level-architecture}{System Architecture}
 
 \begin{xltabular}{\textwidth}{@{}p{0.13\textwidth}p{0.24\textwidth}X X@{}}
 \caption{Major interfaces}\label{tab:major-interfaces}\\
@@ -39,7 +39,7 @@ INT-10 & Marketplace $\leftrightarrow$ Counters Database & Read and increment pe
 
 \section{Behavioural and Interaction Design}
 \subsection{Use-Case Model}
-\diagram[dy]{use-case}{Use-case diagram}
+\diagram[dy]{use-case}{Use Cases}
 
 \begin{xltabular}{\textwidth}{@{}p{0.24\textwidth}X@{}}
 \caption{Use-case specification (example)}\label{tab:use-case-specification}\\
@@ -69,79 +69,89 @@ Related requirements & FR-01--FR-08, FR-10 \\
 \subsection{Activity Model}
 The activity models below cover the authoring, publishing, marketplace, conversion, AI, MCP, and documentation workflows.
 
-\diagram[dy]{Figures/activity/01-initialize-project}{Initialize a Litho project}
-\diagram[dy]{Figures/activity/02-vscode-authoring}{Author a document using VS Code}
-\diagram[dy]{Figures/activity/03-parse-validate}{Tokenize, parse, and validate Litho Markdown}
-\diagram[dy]{Figures/activity/04-build-pdf}{Build a Markdown document into a PDF}
-\diagram[dy]{Figures/activity/05-watch-rebuild}{Watch and rebuild a document}
-\diagram[dy]{Figures/activity/06-extract-source}{Extract Markdown source from a PDF}
-\diagram[dy]{Figures/activity/07-template-package}{Create and validate a template package}
-\diagram[dy]{Figures/activity/08-publish-template}{Submit and publish a template through GitHub}
-\diagram[dy]{Figures/activity/09-marketplace-template}{Browse, inspect, download, and use a marketplace template}
-\diagram[dy]{Figures/activity/10-web-conversion}{Convert Markdown in the web application}
-\diagram[dy]{Figures/activity/11-ai-authoring}{Use AI-assisted authoring}
-\diagram[dy]{Figures/activity/12-security-review}{Perform AI-assisted template security review}
-\diagram[dy]{Figures/activity/13-mcp-operation}{Invoke Litho through the MCP server}
-\diagram[dy]{Figures/activity/14-documentation}{Build and publish documentation}
+\diagram[dy]{Figures/activity/01-initialize-project}{Project Setup}
+\diagram[dy]{Figures/activity/02-vscode-authoring}{VS Code Authoring}
+\diagram[dy]{Figures/activity/03-parse-validate}{Parse and Validate}
+\diagram[dy]{Figures/activity/04-build-pdf}{Build PDF}
+\diagram[dy]{Figures/activity/05-watch-rebuild}{Watch and Rebuild}
+\diagram[dy]{Figures/activity/06-extract-source}{Extract Source}
+\diagram[dy]{Figures/activity/07-template-package}{Template Package}
+\diagram[dy]{Figures/activity/08-publish-template}{Publish Template}
+\diagram[dy]{Figures/activity/09-marketplace-template}{Use Marketplace Template}
+\diagram[dy]{Figures/activity/10-web-conversion}{Web Conversion}
+\diagram[dy]{Figures/activity/11-ai-authoring}{AI Authoring}
+\diagram[dy]{Figures/activity/12-security-review}{Security Review}
+\diagram[dy]{Figures/activity/13-mcp-operation}{MCP Operation}
+\diagram[dy]{Figures/activity/14-documentation}{Documentation}
 
 \subsection{State-Machine Model}
-\diagram[dy]{Figures/state-machine/01-template-lifecycle}{Template package lifecycle}
-\diagram[dy]{Figures/state-machine/02-compilation-job}{Document compilation job lifecycle}
-\diagram[dy]{Figures/state-machine/03-web-conversion-session}{Web conversion workspace session}
-\diagram[dy]{Figures/state-machine/04-submission-issue}{Template marketplace submission issue lifecycle}
-\diagram[dy]{Figures/state-machine/05-author-workspace}{Author local workspace lifecycle}
-\diagram[dy]{Figures/state-machine/06-mcp-session}{MCP server session lifecycle}
-\diagram[dy]{Figures/state-machine/user-author}{Author user state model}
-\diagram[dy]{Figures/state-machine/user-admin}{Administrator user state model}
-\diagram[dy]{Figures/state-machine/user-publisher}{Publisher user state model}
+\diagram[dy]{Figures/state-machine/01-template-lifecycle}{Template Lifecycle}
+\diagram[dy]{Figures/state-machine/02-compilation-job}{Compilation Lifecycle}
+\diagram[dy]{Figures/state-machine/03-web-conversion-session}{Web Conversion Session}
+\diagram[dy]{Figures/state-machine/04-submission-issue}{Submission Lifecycle}
+\diagram[dy]{Figures/state-machine/05-author-workspace}{Author Workspace}
+\diagram[dy]{Figures/state-machine/06-mcp-session}{MCP Session}
+\diagram[dy]{Figures/state-machine/user-author}{Author State}
+\diagram[dy]{Figures/state-machine/user-admin}{Admin State}
+\diagram[dy]{Figures/state-machine/user-publisher}{Publisher State}
 
 \subsection{Sequence Model}
 The sequence models below show how parsing, template loading/binding, LaTeX generation, Tectonic compilation, and metadata embedding are realized, followed by catalog browsing, engagement recording, submissions, administration, and GitHub-based automation.
 
-\diagram[dy]{Figures/sequence/01-browse-catalog}{Browse the public template catalog}
-\diagram[dy]{Figures/sequence/02-search-filter}{Search and filter the catalog}
-\diagram[dy]{Figures/sequence/03-template-detail}{Open a template detail page}
-\diagram[dy]{Figures/sequence/04-record-engagement}{Record a view or download event}
-\diagram[dy]{Figures/sequence/05-submit-template}{Submit a template from the public web form}
-\diagram[dy]{Figures/sequence/06-admin-login}{Admin login}
-\diagram[dy]{Figures/sequence/07-admin-create-template}{Admin creates a template}
-\diagram[dy]{Figures/sequence/08-admin-approve-submission}{Admin approves a pending submission}
-\diagram[dy]{Figures/sequence/09-admin-manage-taxonomy}{Admin manages taxonomy}
-\diagram[dy]{Figures/sequence/10-admin-invite-admin}{Admin invites another administrator}
-\diagram[dy]{Figures/sequence/11-admin-generate-registry}{Admin regenerates the registry snapshot}
-\diagram[dy]{Figures/sequence/12-gh-route-issue}{Route a new plugin issue}
-\diagram[dy]{Figures/sequence/13-gh-validate-submission}{Validate a plugin submission}
-\diagram[dy]{Figures/sequence/14-gh-approve-publish}{Approve and publish a submission}
-\diagram[dy]{Figures/sequence/15-gh-verify-plugin}{Verify a listed plugin}
-\diagram[dy]{Figures/sequence/16-gh-refresh-catalog}{Refresh the public catalog}
-\diagram[dy]{Figures/sequence/17-gh-delist-plugin}{Delist a plugin}
-\diagram[dy]{Figures/sequence/18-deploy-github-pages}{Deploy the static site to GitHub Pages}
+\diagram[dy]{Figures/sequence/01-browse-catalog}{Browse Catalog}
+\diagram[dy]{Figures/sequence/02-search-filter}{Search Catalog}
+\diagram[dy]{Figures/sequence/03-template-detail}{Template Details}
+\diagram[dy]{Figures/sequence/04-record-engagement}{Record Engagement}
+\diagram[dy]{Figures/sequence/05-submit-template}{Submit Template}
+\diagram[dy]{Figures/sequence/06-admin-login}{Admin Login}
+\diagram[dy]{Figures/sequence/07-admin-create-template}{Create Template}
+\diagram[dy]{Figures/sequence/08-admin-approve-submission}{Approve Submission}
+\diagram[dy]{Figures/sequence/09-admin-manage-taxonomy}{Manage Taxonomy}
+\diagram[dy]{Figures/sequence/10-admin-invite-admin}{Invite Admin}
+\diagram[dy]{Figures/sequence/11-admin-generate-registry}{Generate Registry}
+\diagram[dy]{Figures/sequence/12-gh-route-issue}{Route Issue}
+\diagram[dy]{Figures/sequence/13-gh-validate-submission}{Validate Submission}
+\diagram[dy]{Figures/sequence/14-gh-approve-publish}{Publish Submission}
+\diagram[dy]{Figures/sequence/15-gh-verify-plugin}{Verify Plugin}
+\diagram[dy]{Figures/sequence/16-gh-refresh-catalog}{Refresh Catalog}
+\diagram[dy]{Figures/sequence/17-gh-delist-plugin}{Delist Plugin}
+\diagram[dy]{Figures/sequence/18-deploy-github-pages}{Deploy to GitHub Pages}
 
 \section{Structural Design}
 \subsection{Class or Domain Model}
-\diagram[dy]{class-domain}{Class or domain diagram}
+\diagram[dy]{class-domain}{Class Diagram}
 
 \subsection{Component Model}
 The component view separates the delivery channels from the shared conversion core so that a new channel can reuse the parser, template binder, code generator, and metadata handling without duplicating them. Figure~\ref{fig:component-diagram} shows the resulting components, their provided and required interfaces, and their dependencies.
 
-\input{\detokenize{diagrams/tikz/component-diagram}}
+% The chapter is read with "/" active for line breaking; TikZ style keys such
+% as "lc/.style" need a normal slash, so restore its catcode while reading.
+\begingroup
+\catcode47=12
+\input{\detokenize{diagrams/tikz/component-diagram}}%
+\endgroup
 
 Each of the five delivery channels is a thin adapter over the same conversion core. The CLI, VS Code extension, conversion web app, MCP server, and hosted conversion API therefore depend on the pipeline through one conversion interface (INT-01) instead of reimplementing parsing or code generation. Inside the pipeline, the Tokenizer and Parser, Template Binder, LaTeX Codegen, and Metadata I/O components realize the parse--bind--generate--embed sequence, while the Template Loader and Package Validator isolate manifest, schema, and asset handling. The pipeline requires the sandboxed Tectonic engine for compilation (INT-02) and exposes metadata embedding and extraction so that the original Markdown source can be recovered from a generated PDF.
 
 The marketplace is deliberately kept outside the conversion path: it depends on GitHub for the curated issue registry (INT-04) and on the counters database for hearts and downloads (INT-10), so a registry or counter outage does not block local builds. AI authoring and review consumes the LLM provider and also invokes the shared pipeline, which keeps generated templates subject to the same validation and compilation rules as hand-written ones. The documentation website remains a static Next.js site built from the documentation repository and therefore has no runtime dependency on the conversion core.
 
 \subsection{Package Model}
-\diagram[dy]{package}{Package diagram}
+\diagram[dy]{package}{Package Diagram}
 
 \subsection{Deployment Model}
-\diagram[dy]{deployment}{Deployment diagram}
+\diagram[dy]{deployment}{Deployment Diagram}
 
 \section{Data Design and Management}
 \label{sec:data-design}
 
 \subsection{Registry and Persistence Design}
-Litho does not use an application database for the template registry. The published registry is derived from GitHub issues that maintainers review and label as listed, while each template's linked repository and releases hold its manifest, assets, and version history. A small application database stores only the per-template heart and download counters, keyed by template identifier. The diagram below models the resulting registry and counter records.
-\diagramplaceholder{Data model or schema}{Show persistent entities, identifiers, relationships, integrity constraints, and important indexing or retention decisions.}
+Litho does not use an application database for the template registry. The published registry is derived from GitHub issues that maintainers review and label as listed, while each template's linked repository and releases hold its manifest, assets, and version history. A small application database stores only the per-template heart and download counters, keyed by template identifier. Figure~\ref{fig:data-model} models the resulting registry and counter records.
+
+The schema separates a rebuildable read model from the only mutable application data. The \texttt{templates} table is keyed by \texttt{template\_id}, the stable slug shared by the CLI, MCP server, and API; \texttt{issue\_number} and \texttt{repo\_full\_name} are unique, so one reviewed issue or repository cannot produce two listings. \texttt{template\_tags} is a junction table with a composite primary key over \texttt{(template\_id, tag)} and a secondary index on \texttt{tag} for tag-filtered browsing. Each template has at most one \texttt{template\_counters} row, which shares the template key, defaults both counters to zero, and enforces non-negative values; indexes on \texttt{hearts} and \texttt{downloads} keep the ``most hearted'' and ``most downloaded'' orderings cheap.
+
+Registry rows are written by the periodic GitHub sync, which upserts listings and tags from reviewed issues and the latest release manifest, so losing the database costs a re-sync rather than the registry itself. Delisted templates keep their rows and counters for 90 days so that reinstatement preserves engagement history, after which the sync job purges them. No user accounts or visitor identifiers are stored: heart and download increments are aggregated per template, so the counters table contains no personal data.
+
+\diagram[dy]{data-model}{Data Model}
 
 \section{Algorithm or Model Design}
 \begin{xltabular}{\textwidth}{@{}p{0.18\textwidth}X@{}}
@@ -169,28 +179,28 @@ Related requirements & FR-01--FR-08, NFR-04, NFR-05, NFR-06 \\
 
 \section{User Interface and Accessibility Design}
 
-\diagram[dy]{Figures/userflow/11-end-to-end-user-journey}{End-to-end user journey}
-\diagram[dy]{Figures/userflow/01-user-md-to-pdf}{Markdown-to-PDF conversion flow}
-\diagram[dy]{Figures/userflow/02-user-handles-conversion-error}{Conversion error handling flow}
-\diagram[dy]{Figures/userflow/03-user-extracts-md-from-pdf}{Source extraction flow}
-\diagram[dy]{Figures/userflow/04-user-browses-template}{Template marketplace browsing flow}
-\diagram[dy]{Figures/userflow/05-litho-extension-working}{Litho extension workflow}
-\diagram[dy]{Figures/userflow/06-cli-build-process}{CLI build process}
-\diagram[dy]{Figures/userflow/07-template-creation-validation}{Template creation and validation flow}
-\diagram[dy]{Figures/userflow/08-user-template-submission-review}{Template submission and review flow}
-\diagram[dy]{Figures/userflow/09-ai-template-generation}{AI template generation flow}
-\diagram[dy]{Figures/userflow/10-mcp-api-conversion}{MCP and API conversion flow}
-\diagram[dy]{Figures/userflow/12-ai-security-review}{AI security review flow}
+\diagram[dy]{Figures/userflow/11-end-to-end-user-journey}{User Journey}
+\diagram[dy]{Figures/userflow/01-user-md-to-pdf}{Markdown to PDF}
+\diagram[dy]{Figures/userflow/02-user-handles-conversion-error}{Conversion Errors}
+\diagram[dy]{Figures/userflow/03-user-extracts-md-from-pdf}{Source Extraction}
+\diagram[dy]{Figures/userflow/04-user-browses-template}{Browse Templates}
+\diagram[dy]{Figures/userflow/05-litho-extension-working}{Extension Workflow}
+\diagram[dy]{Figures/userflow/06-cli-build-process}{CLI Build}
+\diagram[dy]{Figures/userflow/07-template-creation-validation}{Template Validation}
+\diagram[dy]{Figures/userflow/08-user-template-submission-review}{Template Review}
+\diagram[dy]{Figures/userflow/09-ai-template-generation}{AI Template Generation}
+\diagram[dy]{Figures/userflow/10-mcp-api-conversion}{MCP and API Conversion}
+\diagram[dy]{Figures/userflow/12-ai-security-review}{AI Security Review}
 
-\diagram[dy]{Figures/wireframes/01-marketplace-catalogue}{Marketplace catalogue wireframe}
-\diagram[dy]{Figures/wireframes/02-marketplace-template-detail}{Marketplace template detail wireframe}
-\diagram[dy]{Figures/wireframes/03-marketplace-template-submission}{Marketplace template submission wireframe}
-\diagram[dy]{Figures/wireframes/04-editor-start}{Editor start wireframe}
-\diagram[dy]{Figures/wireframes/05-editor-workspace}{Editor workspace wireframe}
-\diagram[dy]{Figures/wireframes/06-editor-pdf-export}{Editor PDF export wireframe}
-\diagram[dy]{Figures/wireframes/07-documentation-home}{Documentation home wireframe}
-\diagram[dy]{Figures/wireframes/08-documentation-cli}{Documentation CLI wireframe}
-\diagram[dy]{Figures/wireframes/09-documentation-template-authoring}{Documentation template authoring wireframe}
+\diagram[dy]{Figures/wireframes/01-marketplace-catalogue}{Marketplace Catalog}
+\diagram[dy]{Figures/wireframes/02-marketplace-template-detail}{Template Details}
+\diagram[dy]{Figures/wireframes/03-marketplace-template-submission}{Template Submission}
+\diagram[dy]{Figures/wireframes/04-editor-start}{Editor Start}
+\diagram[dy]{Figures/wireframes/05-editor-workspace}{Editor Workspace}
+\diagram[dy]{Figures/wireframes/06-editor-pdf-export}{PDF Export}
+\diagram[dy]{Figures/wireframes/07-documentation-home}{Documentation Home}
+\diagram[dy]{Figures/wireframes/08-documentation-cli}{Documentation CLI}
+\diagram[dy]{Figures/wireframes/09-documentation-template-authoring}{Template Authoring}
 
 Litho exposes three separate web applications: the template marketplace for browsing and discovering listed templates, the documentation website for installation and configuration guidance, and the conversion web app where authors write or paste Markdown, optionally use AI-assisted template generation, specification-to-documentation conversion, or template modification, select a template, and convert in either direction. Agents can also leverage the MCP server with the \texttt{skills.md} playbook to perform the same workflows programmatically. The same conversion capability is also available through the VS Code extension, CLI, MCP server, and hosted API.
 

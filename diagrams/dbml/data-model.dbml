@@ -1,0 +1,70 @@
+// Litho application database (Cloudflare D1 / SQLite).
+// dbdiagram.io source file: paste this into https://dbdiagram.io/d
+//
+// GitHub issues and release manifests remain the source of truth for the
+// template registry. The registry tables below are a rebuildable read model
+// that keeps catalogue queries independent of GitHub API availability.
+// The counters table is the only mutable application data.
+
+Enum template_status {
+  listed
+  delisted
+}
+
+Table templates {
+  template_id varchar(120) [pk, note: 'Stable slug used by the CLI, MCP server, and API']
+  issue_number integer [not null, unique, note: 'Reviewed GitHub issue that approved the listing']
+  repo_full_name varchar(200) [not null, unique, note: 'owner/repository backing the template']
+  display_name varchar(160) [not null]
+  summary text [note: 'Short description shown on marketplace cards']
+  latest_version varchar(32) [note: 'SemVer taken from the latest GitHub release']
+  manifest_url varchar(500) [note: 'Pinned manifest URL for the latest release']
+  status template_status [not null, default: 'listed']
+  published_at timestamp
+  synced_at timestamp [not null, note: 'Last successful GitHub registry sync']
+
+  indexes {
+    status
+    display_name
+    (status, published_at) [name: 'idx_templates_listing_order']
+  }
+}
+
+Table template_tags {
+  template_id varchar(120) [not null, ref: > templates.template_id]
+  tag varchar(40) [not null, note: 'Normalized lowercase tag from the manifest']
+
+  indexes {
+    (template_id, tag) [pk]
+    tag [name: 'idx_template_tags_tag']
+  }
+}
+
+Table template_counters {
+  template_id varchar(120) [pk, ref: - templates.template_id]
+  hearts integer [not null, default: 0, note: 'CHECK (hearts >= 0)']
+  downloads integer [not null, default: 0, note: 'CHECK (downloads >= 0)']
+  updated_at timestamp [not null, note: 'Set on every accepted increment']
+
+  indexes {
+    hearts [name: 'idx_template_counters_hearts']
+    downloads [name: 'idx_template_counters_downloads']
+  }
+}
+
+TableGroup registry_projection {
+  templates
+  template_tags
+}
+
+TableGroup engagement {
+  template_counters
+}
+
+Note retention {
+  'A delisted template keeps its registry row and counters for 90 days so that reinstatement preserves engagement history; the sync job purges expired rows afterwards.'
+}
+
+Note identity {
+  'No user accounts or raw visitor identifiers are stored. Heart and download increments are aggregated per template, so the counters table contains no PII.'
+}
