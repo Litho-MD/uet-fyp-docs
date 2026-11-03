@@ -32,39 +32,21 @@ end note
 :Detect documentation changes;
 :Start documentation build;
 :Build documentation website;
-if (Build successful?) then (yes)
-    :Run link checks;
-    :Validate configuration examples;
-else (no)
-    :Report documentation build failure;
-    stop
-endif
-
-if (Broken links found?) then (yes)
-    :Report broken links;
-    stop
-else (no)
-    :Continue quality checks;
-endif
-
-if (Invalid examples found?) then (yes)
-    :Report invalid examples;
-    stop
-else (no)
+if (Build successful and quality checks passed?) then (yes)
     :Approve documentation build;
-endif
-
-:Publish versioned documentation website;
-if (Deployment successful?) then (yes)
-    :Mark documentation release successful;
+    :Publish versioned documentation website;
+    if (Deployment successful?) then (yes)
+        :Mark documentation release successful;
+        |Documentation User|
+        :Visit documentation website;
+        :Select documentation category;
+        :Read relevant guidance;
+    else (no)
+        :Report deployment failure;
+    endif
 else (no)
-    :Report deployment failure;
-    stop
+    :Report documentation build or validation failure;
 endif
 
-|Documentation User|
-:Visit documentation website;
-:Select documentation category;
-:Read relevant guidance;
 stop
 @enduml

@@ -24,50 +24,36 @@ start
 |Tokenizer|
 :Scan Markdown source;
 :Generate lexical tokens;
-if (Lexical errors found?) then (yes)
+if (Lexical errors found?) then (no)
+    |Parser|
+    :Parse token stream;
+    :Construct abstract syntax tree (AST);
+    if (Syntax errors found?) then (no)
+        |Validation Engine|
+        :Validate frontmatter and schema fields;
+        if (Frontmatter and fields valid?) then (yes)
+            :Validate template-defined constructs;
+            if (Template constructs valid?) then (yes)
+                |Litho System|
+                :Return validated AST;
+            else (no)
+                |Litho System|
+                :Report construct validation errors;
+            endif
+        else (no)
+            |Litho System|
+            :Report frontmatter or schema errors;
+        endif
+    else (yes)
+        |Litho System|
+        :Collect syntax diagnostics;
+    endif
+else (yes)
+    |Litho System|
     :Collect lexical diagnostics;
-    :Return tokenization errors;
-    stop
-else (no)
-    :Return token stream;
-endif
-
-|Parser|
-:Parse token stream;
-:Construct abstract syntax tree (AST);
-if (Syntax errors found?) then (yes)
-    :Collect syntax diagnostics;
-    :Return parsing errors;
-    stop
-else (no)
-    :Produce AST;
-endif
-
-|Validation Engine|
-:Validate frontmatter;
-if (Frontmatter valid?) then (yes)
-else (no)
-    :Report invalid frontmatter;
-    stop
-endif
-
-:Validate fields and types;
-if (Required fields present?) then (yes)
-else (no)
-    :Report missing required fields;
-    stop
-endif
-
-:Validate template-defined constructs;
-if (Unknown shortcode found?) then (yes)
-    :Report unknown shortcode;
-    stop
-else (no)
-    :Validate remaining AST constraints;
 endif
 
 |Litho System|
-:Return validated AST;
-:Return validation diagnostics;
+:Return processing result and diagnostics;
 stop
 @enduml

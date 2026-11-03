@@ -25,46 +25,32 @@ start
 :Detect document type;
 if (Litho document?) then (yes)
     :Load core Litho grammar;
+    :Load selected template manifest;
+    if (Manifest available?) then (yes)
+        :Load template schema;
+        :Enable syntax highlighting;
+        :Load authoring snippets;
+        :Provide core and shortcode IntelliSense;
+    else (no)
+        :Report missing template manifest;
+        :Provide core authoring features only;
+    endif
+
+    |Author|
+    :Edit Litho Markdown document;
+
+    |VS Code Extension|
+    :Analyze document syntax;
+    if (Syntax valid?) then (yes)
+        :Validate template-defined constructs;
+    else (no)
+        :Display syntax diagnostics;
+    endif
+
+    :Refresh editor assistance;
 else (no)
-    :Treat as unsupported file;
-    stop
+    :Treat as standard text file;
 endif
 
-:Load selected template manifest;
-if (Manifest available?) then (yes)
-    :Load template schema;
-else (no)
-    :Report missing template manifest;
-    :Provide core authoring features only;
-endif
-
-:Enable syntax highlighting;
-:Load authoring snippets;
-:Provide core IntelliSense;
-
-if (Template schema available?) then (yes)
-    :Enable shortcode IntelliSense;
-else (no)
-    :Disable template-specific IntelliSense;
-endif
-
-|Author|
-:Edit Litho Markdown document;
-
-|VS Code Extension|
-:Analyze document syntax;
-if (Syntax valid?) then (yes)
-    :Validate template-defined constructs;
-else (no)
-    :Display syntax diagnostics;
-endif
-
-if (Unsupported shortcode?) then (yes)
-    :Display unsupported shortcode diagnostic;
-else (no)
-    :Update document diagnostics;
-endif
-
-:Refresh editor assistance;
 stop
 @enduml

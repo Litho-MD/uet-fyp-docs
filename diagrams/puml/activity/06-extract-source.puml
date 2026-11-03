@@ -25,39 +25,21 @@ start
 :Inspect PDF format;
 if (PDF supported?) then (yes)
     :Read PDF metadata;
+    if (Litho metadata present and readable?) then (yes)
+        :Extract embedded Markdown source;
+        :Extract template identifier and version;
+        :Restore Markdown source and provenance;
+        :Package extracted files;
+    else (no)
+        :Report missing or corrupted Litho metadata;
+    endif
 else (no)
-    :Report unsupported PDF;
-    stop
+    :Report unsupported PDF format;
 endif
 
-if (Litho metadata present?) then (yes)
-    :Locate embedded source metadata;
-else (no)
-    :Report missing Litho metadata;
-    stop
-endif
-
-if (Metadata readable?) then (yes)
-    :Extract original Markdown source;
-    :Extract template identifier;
-    :Extract template version;
-else (no)
-    :Report corrupted metadata;
-    stop
-endif
-
-if (Source extraction successful?) then (yes)
-    :Restore Markdown source;
-    :Restore provenance information;
-else (no)
-    :Report source extraction failure;
-    stop
-endif
-
-:Package extracted files;
-:Return Markdown and provenance;
+:Return extraction result and diagnostics;
 
 |Caller|
-:Receive extracted files;
+:Receive extraction response;
 stop
 @enduml

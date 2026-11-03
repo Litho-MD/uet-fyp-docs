@@ -25,75 +25,37 @@ start
 :Create or load package structure;
 
 |Template Publisher|
-:Provide manifest.json;
-:Provide schema.json;
-:Provide template resources;
-:Provide assets;
-:Provide README documentation;
-:Provide license information;
-:Provide compatibility metadata;
+:Provide manifest.json, schema, templates, and docs;
 
 |Package Validator|
 :Parse package JSON files;
 if (JSON valid?) then (yes)
+    :Validate manifest and schema constraints;
+    if (Manifest and schema valid?) then (yes)
+        :Inspect package assets and dependencies;
+        if (Assets and dependencies valid?) then (yes)
+            :Inspect execution restrictions;
+            if (Forbidden execution detected?) then (no)
+                |Template CLI|
+                :Mark package ready for publication;
+            else (yes)
+                |Template CLI|
+                :Report package security violation;
+            endif
+        else (no)
+            |Template CLI|
+            :Report missing asset or dependency error;
+        endif
+    else (no)
+        |Template CLI|
+        :Report manifest or schema error;
+    endif
 else (no)
-    :Report invalid JSON;
-    stop
-endif
-
-:Validate required manifest fields;
-if (Manifest complete?) then (yes)
-else (no)
-    :Report missing manifest field;
-    stop
-endif
-
-:Validate schema fields and constraints;
-if (Schema valid?) then (yes)
-else (no)
-    :Report invalid schema;
-    stop
-endif
-
-:Check referenced assets;
-if (All assets available?) then (yes)
-else (no)
-    :Report missing asset;
-    stop
-endif
-
-:Validate package dependencies;
-if (Dependencies supported?) then (yes)
-else (no)
-    :Report unsupported dependency;
-    stop
-endif
-
-:Validate license information;
-if (License valid?) then (yes)
-else (no)
-    :Report invalid license;
-    stop
-endif
-
-:Check engine compatibility;
-if (Engine compatible?) then (yes)
-else (no)
-    :Report incompatible engine version;
-    stop
-endif
-
-:Inspect package execution restrictions;
-if (Forbidden macro or shell execution?) then (yes)
-    :Reject arbitrary execution;
-    :Report package security violation;
-    stop
-else (no)
-    :Confirm declarative restrictions;
+    |Template CLI|
+    :Report invalid JSON syntax;
 endif
 
 |Template CLI|
-:Display validation results;
-:Mark package ready for publication;
+:Display validation results and diagnostics;
 stop
 @enduml

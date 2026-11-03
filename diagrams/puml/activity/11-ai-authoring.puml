@@ -33,40 +33,39 @@ end note
 if (Operation supported?) then (yes)
     :Load product-level skills.md;
     :Load curated template dataset;
+
+    if (Template context required?) then (yes)
+        :Load selected template manifest;
+    else (no)
+        :Continue with standard context;
+    endif
+
+    repeat
+        |AI Authoring Service|
+        :Prepare AI generation context;
+        :Generate proposed output;
+        :Validate generated result;
+
+        if (Validation passed?) then (yes)
+            :Prepare output preview;
+            |Author|
+            :Review preview;
+        else (no)
+            :Display validation diagnostics;
+            |Author|
+            :Refine prompt or adjust constraints;
+        endif
+    repeat while (Author accepts result?) is (no) not (yes)
+
+    |AI Authoring Service|
+    if (Accepted result is a template package?) then (yes)
+        :Send package to template validation;
+        :Prepare for publication workflow;
+    else (no)
+        :Return accepted Markdown or document;
+    endif
 else (no)
     :Report unsupported operation error;
-    stop
-endif
-
-if (Template context required?) then (yes)
-    :Load selected template manifest;
-else (no)
-    :Continue with standard context;
-endif
-
-repeat
-    |AI Authoring Service|
-    :Prepare AI generation context;
-    :Generate proposed output;
-    :Validate generated result;
-
-    if (Validation passed?) then (yes)
-        :Prepare output preview;
-        |Author|
-        :Review preview;
-    else (no)
-        :Display validation diagnostics;
-        |Author|
-        :Refine prompt or adjust constraints;
-    endif
-repeat while (Author accepts result?) is (no) not (yes)
-
-|AI Authoring Service|
-if (Accepted result is a template package?) then (yes)
-    :Send package to template validation;
-    :Prepare for publication workflow;
-else (no)
-    :Return accepted Markdown or document;
 endif
 
 stop

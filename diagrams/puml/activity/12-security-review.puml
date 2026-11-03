@@ -27,33 +27,33 @@ if (Manifest and schema valid?) then (yes)
     :Inspect package dependencies;
     :Inspect assets and references;
     :Check macro and shell-escape restrictions;
+
+    |AI Security Review System|
+    :Perform baseline security analysis;
+
+    while (Security findings detected?) is (yes)
+        :Classify findings and vulnerability details;
+        |GitHub Actions|
+        :Post diagnostic scan comment on issue;
+        :Apply needs-fixes label;
+        |Template Publisher|
+        :Review diagnostic findings;
+        :Fix vulnerable template elements;
+        :Push remediation commits to repository;
+        |AI Security Review System|
+        :Re-analyze updated template source;
+    endwhile (no)
+
+    |AI Security Review System|
+    :Mark security review as passed;
+
+    |GitHub Actions|
+    :Apply approved-and-verified label;
+    :Proceed to catalog publication workflow;
 else (no)
     :Report manifest validation failure;
     :Block publication workflow;
-    stop
 endif
 
-|AI Security Review System|
-:Perform baseline security analysis;
-
-while (Security findings detected?) is (yes)
-    :Classify findings and vulnerability details;
-    |GitHub Actions|
-    :Post diagnostic scan comment on issue;
-    :Apply needs-fixes label;
-    |Template Publisher|
-    :Review diagnostic findings;
-    :Fix vulnerable template elements;
-    :Push remediation commits to repository;
-    |AI Security Review System|
-    :Re-analyze updated template source;
-endwhile (no)
-
-|AI Security Review System|
-:Mark security review as passed;
-
-|GitHub Actions|
-:Apply approved-and-verified label;
-:Proceed to catalog publication workflow;
 stop
 @enduml

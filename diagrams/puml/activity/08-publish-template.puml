@@ -21,65 +21,54 @@ skinparam defaultFontColor black
 start
 :Validate template package;
 if (Package validation passed?) then (yes)
-else (no)
-    :Correct package errors;
-    stop
-endif
-
-repeat
-    |Template Publisher|
-    :Submit package through GitHub Issue;
-
-    |GitHub|
-    if (GitHub available?) then (yes)
-        :Record issue and repository information;
-    else (no)
-        :Report GitHub unavailable;
-        stop
-    endif
-
-    |Marketplace / Maintainer|
-    if (Repository and manifest available?) then (yes)
-        :Receive template submission;
-        :Inspect package metadata;
-        :Review source and assets;
-        :Review documentation and license;
-        :Evaluate submission;
-    else (no)
-        :Report repository or manifest unavailable;
-        stop
-    endif
-
-    |Maintainer|
-    if (Submission approved?) then (approved)
-        :Apply approved-and-verified label;
-    else (changes requested)
-        if (Submission rejected?) then (rejected)
-            :Record rejection reason;
-            stop
-        else (changes requested)
-            :Request package changes;
-        endif
-    endif
-
-    if (Changes requested?) then (yes)
+    repeat
         |Template Publisher|
-        :Update template package;
-        :Resubmit package;
+        :Submit package through GitHub Issue;
+
+        |GitHub|
+        if (GitHub service reachable?) then (yes)
+            :Record issue and repository information;
+
+            |Marketplace / Maintainer|
+            if (Repository and manifest accessible?) then (yes)
+                :Receive template submission;
+                :Inspect package metadata and assets;
+                :Evaluate submission against baseline;
+
+                |Maintainer|
+                if (Submission approved?) then (approved)
+                    :Apply approved-and-verified label;
+                else (remediation needed)
+                    if (Submission rejected permanently?) then (rejected)
+                        :Record rejection reason;
+                    else (changes requested)
+                        :Request package changes;
+                        |Template Publisher|
+                        :Update template package;
+                        :Push revision commits;
+                    endif
+                endif
+            else (no)
+                :Report repository or manifest unavailable;
+            endif
+        else (no)
+            :Report GitHub connection failure;
+        endif
+    repeat while (Revision submitted?) is (yes) not (no)
+
+    |Marketplace|
+    if (Submission labeled approved-and-verified?) then (yes)
+        :Resolve template manifest and previews;
+        if (Listing resources ready?) then (yes)
+            :Publish marketplace listing;
+        else (no)
+            :Report listing resource failure;
+        endif
+    else (no)
+        :Archive submission issue;
     endif
-
-repeat while (Changes requested?) is (yes) not (no)
-
-|Marketplace|
-:Detect approved-and-verified label;
-:Resolve template manifest;
-:Resolve documentation and previews;
-:Resolve release version;
-if (Listing resources available?) then (yes)
-    :Publish marketplace listing;
 else (no)
-    :Report listing resource failure;
-    stop
+    :Display package validation errors;
 endif
 
 stop

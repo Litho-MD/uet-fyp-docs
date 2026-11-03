@@ -25,60 +25,43 @@ start
 :Connect to approved template registry;
 if (GitHub registry available?) then (yes)
     :Load approved template listings;
+    |Author|
+    :Search or filter templates;
+
+    |Marketplace|
+    :Retrieve matching listings;
+    if (Matching templates found?) then (yes)
+        :Display matching templates;
+        |Author|
+        :Open template details;
+
+        |Marketplace|
+        if (Template details available?) then (yes)
+            :Display description, manifest, license, and counts;
+            if (Preview asset available?) then (yes)
+                :Display template preview;
+            else (no)
+                :Display preview unavailable;
+            endif
+
+            if (Requested version available?) then (yes)
+                :Provide selected template package;
+                :Increment download count when applicable;
+                |Author|
+                :Start local or web conversion workflow;
+                :Use selected template;
+            else (no)
+                :Report template version unavailable;
+            endif
+        else (no)
+            :Report unavailable template details;
+        endif
+    else (no)
+        :Display no matching templates;
+    endif
 else (no)
     :Report registry unavailable;
-    stop
 endif
 
-|Author|
-:Search or filter templates;
-
-|Marketplace|
-:Retrieve matching listings;
-if (Matching templates found?) then (yes)
-    :Display matching templates;
-else (no)
-    :Display no matching templates;
-    stop
-endif
-
-|Author|
-:Open template details;
-
-|Marketplace|
-if (Template details available?) then (yes)
-    :Display description and manifest;
-    :Display version and compatibility;
-    :Display license information;
-    :Display preview and assets;
-    :Display heart count and download count;
-else (no)
-    :Report unavailable template details;
-    stop
-endif
-
-if (Preview asset available?) then (yes)
-    :Display template preview;
-else (no)
-    :Display preview unavailable;
-endif
-
-if (Requested version available?) then (yes)
-    :Prepare template package;
-else (no)
-    :Report template version unavailable;
-    stop
-endif
-
-|Author|
-:Choose download or use template;
-
-|Marketplace|
-:Provide selected template package;
-:Increment download count when applicable;
-
-|Author|
-:Start local or web conversion workflow;
-:Use selected template;
 stop
 @enduml
