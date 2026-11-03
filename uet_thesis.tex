@@ -92,8 +92,7 @@
     \centering
     \def\diagramsize{#1}%
     \ifx\diagramsize\diagramsizeDY
-      % Leave room for the caption and float spacing so tall diagrams do not
-      % overflow the text block.
+      % Use the full text block, reserving room for the caption and float spacing.
       \adjustbox{max width=\textwidth,max height=\dimexpr\textheight-4\baselineskip\relax}{\includegraphics{\detokenize{#2}}}%
     \else\ifx\diagramsize\diagramsizeSM
       \includegraphics[width=\textwidth,height=0.25\textheight,keepaspectratio]{\detokenize{#2}}
