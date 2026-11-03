@@ -4,13 +4,16 @@ config:
   look: classic
 ---
 flowchart TD
-    A([Start]) --> B[Submit template]
-    B --> C[Run security analysis]
+    A([Start]) --> B[Submit template issue]
+    B --> M_scan{" "}
+    M_scan --> C[Run security analysis]
     C --> D{Issues found?}
 
-    D -- Yes --> E[Create GitHub issues]
-    E --> F[Maintainer reviews issues]
-    F --> G([End])
+    D -- Yes --> E[Post diagnostic report on issue]
+    E --> F[Author reviews and fixes findings]
+    F --> G[Push remediation commits]
+    G --> M_scan
 
-    D -- No --> H[Mark template safe]
-    H --> G
+    D -- No --> H[Mark template approved]
+    H --> I[Publish to marketplace catalog]
+    I --> J([End])

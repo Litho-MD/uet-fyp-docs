@@ -1,0 +1,39 @@
+@startuml
+title AI assistant invokes Litho through the MCP server
+autonumber
+skinparam monochrome true
+skinparam backgroundColor white
+skinparam shadowing false
+skinparam defaultTextAlignment center
+skinparam roundCorner 0
+skinparam ArrowColor black
+skinparam defaultFontColor black
+skinparam sequence {
+    ArrowColor black
+    LifeLineBorderColor black
+    ParticipantBorderColor black
+    ParticipantBackgroundColor white
+    ParticipantFontColor black
+}
+
+participant "AI Assistant" as A
+participant "MCP Server" as M
+participant "Context Loader" as C
+participant "Litho Engine" as E
+
+A -> M: initialize (client capabilities)
+M --> A: initialized (protocol version, capabilities)
+
+A -> M: tools/list
+M --> A: tools list (build, validate, template_ops, extract_source)
+
+A -> M: tools/call (name="build", arguments={markdown, template})
+M -> M: validateArguments(schema)
+M -> C: loadContext(template, skills.md)
+C --> M: template manifest + schema + macros
+M -> E: executeBuild(ast, template)
+E --> M: compilationResult (pdfBytes, metadata)
+M --> A: JSON-RPC result (PDF artifact + diagnostics)
+A --> A: render preview for author
+note over M: Errors return structured JSON-RPC error responses without terminating the MCP daemon.
+@enduml

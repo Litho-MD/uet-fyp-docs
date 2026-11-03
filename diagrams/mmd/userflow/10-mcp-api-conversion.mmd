@@ -5,25 +5,25 @@ config:
 ---
 flowchart TD
     A([Start]) --> B[User requests document conversion]
-    B --> C[AI assistant or external website prepares request]
+    B --> C[AI assistant or external client prepares request]
     C --> D[Send request through MCP or conversion API]
-    D --> E[Retrieve template]
+    D --> E[Retrieve template package]
     E --> F{Template available?}
 
     F -- No --> G[Return template error]
-    G --> H([End])
+    G --> P([End])
 
     F -- Yes --> I[Validate Markdown]
     I --> J{Document valid?}
 
     J -- No --> K[Return validation errors]
-    K --> H
+    K --> P
 
     J -- Yes --> L[Generate and compile PDF]
     L --> M{Compilation successful?}
 
     M -- No --> N[Return compilation error]
-    N --> H
+    N --> P
 
-    M -- Yes --> O[Return PDF to requester]
-    O --> P([End])
+    M -- Yes --> O[Return PDF artifact to requester]
+    O --> P
