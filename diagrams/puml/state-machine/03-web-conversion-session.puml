@@ -1,6 +1,4 @@
-@startuml STATE-03-web-conversion-session
-title STATE-03 - Web Conversion Workspace Session
-
+@startuml
 hide empty description
 
 skinparam monochrome true

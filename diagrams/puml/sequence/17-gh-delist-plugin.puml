@@ -1,5 +1,4 @@
 @startuml
-title Delist a plugin
 autonumber
 skinparam monochrome true
 skinparam backgroundColor white

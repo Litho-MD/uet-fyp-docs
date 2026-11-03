@@ -1,6 +1,4 @@
-@startuml STATE-06-mcp-session
-title STATE-06 - MCP Server Session Lifecycle
-
+@startuml
 hide empty description
 
 skinparam monochrome true

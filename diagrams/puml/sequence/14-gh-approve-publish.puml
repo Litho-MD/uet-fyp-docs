@@ -1,5 +1,4 @@
 @startuml
-title Approve and publish a submission
 autonumber
 skinparam monochrome true
 skinparam backgroundColor white

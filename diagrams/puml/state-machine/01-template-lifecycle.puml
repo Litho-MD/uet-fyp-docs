@@ -1,6 +1,4 @@
-@startuml STATE-01-template-lifecycle
-title STATE-01 - Template Package Lifecycle
-
+@startuml
 hide empty description
 
 skinparam monochrome true

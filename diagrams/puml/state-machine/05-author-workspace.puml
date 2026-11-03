@@ -1,6 +1,4 @@
-@startuml STATE-05-author-workspace
-title STATE-05 - Author Local Workspace Lifecycle
-
+@startuml
 hide empty description
 
 skinparam monochrome true

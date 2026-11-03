@@ -1,5 +1,4 @@
 @startuml
-title ACT-13 - Invoke Litho Through the MCP Server
 
 skinparam monochrome true
 skinparam backgroundColor white

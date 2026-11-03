@@ -1,6 +1,4 @@
-@startuml STATE-02-compilation-job
-title STATE-02 - Document Compilation Job Lifecycle
-
+@startuml
 hide empty description
 
 skinparam monochrome true

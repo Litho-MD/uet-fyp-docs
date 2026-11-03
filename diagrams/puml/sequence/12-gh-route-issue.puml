@@ -1,5 +1,4 @@
 @startuml
-title Route a new plugin issue
 autonumber
 skinparam monochrome true
 skinparam backgroundColor white

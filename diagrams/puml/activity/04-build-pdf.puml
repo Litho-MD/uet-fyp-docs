@@ -1,5 +1,4 @@
 @startuml
-title ACT-04 - Build a Markdown Document into a PDF
 
 skinparam monochrome true
 skinparam backgroundColor white

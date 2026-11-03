@@ -1,5 +1,4 @@
 @startuml
-title Admin invites another administrator
 autonumber
 skinparam monochrome true
 skinparam backgroundColor white

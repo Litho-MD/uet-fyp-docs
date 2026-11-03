@@ -1,5 +1,4 @@
 @startuml
-title ACT-06 - Extract Markdown Source from a PDF
 
 skinparam monochrome true
 skinparam backgroundColor white

@@ -1,5 +1,4 @@
 @startuml
-title Admin approves a pending submission
 autonumber
 skinparam monochrome true
 skinparam backgroundColor white

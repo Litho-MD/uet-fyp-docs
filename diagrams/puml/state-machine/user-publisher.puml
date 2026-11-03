@@ -1,6 +1,4 @@
-@startuml state-user-publisher
-title User: Publisher
-
+@startuml
 hide empty description
 
 skinparam monochrome true

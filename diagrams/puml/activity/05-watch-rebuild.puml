@@ -1,5 +1,4 @@
 @startuml
-title ACT-05 - Watch and Rebuild a Document
 
 skinparam monochrome true
 skinparam backgroundColor white

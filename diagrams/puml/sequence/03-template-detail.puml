@@ -1,5 +1,4 @@
 @startuml
-title Open a template detail page
 autonumber
 skinparam monochrome true
 skinparam backgroundColor white

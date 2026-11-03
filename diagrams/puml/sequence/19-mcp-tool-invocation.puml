@@ -1,5 +1,4 @@
 @startuml
-title AI assistant invokes Litho through the MCP server
 autonumber
 skinparam monochrome true
 skinparam backgroundColor white

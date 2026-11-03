@@ -1,5 +1,4 @@
 @startuml
-title Verify a listed plugin
 autonumber
 skinparam monochrome true
 skinparam backgroundColor white

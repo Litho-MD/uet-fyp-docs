@@ -1,0 +1,66 @@
+% Component diagram for the Litho ecosystem.
+% Included by Chapters/Chapter4.tex via \input{\detokenize{...}}.
+\begin{figure}[H]
+\centering
+\resizebox{\textwidth}{!}{%
+\begin{tikzpicture}
+\tikzumlset{fill component=white, draw=black, font=\footnotesize}
+
+% Delivery channels.
+\umlbasiccomponent[x=-6.8,y=18.3,width=2.0cm,fill=blue!8,name=CLI]{\shortstack{Litho\\CLI}}
+\umlbasiccomponent[x=-3.4,y=18.3,width=2.0cm,fill=blue!8,name=VSCODE]{\shortstack{VS Code\\Extension}}
+\umlbasiccomponent[x=0,y=18.3,width=2.0cm,fill=blue!8,name=WEBAPP]{\shortstack{Conversion\\Web App}}
+\umlbasiccomponent[x=3.4,y=18.3,width=2.0cm,fill=blue!8,name=MCP]{\shortstack{MCP\\Server}}
+\umlbasiccomponent[x=6.8,y=18.3,width=2.0cm,fill=blue!8,name=API]{\shortstack{Hosted\\Conversion API}}
+
+% Shared interpreter pipeline.
+\begin{umlcomponent}[x=0,y=12.3,fill=blue!4,name=PIPE]{Shared Interpreter Pipeline}
+  \umlbasiccomponent[x=-6.2,y=1.5,width=2.4cm,fill=white]{Tokenizer and Parser}
+  \umlbasiccomponent[x=-2.1,y=1.5,width=2.4cm,fill=white]{Template Binder}
+  \umlbasiccomponent[x=2.1,y=1.5,width=2.4cm,fill=white]{LaTeX Codegen}
+  \umlbasiccomponent[x=6.2,y=1.5,width=2.4cm,fill=white]{Metadata I\detokenize{/}O}
+  \umlbasiccomponent[x=-6.2,y=-1.9,width=2.4cm,fill=white]{Template Loader}
+  \umlbasiccomponent[x=-2.1,y=-1.9,width=2.4cm,fill=white]{Package Validator}
+\end{umlcomponent}
+
+% Ecosystem services.
+\umlbasiccomponent[x=-6.5,y=5.6,width=2.2cm,fill=blue!8,name=MARKET]{\shortstack{Template\\Marketplace}}
+\umlbasiccomponent[x=-3.0,y=5.6,width=2.2cm,fill=blue!8,name=DOCS]{\shortstack{Documentation\\Website}}
+\umlbasiccomponent[x=5.2,y=5.6,width=2.4cm,fill=violet!8,name=AISERV]{\shortstack{AI Authoring\\and Review}}
+
+% External systems.
+\umlbasiccomponent[x=-6.5,y=0.8,width=2.2cm,fill=orange!10,name=COUNTERS]{\shortstack{Counters\\Database}}
+\umlbasiccomponent[x=-3.0,y=0.8,width=2.2cm,fill=orange!10,name=GITHUB]{GitHub}
+\umlbasiccomponent[x=-0.3,y=0.8,width=2.4cm,fill=violet!8,name=TECTONIC]{\shortstack{Tectonic\\Sandbox}}
+\umlbasiccomponent[x=5.2,y=0.8,width=2.2cm,fill=orange!10,name=LLM]{\shortstack{LLM\\Provider}}
+
+% Every delivery channel depends on the shared pipeline (INT-01).
+\foreach \n in {CLI,VSCODE,WEBAPP,MCP,API}{
+  \draw[-{Triangle[open]}, dashed, semithick] (\n.south) -- (\n.south |- PIPE.north);
+}
+\node[font=\scriptsize, anchor=west] at (0.12,16.55) {INT-01};
+
+% Pipeline dependencies on templates and AI services.
+\draw[-{Triangle[open]}, dashed, semithick] (PIPE.south -| MARKET.north) -- (MARKET.north);
+\node[font=\scriptsize, anchor=west] at (-6.27,8.3) {\textit{ITemplateCatalog}};
+\draw[-{Triangle[open]}, dashed, semithick] (AISERV.north) -- (AISERV.north |- PIPE.south);
+
+% Assembly connectors for provided and required interfaces.
+\umlassemblyconnector[interface=~, with port, anchor1=south, anchor2=north]{PIPE}{TECTONIC}
+\node[font=\scriptsize, anchor=west] at (-0.05,5.9) {\textit{ICompile}};
+\umlassemblyconnector[interface=~, with port, anchor1=south, anchor2=north]{MARKET}{COUNTERS}
+\node[font=\scriptsize, anchor=west] at (-6.25,3.2) {\textit{SQL\detokenize{/}ORM}};
+\umlassemblyconnector[interface=~, with port, anchor1=south, anchor2=north]{AISERV}{LLM}
+\node[font=\scriptsize, anchor=east] at (4.95,3.2) {\textit{Model API}};
+
+% Registry and documentation sources.
+\draw[-{Triangle[open]}, dashed, semithick] (DOCS.south) -- (DOCS.south |- GITHUB.north);
+\draw[dashed, -{Triangle[open]}, semithick]
+  (MARKET.south) -- (MARKET.south |- 0,3.9) -- (GITHUB.north west |- 0,3.9) -- (GITHUB.north west);
+\node[font=\scriptsize, above] at (-5.5,3.95) {INT-04};
+
+\end{tikzpicture}%
+}
+\caption{Component diagram of the Litho ecosystem. The five delivery channels depend on the shared interpreter pipeline; the pipeline uses the sandboxed Tectonic engine, template packages, and AI services, while the marketplace is backed by GitHub and the counters database. Dashed arrows are dependencies; ball-and-socket connectors are assembly connectors for provided and required interfaces.}
+\label{fig:component-diagram}
+\end{figure}

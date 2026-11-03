@@ -1,5 +1,4 @@
 @startuml
-title Admin login
 autonumber
 skinparam monochrome true
 skinparam backgroundColor white

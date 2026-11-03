@@ -1,5 +1,4 @@
 @startuml
-title ACT-12 - Perform AI-Assisted Template Security Review
 
 skinparam monochrome true
 skinparam backgroundColor white

@@ -1,5 +1,4 @@
 @startuml
-title ACT-09 - Browse, Inspect, Download, and Use a Marketplace Template
 
 skinparam monochrome true
 skinparam backgroundColor white

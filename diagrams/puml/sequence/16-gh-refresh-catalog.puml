@@ -1,5 +1,4 @@
 @startuml
-title Refresh the public catalog
 autonumber
 skinparam monochrome true
 skinparam backgroundColor white
