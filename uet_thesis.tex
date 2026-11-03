@@ -47,7 +47,6 @@
 \setlist[enumerate]{topsep=0.25em,itemsep=0.15em,leftmargin=1.8em}
 \renewcommand{\arraystretch}{1.2}
 
-\newcommand{\placeholder}[1]{\textcolor{PlaceholderBlue}{\textit{<#1>}}}
 \newcommand{\inputwithbreakabletext}[1]{%
   \begingroup
     \catcode`\/=\active
@@ -57,28 +56,6 @@
         \def~{\char47\penalty\exhyphenpenalty}}%
     \input{#1}%
   \endgroup
-}
-
-\newenvironment{guidance}
-  {\begin{quote}\small\color{GuidanceGray}\textbf{Guidance.} }
-  {\end{quote}}
-
-\newenvironment{examplebox}
-  {\begin{quote}\small\color{GuidanceGray}\textbf{Example (replace or remove).} }
-  {\end{quote}}
-
-\newcommand{\diagramplaceholder}[2]{%
-  \begin{figure}[H]
-    \centering
-    \fcolorbox{GuidanceGray}{ExampleGray}{%
-      \begin{minipage}[c][4.0cm][c]{0.86\textwidth}
-        \centering
-        \textbf{#1}\\[0.5em]
-        \placeholder{Insert a clear, readable diagram here}\\[0.5em]
-        \small #2
-      \end{minipage}}
-    \caption{#1}
-  \end{figure}
 }
 
 % Diagram sizing presets: sm, md (default half A4), lg, fl (full page), dy (dynamic)
@@ -133,23 +110,7 @@ Sohaib Shaukat \quad 2023-CS-740}
 \lhead{}
 \pagestyle{fancy}
 
-% \chapter*{Template Instructions}
-% \addcontentsline{toc}{chapter}{Template Instructions}
-% This template supports development, research, hybrid, and game projects. Complete
-% all common sections and retain conditional sections only when they apply to the
-% selected project. Keep the document concise and use cross-references instead of
-% repeating information.
-
-% \begin{itemize}
-%   \item Replace every \placeholder{placeholder} and remove all example text before submission.
-%   \item State the project type on the title page: Development, Research, Hybrid, or Game.
-%   \item Assign stable identifiers to objectives, scope items, requirements, risks, and design elements.
-%   \item Write one clear idea or testable requirement per numbered item.
-%   \item Use standard UML notation where UML diagrams are included.
-%   \item Cite every external idea, dataset, standard, figure, and factual claim.
-%   \item Keep detailed test cases and results in the separate software testing document; reference them through the traceability matrix.
-% \end{itemize}
-% \clearpage
+\clearpage
 
 \lhead{\emph{Design Document}}
 \tableofcontents
